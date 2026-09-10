@@ -226,8 +226,8 @@ const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
 const db=getFirestore(app);
 
-const ecoleId="bwacha";
-const schoolDisplay=ecoleId.toUpperCase().replace(/-/g," ");
+const ecoleId = "bwacha";
+const schoolDisplay = ecoleId.toUpperCase().replace(/-/g," ");
 document.getElementById("schoolSub").textContent="COMPLEXE SCOLAIRE "+schoolDisplay;
 document.getElementById("schoolNameTitle").textContent="ÉCOLE "+schoolDisplay;
 document.title="Connexion - "+schoolDisplay;
