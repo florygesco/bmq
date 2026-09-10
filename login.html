@@ -226,8 +226,9 @@ const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
 const db=getFirestore(app);
 
-const ecoleId = "bwacha";
-const schoolDisplay = ecoleId.toUpperCase().replace(/-/g," ");
+const urlParams=new URLSearchParams(window.location.search);
+const ecoleId=urlParams.get("ecole")||"bwacha";
+const schoolDisplay=ecoleId.toUpperCase().replace(/-/g," ");
 document.getElementById("schoolSub").textContent="COMPLEXE SCOLAIRE "+schoolDisplay;
 document.getElementById("schoolNameTitle").textContent="ÉCOLE "+schoolDisplay;
 document.title="Connexion - "+schoolDisplay;
@@ -282,6 +283,8 @@ setTimeout(() => {
 }, 500);
 
 function genererEmailPromoteur(ecoleId){return`promoteur.${ecoleId}@gmail.com`;}
+function genererEmailDirection(ecoleId){return`direction.${ecoleId}@gmail.com`;}
+function genererEmailCompta(ecoleId){return`compta.${ecoleId}@gmail.com`;}
 
 function showToast(message, type = 'info') {
     const container = document.getElementById('toastContainer');
@@ -386,14 +389,14 @@ async function getSchoolCodes(){
         if(snap.exists()){
             const data = snap.data();
             
-            if (!data.codePromoteur) {
+            if (!data.codeDirection) {
                 const schoolRef = doc(db, "ecoles", ecoleId);
                 const schoolSnap = await getDoc(schoolRef);
                 
                 if (schoolSnap.exists()) {
                     const schoolData = schoolSnap.data();
-                    if (schoolData.codePromoteur) {
-                        data.codePromoteur = schoolData.codePromoteur;
+                    if (schoolData.codeDirection) {
+                        data.codeDirection = schoolData.codeDirection;
                     }
                 }
             }
@@ -438,10 +441,18 @@ async function seConnecter(){
         let role = null;
         let email = null;
 
+        const codeDir = codes.codeDirection ? codes.codeDirection.trim() : '';
+        const codeCompta = codes.codeComptabilite ? codes.codeComptabilite.trim() : '';
         const codePromoteur = codes.codePromoteur ? codes.codePromoteur.trim() : '';
         const passwordClean = password.trim();
 
-        if(codePromoteur === passwordClean){
+        if(codeDir === passwordClean){
+            role = 'direction';
+            email = codes.emailDirection || genererEmailDirection(ecoleId);
+        } else if(codeCompta === passwordClean){
+            role = 'comptabilite';
+            email = codes.emailComptabilite || genererEmailCompta(ecoleId);
+        } else if(codePromoteur === passwordClean){
             role = 'promoteur';
             email = codes.emailPromoteur || genererEmailPromoteur(ecoleId);
         } else {
@@ -456,7 +467,7 @@ async function seConnecter(){
             return;
         }
 
-        const roleLabels = { promoteur:'Promoteur' };
+        const roleLabels = { direction:'Direction', comptabilite:'Comptabilité', promoteur:'Promoteur' };
         showToast(`Vérification réussie. Connexion en tant que ${roleLabels[role]}...`, "success");
 
         try{
