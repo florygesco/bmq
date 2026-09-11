@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0d0d0d">
-<title>Connexion - Gestion de Scolarité</title>
+<title>Connexion - Espace Promoteur</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script type="importmap">
 {"imports":{"firebase/app":"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js","firebase/auth":"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js","firebase/firestore":"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"}}
@@ -285,11 +285,12 @@ const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
 const db=getFirestore(app);
 
-const urlParams=new URLSearchParams(window.location.search);
-const ecoleId=urlParams.get("ecole")||"bwacha";
-const schoolDisplay=ecoleId.toUpperCase().replace(/-/g," ");
-document.getElementById("schoolSub").textContent="Saisissez votre code confidentiel pour accéder au tableau de bord du Complexe Scolaire "+schoolDisplay+".";
-document.title="Connexion - "+schoolDisplay;
+/* ===== MODIFICATION : école fixe "bwacha" sans paramètre URL ===== */
+const ECOLE_ID_FIXE = "bwacha";
+const ecoleId = ECOLE_ID_FIXE;
+const schoolDisplay = "BWACHA";
+document.getElementById("schoolSub").textContent="Saisissez votre code confidentiel pour accéder au tableau de bord du Complexe Scolaire Bwacha.";
+document.title="Connexion - Espace Promoteur";
 
 let tentatives=0;
 let toastTimeout=null;
@@ -493,14 +494,9 @@ async function seConnecter(){
 
         showToast("Connexion réussie ! Redirection en cours...","success");
 
+        /* ===== MODIFICATION : Redirection vers l'app promoteur SANS paramètre URL ===== */
         setTimeout(()=>{
-            window.location.replace(
-                'https://www.netubex.com/pont.html' +
-                '?ecole=' + encodeURIComponent(ecoleId) +
-                '&role=' + encodeURIComponent(role) +
-                '&code=' + encodeURIComponent(password) +
-                '&auth=1'
-            );
+            window.location.replace('https://www.csbwacha.com/');
         },800);
 
     }catch(error){
