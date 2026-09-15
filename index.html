@@ -302,26 +302,26 @@ body{background:var(--gris-bg);color:var(--gris-texte);-webkit-font-smoothing:an
 .stagger-3{transition-delay:.25s}
 .stagger-4{transition-delay:.35s}
 .stagger-5{transition-delay:.45s}
-.loader-overlay{display:none;position:fixed;inset:0;background:rgba(13,53,32,.6);backdrop-filter:blur(8px);z-index:99999;justify-content:center;align-items:center;padding:20px}
-.loader-overlay.active{display:flex;animation:fadeIn .3s ease}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.loader-box{background:var(--gris-carte);border:1px solid var(--bordure);border-radius:28px;padding:50px 54px;max-width:460px;width:100%;text-align:center;box-shadow:var(--ombre-forte);animation:zoomIn .45s cubic-bezier(.16,1,.3,1) forwards;transform:scale(.94);opacity:0}
+/* INFO POPUP - Espace parental non disponible */
+.info-popup-overlay{display:none;position:fixed;inset:0;background:rgba(13,53,32,.6);backdrop-filter:blur(8px);z-index:99999;justify-content:center;align-items:center;padding:20px}
+.info-popup-overlay.active{display:flex;animation:fadeIn .3s ease}
+.info-popup-box{background:var(--gris-carte);border:1px solid var(--bordure);border-radius:28px;padding:46px 42px;max-width:480px;width:100%;text-align:center;box-shadow:var(--ombre-forte);animation:zoomIn .45s cubic-bezier(.16,1,.3,1) forwards;transform:scale(.94);opacity:0}
 @keyframes zoomIn{to{transform:scale(1);opacity:1}}
-.loader-box .li{font-size:3.2rem;color:var(--vert);display:block;margin-bottom:14px;animation:bounce 2s ease-in-out infinite}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.loader-box h2{font-size:1.5rem;font-weight:700;color:var(--vert-fonce);margin-bottom:8px}
-.loader-box h2 .bwacha{color:var(--vert)}
-.loader-box .ls{font-size:.98rem;color:var(--gris-texte-doux);margin-bottom:28px}
-.progress-bar-wrap{width:100%;background:var(--vert-menthe-clair);border-radius:50px;height:9px;overflow:hidden;margin-bottom:16px}
-.progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--vert),var(--vert-citron));border-radius:50px;transition:width .15s linear;position:relative}
-.progress-bar-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:shimmer 1.2s infinite}
-@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.progress-txt{font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:700;color:var(--vert-fonce);margin-bottom:10px}
-.loader-msg{font-size:.95rem;color:var(--gris-texte-doux);display:flex;align-items:center;justify-content:center;gap:10px}
-.loader-msg i{color:var(--vert);animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
+.info-popup-box .info-icon{font-size:3.5rem;color:var(--vert);display:block;margin-bottom:14px;animation:pulseInfo 2s ease-in-out infinite}
+@keyframes pulseInfo{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.info-popup-box h2{font-size:1.35rem;font-weight:700;color:var(--vert-fonce);margin-bottom:14px}
+.info-popup-box p{color:var(--gris-texte-doux);font-size:1rem;line-height:1.7;margin-bottom:16px}
+.info-popup-box p strong{color:var(--vert);font-weight:700}
+.info-popup-box .info-days{display:flex;justify-content:center;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.info-popup-box .info-day{background:var(--vert-citron-pale);border:2px solid var(--vert);border-radius:14px;padding:12px 20px;font-weight:700;color:var(--vert-fonce);font-size:.95rem;display:flex;align-items:center;gap:8px;transition:transform .3s,background .3s}
+.info-popup-box .info-day:hover{transform:translateY(-3px);background:var(--vert-menthe-clair)}
+.info-popup-box .info-day i{color:var(--vert)}
+.info-popup-box .info-note{font-size:.9rem;color:var(--gris-texte-clair);margin-bottom:22px;font-style:italic}
+.info-popup-box .btn-close-info{background:var(--vert);color:#fff;border:none;padding:16px 40px;border-radius:11px;font-weight:600;font-size:1rem;cursor:pointer;transition:background .25s,transform .25s,box-shadow .25s;width:100%;font-family:'Inter',sans-serif}
+.info-popup-box .btn-close-info:hover{background:var(--vert-hover);transform:translateY(-3px);box-shadow:0 14px 36px rgba(26,92,58,.35)}
+.info-popup-box .btn-close-info:active{transform:translateY(0) scale(.97)}
 @media(max-width:1100px){.header-center{display:none}.btn-header-contact{display:none}.burger{display:flex}.mobile-menu{display:block}.hero-grid{grid-template-columns:1fr;gap:60px;padding:70px 40px 80px}.hero-visual{order:-1}.hero-logo-wrap{max-width:380px}.values-inner{grid-template-columns:repeat(2,1fr)}.value-item:nth-child(2){border-right:0}.value-item:nth-child(1),.value-item:nth-child(2){border-bottom:1px solid var(--bordure)}.cycles-grid{grid-template-columns:1fr}.pillars-grid{grid-template-columns:1fr}.espace-body{grid-template-columns:1fr}.espace-col-left{border-right:0;border-bottom:1px solid var(--bordure)}.reasons-grid{grid-template-columns:1fr}.life-grid{grid-template-columns:repeat(3,1fr)}.contact-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr;gap:40px}.section{padding:76px 32px}.header-main{padding:0 24px}.espace-top,.espace-dev,.espace-footer{padding-left:30px;padding-right:30px}.espace-col-left,.espace-col-right{padding:40px 30px}}
-@media(max-width:640px){.hero-grid{padding:50px 22px 60px}.hero-left h1{font-size:2.3rem;letter-spacing:-1px}.sec-head h2{font-size:1.9rem}.hero-stats{gap:26px;flex-wrap:wrap}.hero-stat .hs-num{font-size:1.6rem}.hero-logo-wrap{max-width:280px}.life-grid{grid-template-columns:1fr 1fr}.header-main{padding:0 18px;height:72px}.logo-text{font-size:1.1rem}.logo-img{width:44px;height:44px}.section{padding:60px 20px}.espace-top,.espace-dev,.espace-footer{padding-left:22px;padding-right:22px}.espace-col-left,.espace-col-right{padding:34px 22px}.espace-top .est-icon{width:54px;height:54px;font-size:1.35rem}.espace-top .est-text h3{font-size:1.25rem}.btn-espace{width:100%;justify-content:center;padding:15px 24px;font-size:.95rem}.espace-footer .efb-text{width:100%}.cta-block{padding:52px 24px}.cta-block h3{font-size:1.55rem}.parents-message{padding:52px 26px}.parents-message p{font-size:1.08rem}.parents-message::before{font-size:7rem;top:-20px;left:24px}.values-inner{grid-template-columns:1fr}.value-item{border-right:0;border-bottom:1px solid var(--bordure)}.value-item:last-child{border-bottom:0}.contact-info,.contact-side{padding:38px 26px}.footer-main{padding:60px 22px 30px}}
+@media(max-width:640px){.hero-grid{padding:50px 22px 60px}.hero-left h1{font-size:2.3rem;letter-spacing:-1px}.sec-head h2{font-size:1.9rem}.hero-stats{gap:26px;flex-wrap:wrap}.hero-stat .hs-num{font-size:1.6rem}.hero-logo-wrap{max-width:280px}.life-grid{grid-template-columns:1fr 1fr}.header-main{padding:0 18px;height:72px}.logo-text{font-size:1.1rem}.logo-img{width:44px;height:44px}.section{padding:60px 20px}.espace-top,.espace-dev,.espace-footer{padding-left:22px;padding-right:22px}.espace-col-left,.espace-col-right{padding:34px 22px}.espace-top .est-icon{width:54px;height:54px;font-size:1.35rem}.espace-top .est-text h3{font-size:1.25rem}.btn-espace{width:100%;justify-content:center;padding:15px 24px;font-size:.95rem}.espace-footer .efb-text{width:100%}.cta-block{padding:52px 24px}.cta-block h3{font-size:1.55rem}.parents-message{padding:52px 26px}.parents-message p{font-size:1.08rem}.parents-message::before{font-size:7rem;top:-20px;left:24px}.values-inner{grid-template-columns:1fr}.value-item{border-right:0;border-bottom:1px solid var(--bordure)}.value-item:last-child{border-bottom:0}.contact-info,.contact-side{padding:38px 26px}.footer-main{padding:60px 22px 30px}.info-popup-box{padding:34px 26px}.info-popup-box .info-day{padding:10px 14px;font-size:.85rem}}
 </style>
 </head>
 <body>
@@ -477,7 +477,22 @@ body{background:var(--gris-bg);color:var(--gris-texte);-webkit-font-smoothing:an
 </div>
 <div class="footer-copy">© 2026 CS Bwacha - Complexe Scolaire Bwacha · csbwacha.com — Tous droits réservés</div>
 </footer>
-<div class="loader-overlay" id="loaderOverlay"><div class="loader-box"><i class="fas fa-school li"></i><h2>CS <span class="bwacha">BWACHA</span></h2><p class="ls">Redirection en cours</p><div class="progress-txt" id="progressTxt">0%</div><div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill"></div></div><div class="loader-msg"><i class="fas fa-spinner"></i>Redirection en cours...</div></div></div>
+
+<!-- POPUP INFO : Espace parental non disponible -->
+<div class="info-popup-overlay" id="infoPopupOverlay">
+    <div class="info-popup-box">
+        <i class="fas fa-calendar-times info-icon"></i>
+        <h2>🔒 Espace parental non disponible</h2>
+        <p>L'espace parental est accessible <strong>seulement 2 jours par semaine</strong> :</p>
+        <div class="info-days">
+            <div class="info-day"><i class="fas fa-calendar-day"></i> Jeudi · 8h – 20h</div>
+            <div class="info-day"><i class="fas fa-calendar-day"></i> Vendredi · 8h – 20h</div>
+        </div>
+        <p class="info-note">Merci de revenir pendant ces créneaux. 🙏</p>
+        <button class="btn-close-info" onclick="closeInfoPopup()">J'ai compris</button>
+    </div>
+</div>
+
 <script>
 document.addEventListener('contextmenu',function(e){e.preventDefault();return false});
 document.addEventListener('selectstart',function(e){e.preventDefault();return false});
@@ -486,8 +501,41 @@ document.addEventListener('dragover',function(e){e.preventDefault();return false
 document.addEventListener('drop',function(e){e.preventDefault();return false});
 document.querySelectorAll('img').forEach(function(img){img.addEventListener('contextmenu',function(e){e.preventDefault();return false});img.addEventListener('dragstart',function(e){e.preventDefault();return false})});
 document.addEventListener('DOMContentLoaded',function(){const obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:0.12,rootMargin:'0px 0px -60px 0px'});document.querySelectorAll('.anim,.anim-left,.anim-right,.anim-scale').forEach(function(el){obs.observe(el)});setTimeout(function(){document.querySelectorAll('.anim,.anim-left,.anim-right,.anim-scale').forEach(function(el){if(el.getBoundingClientRect().top<window.innerHeight){el.classList.add('visible')}})},150)});
-const espaceBtn=document.getElementById('espaceParent');const loaderOverlay=document.getElementById('loaderOverlay');const progressFill=document.getElementById('progressFill');const progressTxt=document.getElementById('progressTxt');
-if(espaceBtn){espaceBtn.addEventListener('click',function(e){e.preventDefault();loaderOverlay.classList.add('active');document.body.style.overflow='hidden';let p=0;const iv=setInterval(function(){p+=1;if(p<=100){progressFill.style.width=p+'%';progressTxt.textContent=p+'%'}if(p>=100){clearInterval(iv);setTimeout(function(){window.location.href='https://www.netubex.com/espace_nx_parenta2?ecole=bwacha'},300)}},15)})}
+
+/* ===== BOUTON ESPACE PARENTAL : restriction Jeudi/Vendredi 8h-20h ===== */
+const espaceBtn=document.getElementById('espaceParent');
+if(espaceBtn){
+    espaceBtn.addEventListener('click',function(e){
+        e.preventDefault();
+        const now=new Date();
+        const jour=now.getDay(); // 0 = Dimanche, 4 = Jeudi, 5 = Vendredi
+        const heure=now.getHours();
+        // Jeudi (4) entre 8h et 20h — Vendredi (5) entre 8h et 20h
+        const isJeudi=(jour===4&&heure>=8&&heure<20);
+        const isVendredi=(jour===5&&heure>=8&&heure<20);
+        if(isJeudi||isVendredi){
+            window.location.href='https://www.netubex.com/espace_nx_parenta2?ecole=bwacha';
+        }else{
+            document.getElementById('infoPopupOverlay').classList.add('active');
+            document.body.style.overflow='hidden';
+        }
+    });
+}
+function closeInfoPopup(){
+    document.getElementById('infoPopupOverlay').classList.remove('active');
+    document.body.style.overflow='';
+}
+document.getElementById('infoPopupOverlay').addEventListener('click',function(e){
+    if(e.target===this)closeInfoPopup();
+});
+document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){
+        if(document.getElementById('infoPopupOverlay').classList.contains('active')){
+            closeInfoPopup();
+        }
+    }
+});
+
 const burgerBtn=document.getElementById('burgerBtn');const mobileMenu=document.getElementById('mobileMenu');const closeMenu=document.getElementById('closeMenu');
 if(burgerBtn){burgerBtn.addEventListener('click',function(){mobileMenu.classList.add('open')})}
 if(closeMenu){closeMenu.addEventListener('click',function(){mobileMenu.classList.remove('open')})}
