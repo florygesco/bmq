@@ -24,7 +24,6 @@ html{height:100%;overflow:hidden;background:#f5f0e8}
 body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:#f5f0e8;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1a1a2e;position:relative;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;overscroll-behavior-y:contain}
 #mainContent{height:auto;min-height:0;overflow:visible;padding:0}
 .container{max-width:1400px;margin:0 auto;padding:0 16px 20px 16px;width:100%;overflow:visible}
-
 .school-header{position:relative;background:linear-gradient(135deg,#0f0f1e 0%,#1a1a2e 40%,#16213e 100%);border-radius:0 0 24px 24px;padding:20px 96px 20px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:18px;box-shadow:0 8px 32px rgba(0,0,0,0.25);border-bottom:3px solid #d4af37;overflow:hidden}
 .school-header::before{content:'';position:absolute;top:-80px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(212,175,55,0.18),transparent 70%);border-radius:50%;pointer-events:none}
 .school-header::after{content:'';position:absolute;bottom:-100px;left:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(37,99,235,0.12),transparent 70%);border-radius:50%;pointer-events:none}
@@ -38,17 +37,14 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .school-sub i{color:#d4af37;font-size:11px}
 .school-promoter{display:inline-flex;align-items:center;gap:6px;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.3);color:#d4af37;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-top:4px;align-self:flex-start;width:fit-content}
 .school-promoter i{color:#d4af37;font-size:10px}
-
 .header-badge{position:absolute;top:20px;right:88px;z-index:2;display:flex;align-items:center;gap:8px;background:rgba(5,150,105,0.15);border:1px solid rgba(16,185,129,0.35);color:#34d399;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
 .header-badge .dot{width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 10px #10b981;animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(1.15)}}
-
 .logout-circle{position:absolute;top:20px;right:20px;z-index:10;width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.9);border:2px solid rgba(239,68,68,0.35);color:#ef4444;font-size:22px;cursor:pointer;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);touch-action:manipulation}
 .logout-circle:hover{transform:scale(1.12) rotate(-8deg);background:#ef4444;color:#fff;border-color:#ef4444;box-shadow:0 8px 28px rgba(239,68,68,0.5)}
 .logout-circle:active{transform:scale(0.88)}
 .logout-circle i{transition:transform 0.3s ease}
 .logout-circle:hover i{transform:rotate(90deg)}
-
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:99999;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;transition:opacity 0.3s ease;padding:20px}
 .modal-overlay.show{opacity:1}
 .modal-overlay .modal-box{background:#fff;border-radius:28px;padding:40px 32px 32px;max-width:420px;width:100%;box-shadow:0 32px 80px rgba(0,0,0,0.25);transform:scale(0.92) translateY(20px);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);border:2px solid #d4af37;position:relative;overflow:hidden}
@@ -67,7 +63,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .modal-overlay .modal-actions .btn-confirm:active{transform:scale(0.96)}
 .modal-overlay .modal-close{position:absolute;top:12px;right:16px;background:none;border:none;font-size:24px;color:#a8a29e;cursor:pointer;padding:4px 8px;transition:color 0.2s}
 .modal-overlay .modal-close:hover{color:#1a1a2e}
-
 .tabs-container{overflow-x:auto;margin-bottom:18px;white-space:nowrap;-webkit-overflow-scrolling:touch!important;scrollbar-width:none;-ms-overflow-style:none;padding:6px 0;outline:none}
 .tabs-container::-webkit-scrollbar{display:none}
 .tabs{display:inline-flex;gap:8px;padding:0 2px}
@@ -269,6 +264,11 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 .finance-progress-details span strong{font-size:16px}
 .stats-grid[style*="repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr)!important}
 }
+.cache-indicator{position:fixed;bottom:14px;right:14px;background:rgba(26,26,46,0.9);color:#d4af37;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;z-index:9998;display:none;align-items:center;gap:6px;box-shadow:0 4px 16px rgba(0,0,0,0.2);backdrop-filter:blur(8px)}
+.cache-indicator.show{display:flex;animation:cacheFade 0.4s ease}
+.cache-indicator i{font-size:10px}
+.cache-indicator.synced{background:rgba(5,150,105,0.9);color:#fff}
+@keyframes cacheFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -294,9 +294,7 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 <button class="tab" id="darkModeBtn"><i class="fas fa-moon"></i> THÈME</button>
 </div>
 </div>
-
 <div id="tabVue" class="tab-content active">
-
 <div class="card">
 <div class="card-body">
 <div class="stats-grid">
@@ -309,7 +307,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 </div>
 </div>
 </div>
-
 <div class="card">
 <div class="card-header"><i class="fas fa-user-plus"></i> INSCRIPTIONS RÉCENTES</div>
 <div class="card-body">
@@ -353,7 +350,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 </div>
 </div>
 </div>
-
 <div class="card">
 <div class="card-header" style="border-bottom-color:#8b5cf6;"><i class="fas fa-university" style="color:#8b5cf6;"></i> STATISTIQUES SECONDAIRE</div>
 <div class="card-body">
@@ -365,7 +361,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 </div>
 </div>
 </div>
-
 <div class="card">
 <div class="card-header" style="border-bottom-color:#3b82f6;"><i class="fas fa-school" style="color:#3b82f6;"></i> STATISTIQUES PRIMAIRE</div>
 <div class="card-body">
@@ -377,7 +372,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 </div>
 </div>
 </div>
-
 <div class="card">
 <div class="card-header" style="border-bottom-color:#10b981;"><i class="fas fa-child" style="color:#10b981;"></i> STATISTIQUES MATERNELLE</div>
 <div class="card-body">
@@ -389,7 +383,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 </div>
 </div>
 </div>
-
 <div class="card">
 <div class="card-header"><i class="fas fa-user-check"></i> TAUX DE PRÉSENCE (AUJOURD'HUI)</div>
 <div class="card-body">
@@ -450,7 +443,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 </div>
 </div>
 </div>
-
 <div id="tabFinances" class="tab-content">
 <div class="card">
 <div class="card-body">
@@ -488,7 +480,6 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 </div>
 </div>
 </div>
-
 <div id="tabProfs" class="tab-content">
 <div class="card">
 <div class="card-header">
@@ -521,8 +512,10 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 </div>
 </div>
 </div>
-
 </div>
+</div>
+<div class="cache-indicator" id="cacheIndicator">
+<i class="fas fa-bolt"></i> <span id="cacheIndicatorText">Chargé du cache</span>
 </div>
 <script type="importmap">
 {"imports":{"firebase/app":"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js","firebase/firestore":"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"}}
@@ -530,26 +523,25 @@ body{height:100%;margin:0;padding:0;overflow-y:auto;overflow-x:hidden;-webkit-ov
 <script type="module">
 import{initializeApp}from"firebase/app";
 import{getFirestore,collection,doc,getDoc,getDocs,onSnapshot}from"firebase/firestore";
-
 const firebaseConfig={apiKey:"AIzaSyBma80S0bc9uzSuO38qn7JLSwLrYniV5Fw",authDomain:"gesco-2.firebaseapp.com",projectId:"gesco-2",storageBucket:"gesco-2.firebasestorage.app",messagingSenderId:"36319988765",appId:"1:36319988765:web:e8cd823804596495248af4"};
 const app=initializeApp(firebaseConfig);
 const db=getFirestore(app);
-
 if(sessionStorage.getItem('isAuthenticated')!=='true'){window.location.href='https://www.csbwacha.com/login2';throw new Error('Redirection');}
-
-const schoolId="bwacha";
 const ECOLET_ID="bwacha";
+const CACHE_KEY="promoteur_cache_v1";
+const CACHE_TTL=1000*60*60*24;
 const codeFromUrl=sessionStorage.getItem('code')||'';
 document.getElementById('schoolNameSpan').textContent='BWACHA';
-
-let allEleves=[], allProfs=[], allEnseignants=[], isFirstLoad=true, currentDate=new Date().toISOString().split('T')[0];
-let unsubscribePrimaire=null, unsubscribeMaternelle=null, unsubscribeSecondaire=null, unsubscribeProfs=null, unsubscribeEnseignants=null;
-
+let allEleves=[],allProfs=[],allEnseignants=[],isFirstLoad=true,currentDate=new Date().toISOString().split('T')[0];
+let unsubscribePrimaire=null,unsubscribeMaternelle=null,unsubscribeSecondaire=null,unsubscribeProfs=null,unsubscribeEnseignants=null;
+let listenersActifs=false;
+function sauvegarderCache(){try{const cache={timestamp:Date.now(),eleves:allEleves,profs:allProfs,enseignants:allEnseignants};localStorage.setItem(CACHE_KEY,JSON.stringify(cache));}catch(e){try{localStorage.removeItem(CACHE_KEY);}catch(_){}}}
+function chargerCache(){try{const raw=localStorage.getItem(CACHE_KEY);if(!raw)return false;const cache=JSON.parse(raw);if(!cache||!cache.timestamp)return false;if(Date.now()-cache.timestamp>CACHE_TTL){localStorage.removeItem(CACHE_KEY);return false;}allEleves=cache.eleves||[];allProfs=cache.profs||[];allEnseignants=cache.enseignants||[];return allEleves.length>0||allProfs.length>0||allEnseignants.length>0;}catch(e){return false;}}
+function afficherIndicateurCache(texte,synced){const ind=document.getElementById('cacheIndicator');const txt=document.getElementById('cacheIndicatorText');if(!ind||!txt)return;txt.textContent=texte;ind.classList.remove('synced');if(synced)ind.classList.add('synced');ind.classList.add('show');clearTimeout(window._cacheIndTimer);window._cacheIndTimer=setTimeout(()=>{ind.classList.remove('show');},synced?2000:3500);}
 function formatNb(n){if(isNaN(n)||n===null||n===undefined)return"0";return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g," ");}
 function escapeHtml(s){if(!s)return'';return s.replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
 function joursOuvresDuMois(dateRef){const annee=dateRef.getFullYear();const mois=dateRef.getMonth();const dernierJour=new Date(annee,mois+1,0).getDate();let count=0;for(let j=1;j<=dernierJour;j++){const d=new Date(annee,mois,j).getDay();if(d!==0&&d!==6)count++;}return count;}
 function prefixeMois(dateRef){const annee=dateRef.getFullYear();const mois=String(dateRef.getMonth()+1).padStart(2,'0');return annee+'-'+mois+'-';}
-
 async function verifierAcces(){
   if(!codeFromUrl){window.location.href='https://www.csbwacha.com/login2';return false;}
   try{
@@ -558,19 +550,10 @@ async function verifierAcces(){
     if(!snap.exists()){window.location.href='https://www.csbwacha.com/login2';return false;}
     const settingsRef=doc(db,"ecoles",ECOLET_ID,"settings","data");
     const settingsSnap=await getDoc(settingsRef);
-    if(settingsSnap.exists()){
-      const data=settingsSnap.data();
-      const codePromoteur=data.codePromoteur||'';
-      if(codeFromUrl!==codePromoteur){window.location.href='https://www.csbwacha.com/login2';return false;}
-    }else{
-      window.location.href='https://www.csbwacha.com/login2';return false;
-    }
+    if(settingsSnap.exists()){const data=settingsSnap.data();const codePromoteur=data.codePromoteur||'';if(codeFromUrl!==codePromoteur){window.location.href='https://www.csbwacha.com/login2';return false;}}else{window.location.href='https://www.csbwacha.com/login2';return false;}
     return true;
-  }catch(e){
-    window.location.href='https://www.csbwacha.com/login2';return false;
-  }
+  }catch(e){window.location.href='https://www.csbwacha.com/login2';return false;}
 }
-
 async function chargerTousEleves(){
   try{
     const[primaireSnap,materSnap,secSnap]=await Promise.all([
@@ -582,33 +565,27 @@ async function chargerTousEleves(){
     primaireSnap.forEach(d=>{const data=d.data();if(data.nom){tous.push({id:d.id,...data,section:'primaire'});}});
     materSnap.forEach(d=>{const data=d.data();if(data.nom){tous.push({id:d.id,...data,section:'maternelle'});}});
     secSnap.forEach(d=>{const data=d.data();if(data.nom){tous.push({id:data.eleveId||d.id,nom:data.nom||'',postnom:data.postnom||'',prenom:data.prenom||'',sexe:data.sexe||'M',classe:data.classe||'',option:data.option||'',minerval:data.minerval||45000,exonere:data.exonere||false,motifExon:data.motifExon||'',approbateur:data.approbateur||'',abandon:data.abandon||false,dateInscription:data.dateInscription||new Date().toISOString(),paiements:data.paiements||{},moisBlancs:data.moisBlancs||[],parentCode:data.parentCode||'',section:'secondaire'});}});
-    allEleves=tous;
-    return tous;
+    allEleves=tous;return tous;
   }catch(e){console.error('Erreur chargement tous élèves:',e);return[];}
 }
-
 async function chargerTousProfesseurs(){
   try{
     const profsSnap=await getDocs(collection(db,"ecoles",ECOLET_ID,"professeurs"));
     let tous=[];
     profsSnap.forEach(ds=>{const data=ds.data();if(data.nom&&data._type==="prof"){tous.push({id:ds.id,nom:data.nom||'',sexe:data.sexe||'M',actif:data.actif!==false,presences:data.presences||{},stats:data.stats||{},type:'prof'});}});
     tous.sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
-    allProfs=tous;
-    return tous;
+    allProfs=tous;return tous;
   }catch(e){console.error('Erreur chargement professeurs:',e);return[];}
 }
-
 async function chargerTousEnseignants(){
   try{
     const ensSnap=await getDocs(collection(db,"ecoles",ECOLET_ID,"enseignants"));
     let tous=[];
     ensSnap.forEach(ds=>{const data=ds.data();if(data.nom&&data._type==="enseignant"){tous.push({id:ds.id,nom:data.nom||'',sexe:data.sexe||'M',cycle:data.cycle||'primaire',classes:data.classes||[],actif:data.actif!==false,presences:data.presences||{},stats:data.stats||{},type:'ens'});}});
     tous.sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
-    allEnseignants=tous;
-    return tous;
+    allEnseignants=tous;return tous;
   }catch(e){console.error('Erreur chargement enseignants:',e);return[];}
 }
-
 function updateStats(){
   const actifs=allEleves.filter(e=>!e.abandon);
   const abandons=allEleves.filter(e=>e.abandon);
@@ -641,7 +618,6 @@ function updateStats(){
   document.getElementById('statMaternelleGarcons').textContent=matActifs.filter(e=>e.sexe==='M').length;
   document.getElementById('statMaternelleExo').textContent=matActifs.filter(e=>e.exonere).length;
 }
-
 function updatePresenceBars(){
   const dateKey=currentDate;
   const profPresents=allProfs.filter(p=>{if(p.actif===false)return false;const pres=p.presences?.[dateKey];return pres&&(pres.statut==='present'||pres.statut==='retard');}).length;
@@ -675,7 +651,6 @@ function updatePresenceBars(){
   document.getElementById('presenceGlobalPresents').textContent=globalPresents;
   document.getElementById('presenceGlobalTotal').textContent=globalTotal;
 }
-
 function updateInscriptionsBars(){
   const aujourdHui=new Date();aujourdHui.setHours(0,0,0,0);
   const hier=new Date(aujourdHui);hier.setDate(hier.getDate()-1);
@@ -700,7 +675,6 @@ function updateInscriptionsBars(){
   document.getElementById('inscritSemaineBar').style.width=pctSemaine+'%';
   document.getElementById('inscritSemaineNb').textContent=inscritSemaine;
 }
-
 function afficherProfs(){
   const tbody=document.getElementById('profsTableBody');
   if(!tbody)return;
@@ -733,7 +707,6 @@ function afficherProfs(){
   });
   tbody.innerHTML=html;
 }
-
 function afficherPaiements(){
   const mois=document.getElementById('filterMois').value;
   const section=document.getElementById('filterSectionPaiement').value;
@@ -781,7 +754,6 @@ function afficherPaiements(){
   document.getElementById('progressPercentage').textContent=tauxGlobal+'%';
   document.getElementById('progressFill').style.width=tauxGlobal+'%';
 }
-
 function updateClasseFilter(){
   const section=document.getElementById('filterSectionPaiement').value;
   const select=document.getElementById('filterClassePaiement');
@@ -790,7 +762,6 @@ function updateClasseFilter(){
   select.innerHTML='<option value="">TOUTES</option>';
   Array.from(classes).sort().forEach(c=>{const opt=document.createElement('option');opt.value=c;opt.textContent=c;select.appendChild(opt);});
 }
-
 function showLogoutModal(){
   document.querySelectorAll('.modal-overlay').forEach(m=>m.remove());
   const overlay=document.createElement('div');
@@ -801,27 +772,53 @@ function showLogoutModal(){
   document.getElementById('confirmLogout').onclick=function(){
     const overlayEl=this.closest('.modal-overlay');
     overlayEl.classList.remove('show');
-    setTimeout(()=>{overlayEl.remove();sessionStorage.clear();window.location.href='https://www.csbwacha.com/login2';},400);
+    setTimeout(()=>{overlayEl.remove();try{localStorage.removeItem(CACHE_KEY);}catch(_){}sessionStorage.clear();window.location.href='https://www.csbwacha.com/login2';},400);
   };
 }
-
 document.getElementById('logoutBtn').addEventListener('click',function(e){e.preventDefault();showLogoutModal();});
-
-function demarrerTempsReel(){
-  unsubscribePrimaire=onSnapshot(collection(db,"ecoles",ECOLET_ID,"prima_eleves"),()=>{chargerTousEleves().then(()=>{updateStats();updatePresenceBars();updateInscriptionsBars();afficherPaiements();});});
-  unsubscribeMaternelle=onSnapshot(collection(db,"ecoles",ECOLET_ID,"mater_eleves"),()=>{chargerTousEleves().then(()=>{updateStats();updatePresenceBars();updateInscriptionsBars();afficherPaiements();});});
-  unsubscribeSecondaire=onSnapshot(collection(db,"ecoles",ECOLET_ID,"compta_eleves"),()=>{chargerTousEleves().then(()=>{updateStats();updatePresenceBars();updateInscriptionsBars();afficherPaiements();});});
-  unsubscribeProfs=onSnapshot(collection(db,"ecoles",ECOLET_ID,"professeurs"),()=>{chargerTousProfesseurs().then(()=>{afficherProfs();updateStats();updatePresenceBars();});});
-  unsubscribeEnseignants=onSnapshot(collection(db,"ecoles",ECOLET_ID,"enseignants"),()=>{chargerTousEnseignants().then(()=>{afficherProfs();updateStats();updatePresenceBars();});});
+function rafraichirTout(){updateStats();updatePresenceBars();updateInscriptionsBars();afficherPaiements();afficherProfs();}
+function demarrerListeners(){
+  if(listenersActifs)return;
+  listenersActifs=true;
+  unsubscribePrimaire=onSnapshot(collection(db,"ecoles",ECOLET_ID,"prima_eleves"),()=>{chargerTousEleves().then(()=>{rafraichirTout();sauvegarderCache();});},err=>console.warn('snap primaire:',err));
+  unsubscribeMaternelle=onSnapshot(collection(db,"ecoles",ECOLET_ID,"mater_eleves"),()=>{chargerTousEleves().then(()=>{rafraichirTout();sauvegarderCache();});},err=>console.warn('snap maternelle:',err));
+  unsubscribeSecondaire=onSnapshot(collection(db,"ecoles",ECOLET_ID,"compta_eleves"),()=>{chargerTousEleves().then(()=>{rafraichirTout();sauvegarderCache();});},err=>console.warn('snap secondaire:',err));
+  unsubscribeProfs=onSnapshot(collection(db,"ecoles",ECOLET_ID,"professeurs"),()=>{chargerTousProfesseurs().then(()=>{rafraichirTout();sauvegarderCache();});},err=>console.warn('snap profs:',err));
+  unsubscribeEnseignants=onSnapshot(collection(db,"ecoles",ECOLET_ID,"enseignants"),()=>{chargerTousEnseignants().then(()=>{rafraichirTout();sauvegarderCache();});},err=>console.warn('snap ens:',err));
   if(isFirstLoad)isFirstLoad=false;
 }
-
+function arreterListeners(){
+  if(!listenersActifs)return;
+  listenersActifs=false;
+  if(unsubscribePrimaire){unsubscribePrimaire();unsubscribePrimaire=null;}
+  if(unsubscribeMaternelle){unsubscribeMaternelle();unsubscribeMaternelle=null;}
+  if(unsubscribeSecondaire){unsubscribeSecondaire();unsubscribeSecondaire=null;}
+  if(unsubscribeProfs){unsubscribeProfs();unsubscribeProfs=null;}
+  if(unsubscribeEnseignants){unsubscribeEnseignants();unsubscribeEnseignants=null;}
+}
+document.addEventListener('visibilitychange',function(){
+  if(document.hidden){
+    arreterListeners();
+  }else{
+    chargerTousEleves().then(()=>chargerTousProfesseurs()).then(()=>chargerTousEnseignants()).then(()=>{
+      rafraichirTout();sauvegarderCache();demarrerListeners();
+    });
+  }
+});
+window.addEventListener('pagehide',function(){arreterListeners();});
+window.addEventListener('beforeunload',function(){arreterListeners();});
+window.addEventListener('pageshow',function(e){
+  if(e.persisted){
+    chargerTousEleves().then(()=>chargerTousProfesseurs()).then(()=>chargerTousEnseignants()).then(()=>{
+      rafraichirTout();sauvegarderCache();demarrerListeners();
+    });
+  }
+});
 document.getElementById('searchProf').addEventListener('input',afficherProfs);
 document.getElementById('filterTypePersonne').addEventListener('change',afficherProfs);
 document.getElementById('filterMois').addEventListener('change',()=>{afficherPaiements();updateClasseFilter();});
 document.getElementById('filterSectionPaiement').addEventListener('change',()=>{updateClasseFilter();afficherPaiements();});
 document.getElementById('filterClassePaiement').addEventListener('change',afficherPaiements);
-
 document.getElementById('btnPDFPaiements').addEventListener('click',function(){
   const{jsPDF}=window.jspdf;
   const doc=new jsPDF('landscape','mm','a4');
@@ -838,7 +835,6 @@ document.getElementById('btnPDFPaiements').addEventListener('click',function(){
   doc.setFontSize(8);doc.setTextColor(150,150,150);doc.text('Document généré par l\'Espace Promoteur',15,finalY);doc.text('C.S. Bwacha - Année scolaire 2026-2027',pw-15,finalY,{align:'right'});
   doc.save('Situation_Financiere_'+new Date().toISOString().split('T')[0]+'.pdf');
 });
-
 document.getElementById('btnPDFProfs').addEventListener('click',function(){
   const{jsPDF}=window.jspdf;
   const doc=new jsPDF('landscape','mm','a4');
@@ -859,7 +855,6 @@ document.getElementById('btnPDFProfs').addEventListener('click',function(){
   doc.autoTable({head:[['N°','NOM ET PRÉNOM','SEXE','TYPE','STATUT DU JOUR','ARRIVÉE','JOURS PRESTÉS']],body:rows,startY:60,styles:{fontSize:9,cellPadding:3.5,textColor:[30,30,30],lineColor:[220,220,220],lineWidth:0.15,valign:'middle'},headStyles:{fillColor:[26,26,46],textColor:[212,175,55],fontSize:9.5,fontStyle:'bold',halign:'center',valign:'middle',lineColor:[212,175,55],lineWidth:0.3,cellPadding:4},alternateRowStyles:{fillColor:[250,249,247]},columnStyles:{0:{cellWidth:12,halign:'center',fontStyle:'bold'},1:{cellWidth:60,fontStyle:'bold'},2:{cellWidth:15,halign:'center'},3:{cellWidth:42,halign:'center'},4:{cellWidth:32,halign:'center',fontStyle:'bold'},5:{cellWidth:22,halign:'center'},6:{cellWidth:28,halign:'center',fontStyle:'bold'}},margin:{left:10,right:10},didParseCell:function(data){if(data.section==='body'&&data.column.index===4){const txt=data.cell.raw||'';if(txt.indexOf('PRÉSENT')!==-1){data.cell.styles.textColor=[5,150,105];}else if(txt.indexOf('RETARD')!==-1){data.cell.styles.textColor=[217,119,6];}else if(txt.indexOf('ABSENT')!==-1){data.cell.styles.textColor=[220,38,38];}}if(data.section==='body'&&data.column.index===3){const t=data.cell.raw||'';if(t.indexOf('PROF')!==-1){data.cell.styles.textColor=[124,58,237];}else{data.cell.styles.textColor=[37,99,235];}}},didDrawPage:function(data){const pageNum=doc.internal.getCurrentPageInfo().pageNumber;const totalPages=doc.internal.getNumberOfPages();doc.setFillColor(248,246,242);doc.rect(0,ph-15,pw,15,'F');doc.setDrawColor(212,175,55);doc.setLineWidth(0.5);doc.line(0,ph-15,pw,ph-15);doc.setFontSize(8);doc.setTextColor(100,100,100);doc.setFont('helvetica','normal');doc.text('COMPLEXE SCOLAIRE BWACHA  |  Rapport de présence - '+moisLabel,pw/2,ph-7,{align:'center'});doc.text('Page '+pageNum+' / '+totalPages,pw-15,ph-7,{align:'right'});doc.text('Document confidentiel',15,ph-7);}});
   doc.save('Rapport_Presence_'+maintenant.toISOString().split('T')[0]+'.pdf');
 });
-
 document.querySelectorAll('.tab').forEach(btn=>{
   btn.onclick=function(){
     if(this.id==='darkModeBtn'){document.body.classList.toggle('dark-mode');return;}
@@ -868,12 +863,11 @@ document.querySelectorAll('.tab').forEach(btn=>{
     this.classList.add('active');
     document.getElementById(this.dataset.tab).classList.add('active');
     document.body.scrollTop=0;document.documentElement.scrollTop=0;
-    if(this.dataset.tab==='tabProfs'){chargerTousProfesseurs().then(()=>chargerTousEnseignants()).then(()=>afficherProfs());}
+    if(this.dataset.tab==='tabProfs'){afficherProfs();}
     if(this.dataset.tab==='tabFinances'){afficherPaiements();}
     if(this.dataset.tab==='tabVue'){updateStats();updatePresenceBars();updateInscriptionsBars();}
   };
 });
-
 const tabsContainer=document.querySelector('.tabs-container');
 if(tabsContainer){
   tabsContainer.setAttribute('tabindex','0');
@@ -893,25 +887,48 @@ if(tabsContainer){
   });
   tabsContainer.addEventListener('click',function(){this.focus();});
 }
-
-document.addEventListener('contextmenu',function(e){const tag=e.target.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||e.target.isContentEditable){return true;}e.preventDefault();return false;});
-document.addEventListener('keydown',function(e){if(e.key==='F12'||e.keyCode===123){e.preventDefault();return false;}if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.keyCode===73)){e.preventDefault();return false;}if(e.ctrlKey&&e.shiftKey&&(e.key==='J'||e.keyCode===74)){e.preventDefault();return false;}if(e.ctrlKey&&(e.key==='U'||e.keyCode===85)){e.preventDefault();return false;}if(e.ctrlKey&&(e.key==='S'||e.keyCode===83)){e.preventDefault();return false;}return true;});
-
+function basculerOnglet(){
+  const tabs=Array.from(document.querySelectorAll('.tab')).filter(t=>t.id!=='darkModeBtn');
+  if(tabs.length===0)return;
+  const active=tabs.find(t=>t.classList.contains('active'));
+  const idx=active?tabs.indexOf(active):-1;
+  const next=tabs[(idx+1)%tabs.length];
+  if(next){next.click();next.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});}
+}
+document.addEventListener('contextmenu',function(e){
+  const tag=e.target.tagName;
+  if(tag==='INPUT'||tag==='TEXTAREA'||e.target.isContentEditable){return true;}
+  e.preventDefault();
+  basculerOnglet();
+  return false;
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||e.keyCode===123){e.preventDefault();return false;}
+  if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.keyCode===73)){e.preventDefault();return false;}
+  if(e.ctrlKey&&e.shiftKey&&(e.key==='J'||e.keyCode===74)){e.preventDefault();return false;}
+  if(e.ctrlKey&&e.shiftKey&&(e.key==='C'||e.keyCode===67)){e.preventDefault();return false;}
+  if(e.ctrlKey&&(e.key==='U'||e.keyCode===85)){e.preventDefault();return false;}
+  if(e.ctrlKey&&(e.key==='S'||e.keyCode===83)){e.preventDefault();return false;}
+  return true;
+});
 if('scrollRestoration' in history)history.scrollRestoration='manual';
-
 async function initApp(){
   const ok=await verifierAcces();
   if(!ok)return;
-  await chargerTousEleves();
-  await chargerTousProfesseurs();
-  await chargerTousEnseignants();
-  updateStats();
-  updatePresenceBars();
-  updateInscriptionsBars();
-  afficherPaiements();
-  afficherProfs();
-  updateClasseFilter();
-  demarrerTempsReel();
+  const cacheCharge=chargerCache();
+  if(cacheCharge){
+    rafraichirTout();
+    updateClasseFilter();
+    afficherIndicateurCache('Chargé du cache • Synchro...',false);
+  }
+  try{
+    await Promise.all([chargerTousEleves(),chargerTousProfesseurs(),chargerTousEnseignants()]);
+    rafraichirTout();
+    updateClasseFilter();
+    sauvegarderCache();
+    afficherIndicateurCache('Données synchronisées',true);
+  }catch(e){console.warn('Erreur sync initiale:',e);}
+  demarrerListeners();
 }
 initApp();
 </script>
