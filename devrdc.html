@@ -708,12 +708,6 @@ body.is-scrolling *{animation-play-state:paused!important;transition:none!import
 <div class="fb-feed" id="mainFeed"></div>
 <div id="feedSentinel" style="height:1px"></div>
 </div>
-<div class="container-3d" id="feedFooterContainer" style="padding:16px;display:none">
-<div style="text-align:center;padding:24px 16px">
-<div style="font-size:13px;color:#64748b;font-weight:800;margin-bottom:6px">NeTubeX © <span id="footerYear">2026</span></div>
-<div style="font-size:13px;font-weight:700"><a href="https://www.netubex.com" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:none">www.netubex.com</a></div>
-</div>
-</div>
 </div>
 <div id="page-jobs" class="page">
 <div class="page-header-3d"><div style="max-width:1200px;margin:0 auto;text-align:center">
@@ -795,8 +789,8 @@ body.is-scrolling *{animation-play-state:paused!important;transition:none!import
 <div class="custom-select" id="immoSelect">
 <button type="button" class="custom-select-trigger" onclick="toggleImmoSelect()"><span class="custom-select-value" id="immoSelectValue"><span class="custom-select-icon">📋</span><span>— Choisir —</span></span><i class="fa-solid fa-chevron-down custom-select-arrow"></i></button>
 <div class="custom-select-menu" id="immoSelectMenu">
-<div class="custom-select-option" data-value="logement" onclick="selectImmoOption('logement', this)"><span class="cs-emoji">🏠</span><span class="cs-label">Logement</span><span style="font-size:11px;font-weight:800;color:#f59e0b;background:#fef3c7;padding:4px 9px;border-radius:6px">5 000 FC</span><i class="fa-solid fa-check cs-check"></i></div>
-<div class="custom-select-option" data-value="parcelle" onclick="selectImmoOption('parcelle', this)"><span class="cs-emoji">📐</span><span class="cs-label">Parcelle / Terrain</span><span style="font-size:11px;font-weight:800;color:#f59e0b;background:#fef3c7;padding:4px 9px;border-radius:6px">5 000 FC</span><i class="fa-solid fa-check cs-check"></i></div>
+<div class="custom-select-option" data-value="logement" onclick="selectImmoOption('logement', this)"><span class="cs-emoji">🏠</span><span class="cs-label">Logement</span><span style="font-size:11px;font-weight:800;color:#f59e0b;background:#fef3c7;padding:4px 9px;border-radius:6px">1 000 FC</span><i class="fa-solid fa-check cs-check"></i></div>
+<div class="custom-select-option" data-value="parcelle" onclick="selectImmoOption('parcelle', this)"><span class="cs-emoji">📐</span><span class="cs-label">Parcelle / Terrain</span><span style="font-size:11px;font-weight:800;color:#f59e0b;background:#fef3c7;padding:4px 9px;border-radius:6px">1 000 FC</span><i class="fa-solid fa-check cs-check"></i></div>
 </div>
 </div>
 </div>
@@ -1372,7 +1366,7 @@ async function getStored(store,key,fallback){if(fallback===undefined)fallback=nu
 async function setStored(store,key,value){return idbSet(store,key,value);}
 async function setCachedList(k,l){try{await idbSet('config',k,{data:l,dateCache:Date.now()});}catch(e){}}
 async function getCachedList(k){try{var e=await idbGet('config',k);if(!e||!e.data)return null;if((Date.now()-(e.dateCache||0))>CACHE_TTL_MS){await idbDelete('config',k);return null;}return e.data;}catch(e){return null;}}
-async function invaliderCache(cle){try{if(cle){await idbDelete('config',cle);}else{await idbDelete('config','cache_annonces');await idbDelete('config','cache_commerces');}window.dispatchEvent(new CustomEvent('cache-invalide'));}catch(e){}}
+async function invaliderCache(cle){try{if(cle){await idbDelete('config',cle);}else{await idbDelete('config','cache_annonces');await idbDelete('config','cache_commerces');}}catch(e){}}
 window.setCachedList=setCachedList;window.getCachedList=getCachedList;window.invaliderCache=invaliderCache;
 window.idbGet=idbGet;window.idbSet=idbSet;window.idbDelete=idbDelete;
 window.getStored=getStored;window.setStored=setStored;window.STORES=STORES;
@@ -1478,7 +1472,9 @@ var annonces=[];
 snap.forEach(function(d){
 var data=d.data();
 if(data.actif===false)return;
-if(data.statut!=='approuve')return;
+if(data.statut==='refuse')return;
+if(data.statut==='en_attente')return;
+if(data.statut&&data.statut!=='approuve')return;
 var nomPublieur=data.publieurNom||'Utilisateur NeTubeX';
 var typePublieur=data.publieurType||'user';
 var imagesArr=Array.isArray(data.images)&&data.images.length>0?data.images:(data.img?[data.img]:[]);
@@ -1571,9 +1567,13 @@ var _feedObserver=null;
 var feedPage=0;
 var FEED_PER_PAGE=3;
 var _feedLoading=false;
-var _feedExhausted=false;
 var _feedRenderedCount=0;
 var _feedDebounceTimer=null;
+var _feedLoopCount=0;
+var _feedSeenIds=new Set();
+var _feedCycleItems=[];
+var _feedCycleIndex=0;
+var MAX_POSTS_DOM=60;
 var detailFsActive=false;
 var searchEnCours=false;
 var lastScrollY=0;
@@ -1963,6 +1963,27 @@ return items;
 function getFeedItems(){if(!_nextFeedOrder){_nextFeedOrder=_construireFeedItems();}return _nextFeedOrder;}
 function toggleDesc(id,btn){var el=document.getElementById(id);if(!el)return;if(btn.getAttribute('data-state')==='collapsed'){el.style.maxHeight=el.scrollHeight+'px';el.classList.add('expanded');btn.setAttribute('data-state','expanded');btn.textContent='Voir moins';setTimeout(function(){el.style.maxHeight='';},320);}else{el.style.maxHeight=el.scrollHeight+'px';requestAnimationFrame(function(){el.classList.remove('expanded');el.style.maxHeight='';});btn.setAttribute('data-state','collapsed');btn.textContent='Voir plus';}}
 function verifierDescriptions(){var descs=document.querySelectorAll('.fb-post-desc');descs.forEach(function(el){var btn=document.getElementById(el.id+'-btn');if(!btn)return;el.style.webkitLineClamp='unset';el.style.display='block';var hr=el.scrollHeight;el.style.webkitLineClamp='';el.style.display='';var ht=el.clientHeight;if(hr>ht+4){btn.style.display='inline-block';}else{btn.style.display='none';}});}
+function limiterTailleDOM(feed){
+var posts=feed.querySelectorAll('.fb-post');
+if(posts.length<=MAX_POSTS_DOM)return;
+var aSupprimer=posts.length-MAX_POSTS_DOM;
+for(var i=0;i<aSupprimer;i++){
+if(posts[i]&&posts[i].parentNode){posts[i].parentNode.removeChild(posts[i]);}
+}
+}
+function construireNouveauCycle(exclureIds){
+var tous=_construireFeedItems();
+var nouveaux=[];
+var dejaVus=[];
+tous.forEach(function(item){
+var id=item.data.annonceId||item.data.commerceId||item.data.id;
+if(exclureIds&&exclureIds.has(id)){dejaVus.push(item);}
+else{nouveaux.push(item);}
+});
+function melanger(arr){for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp;}return arr;}
+melanger(nouveaux);melanger(dejaVus);
+return nouveaux.concat(dejaVus);
+}
 function renderOffreCard(p){
 if(p.commerce){
 var media=p.img?'<div class="fb-post-media"><img src="'+p.img+'" alt="" loading="lazy" decoding="async"></div>':'';
@@ -2041,54 +2062,70 @@ function renderFeedBatch(page){
 var feed=document.getElementById('mainFeed');
 if(!feed)return;
 if(_feedLoading)return;
-if(_feedExhausted)return;
-var items=getFeedItems();
-var start=page*FEED_PER_PAGE;
-var end=Math.min(start+FEED_PER_PAGE,items.length);
-if(start>=items.length){_feedExhausted=true;return;}
+if(_feedCycleItems.length===0){_feedCycleItems=construireNouveauCycle(_feedSeenIds);_feedCycleIndex=0;}
+if(_feedCycleIndex>=_feedCycleItems.length){
+_feedLoopCount++;
+_feedSeenIds.clear();
+_feedCycleItems=construireNouveauCycle(null);
+_feedCycleIndex=0;
+}
+var start=_feedCycleIndex;
+var end=Math.min(start+FEED_PER_PAGE,_feedCycleItems.length);
+var lot=_feedCycleItems.slice(start,end);
+if(lot.length===0)return;
 _feedLoading=true;
-if(page===0){feed.innerHTML='';_feedRenderedCount=0;}
-else{masquerSkeletonsFeed();}
+if(page===0&&feed.children.length===0){feed.innerHTML='';_feedRenderedCount=0;}
+masquerSkeletonsFeed();
 var html='';
-for(var i=start;i<end;i++){html+=renderOffreCard(items[i].data);}
+lot.forEach(function(item){
+html+=renderOffreCard(item.data);
+var id=item.data.annonceId||item.data.commerceId||item.data.id;
+if(id)_feedSeenIds.add(id);
+});
 var temp=document.createElement('div');
 temp.innerHTML=html;
 var frag=document.createDocumentFragment();
 while(temp.firstChild){frag.appendChild(temp.firstChild);}
 feed.appendChild(frag);
-_feedRenderedCount+=(end-start);
+_feedCycleIndex=end;
+_feedRenderedCount+=lot.length;
+limiterTailleDOM(feed);
 requestAnimationFrame(function(){_feedLoading=false;setTimeout(verifierDescriptions,60);});
 }
 function initFeed(){
 _feedLoading=false;
-_feedExhausted=false;
 _feedRenderedCount=0;
 feedPage=0;
+_nextFeedOrder=null;
+_feedCycleItems=[];
+_feedCycleIndex=0;
+_feedSeenIds.clear();
+_feedLoopCount=0;
 afficherSkeletonsFeed(4);
-setTimeout(function(){masquerSkeletonsFeed();renderFeedBatch(0);feedPage=1;},220);
+setTimeout(function(){masquerSkeletonsFeed();renderFeedBatch(0);feedPage=1;},100);
 var s=document.getElementById('feedSentinel');
 if(s&&'IntersectionObserver' in window){
 if(_feedObserver)_feedObserver.disconnect();
 _feedObserver=new IntersectionObserver(function(entries){
 entries.forEach(function(e){
 if(!e.isIntersecting)return;
-if(_feedLoading||_feedExhausted)return;
+if(_feedLoading)return;
 if(_feedDebounceTimer)clearTimeout(_feedDebounceTimer);
-_feedDebounceTimer=setTimeout(function(){renderFeedBatch(feedPage);feedPage++;},80);
+_feedDebounceTimer=setTimeout(function(){renderFeedBatch(feedPage);feedPage++;},60);
 });
-},{root:null,rootMargin:'600px 0px',threshold:0});
+},{root:null,rootMargin:'1500px 0px',threshold:0});
 _feedObserver.observe(s);
 }
 if(!window._feedScrollFallbackAttached){
 window._feedScrollFallbackAttached=true;
 window.addEventListener('scroll',function(){
-if(_feedLoading||_feedExhausted)return;
+if(_feedLoading)return;
 if(currentTab!=='index')return;
 var doc=document.documentElement;
 var scrollBottom=doc.scrollHeight-(window.scrollY+window.innerHeight);
-if(scrollBottom<500){
+if(scrollBottom<1500){
 if(_feedDebounceTimer)clearTimeout(_feedDebounceTimer);
-_feedDebounceTimer=setTimeout(function(){renderFeedBatch(feedPage);feedPage++;},120);
+_feedDebounceTimer=setTimeout(function(){renderFeedBatch(feedPage);feedPage++;},100);
 }
 },{passive:true});
 }
@@ -2130,7 +2167,14 @@ window.addEventListener('popstate',function(e){_navFromPopstate=true;if(e.state&
 function renderCategoryFeed(cat){
 var f=document.getElementById('categoryFeed');
 if(!f)return;
-var r=ANNONCES_DATA.filter(function(p){return p.cat===(cat||'autre');});
+var cible=String(cat||'autre').toLowerCase().trim();
+var RESERVES=['job','jobs','emploi','emplois','offre-emploi','offre emploi','recrutement','recruteur','location','logement','immobilier','appartement','maison','villa','studio','chambre','parcelle','terrain','terre','lot','commerce'];
+var r=ANNONCES_DATA.filter(function(p){
+if(!p)return false;
+var c=String(p.cat||'').toLowerCase().trim();
+if(cible==='autre'){return RESERVES.indexOf(c)===-1;}
+return c===cible;
+});
 if(r.length===0){f.innerHTML='<div style="text-align:center;padding:60px 20px;background:var(--bg-card);border:1px dashed var(--border-primary);border-radius:16px;margin:16px"><div style="font-size:48px;opacity:.35;margin-bottom:14px">📭</div><h3 style="font-size:17px;font-weight:800">Aucune annonce</h3></div>';return;}
 f.innerHTML=r.map(renderOffreCard).join('');
 setTimeout(verifierDescriptions,50);
@@ -2148,7 +2192,7 @@ go('category',cat);
 function renderJobsFeed(){
 var feed=document.getElementById('jobsFeed');
 if(!feed)return;
-var jobs=ANNONCES_DATA.filter(function(p){return p.cat==='job';});
+var jobs=ANNONCES_DATA.filter(function(p){if(!p)return false;var c=String(p.cat||'').toLowerCase().trim();return c==='job'||c==='jobs'||c==='emploi'||c==='emplois'||c==='offre-emploi'||c==='offre emploi'||c==='recrutement'||c==='recruteur';});
 var q=(document.getElementById('jobsSearchInput')||{}).value||'';
 if(q.trim()){q=normaliser(q);jobs=jobs.filter(function(j){var txt=normaliser((j.title||'')+' '+(j.desc||'')+' '+(j.location||''));return txt.indexOf(q)!==-1;});}
 if(jobs.length===0){feed.innerHTML='<div style="text-align:center;padding:60px 20px;background:var(--bg-card);border:1px dashed var(--border-primary);border-radius:16px;margin:16px"><div style="font-size:48px;opacity:.35;margin-bottom:14px">💼</div><h3 style="font-size:17px;font-weight:800;color:var(--text-primary)">Aucune offre</h3></div>';return;}
@@ -2161,10 +2205,13 @@ function renderImmobilierFeed(sub){
 var feed=document.getElementById('immobilierFeed');
 if(!feed)return;
 var results;
-if(sub==='all'){results=ANNONCES_DATA.filter(function(p){return p.cat==='location'||p.cat==='parcelle';});}
-else if(sub==='location'){results=ANNONCES_DATA.filter(function(p){return p.cat==='location'&&(!p.sousTypeImmo||p.sousTypeImmo==='logement');});}
-else if(sub==='parcelle'){results=ANNONCES_DATA.filter(function(p){return p.cat==='parcelle'||p.sousTypeImmo==='parcelle';});}
-else{results=ANNONCES_DATA.filter(function(p){return p.cat===sub;});}
+var _c=function(p){return String((p&&p.cat)||'').toLowerCase().trim();};
+var LOC=['location','logement','immobilier','appartement','maison','villa','studio','chambre'];
+var PAR=['parcelle','terrain','terre','lot'];
+if(sub==='all'){results=ANNONCES_DATA.filter(function(p){var c=_c(p);return LOC.indexOf(c)!==-1||PAR.indexOf(c)!==-1;});}
+else if(sub==='location'){results=ANNONCES_DATA.filter(function(p){return LOC.indexOf(_c(p))!==-1;});}
+else if(sub==='parcelle'){results=ANNONCES_DATA.filter(function(p){return PAR.indexOf(_c(p))!==-1||String((p&&p.sousTypeImmo)||'').toLowerCase()==='parcelle';});}
+else{results=ANNONCES_DATA.filter(function(p){return _c(p)===String(sub).toLowerCase();});}
 if(results.length===0){feed.innerHTML='<div style="text-align:center;padding:60px 20px;background:var(--bg-card);border:1px dashed var(--border-primary);border-radius:16px;margin:16px"><div style="font-size:48px;opacity:.35;margin-bottom:14px">🏠</div><h3 style="font-size:17px;font-weight:800">Aucune annonce</h3></div>';return;}
 feed.innerHTML=results.map(renderOffreCard).join('');
 setTimeout(verifierDescriptions,50);
@@ -2176,7 +2223,13 @@ if(!g)return;
 if(!COMMERCES_DATA||COMMERCES_DATA.length===0){g.innerHTML='<div style="text-align:center;padding:60px 20px;background:var(--bg-card);border:1px dashed var(--border-primary);border-radius:16px;grid-column:1/-1"><div style="font-size:48px;opacity:.35;margin-bottom:14px">🏪</div><h3 style="font-size:17px;font-weight:800;color:var(--text-primary);margin-bottom:6px">Aucun commerce</h3></div>';return;}
 var html='';
 COMMERCES_DATA.forEach(function(c){
-if(!c||!c.type)return;
+if(!c)return;
+if(!c.type)c.type='Commerce';
+if(!c.nom)c.nom='Commerce';
+if(!c.ville)c.ville='RDC';
+if(!c.horaires)c.horaires='Ouvert';
+if(!c.description)c.description='Découvrez notre catalogue.';
+if(c.vues===undefined)c.vues=0;
 var isS=(c.type==='Services / Atelier'||c.type==='services');
 var img=c.img||c.avatar||'';
 var imgHtml=img?'<img src="'+img+'" alt="" loading="lazy" decoding="async">':'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;opacity:.4">'+((c.emoji)||'🏪')+'</div>';
@@ -2351,7 +2404,7 @@ if(ae){
 ae.innerHTML='';
 if(o.unlock){
 var den=DEBLOCAGES_MEMORY.find(function(d){return d.annonceId===aId&&d.statut==='en_attente';});
-var fd=(o.cat==='parcelle'||o.cat==='location')?5000:400;
+var fd=(o.cat==='parcelle'||o.cat==='location')?1000:400;
 if(den){ae.innerHTML='<button class="detail-primary-btn gold" disabled><i class="fa-solid fa-hourglass-half"></i> En attente</button>';}
 else{ae.innerHTML='<button class="detail-primary-btn gold" onclick="requireLogin(\'unlock\',()=>openUnlock())"><i class="fa-solid fa-key"></i> Débloquer — '+fd.toLocaleString('fr-FR')+' FC</button>';}
 }
@@ -2525,7 +2578,7 @@ function openUnlock(){
 if(!CURRENT_OFFRE)return;
 var aId=CURRENT_OFFRE.annonceId||CURRENT_OFFRE.id;
 if(!aId){showToast('Annonce introuvable');return;}
-var f=(CURRENT_OFFRE.cat==='parcelle'||CURRENT_OFFRE.cat==='location')?5000:400;
+var f=(CURRENT_OFFRE.cat==='parcelle'||CURRENT_OFFRE.cat==='location')?1000:400;
 var me=document.getElementById('unlockMontant');
 var mi=document.getElementById('unlockMontantInline');
 if(me)me.textContent=f.toLocaleString('fr-FR')+' FC';
@@ -2642,7 +2695,7 @@ var pa=document.getElementById('publishPricingAmount');
 var hint=document.getElementById('publishPricingHint');
 if(!publishCat){if(is)is.style.display='none';if(pa)pa.textContent='—';return;}
 var ei=(publishCat==='parcelle'||publishCat==='location');
-var m=ei?'5 000 FC':'400 FC';
+var m=ei?'1 000 FC':'400 FC';
 if(pa)pa.textContent=m;
 if(hint)hint.textContent=publishCat==='job'?"Offre d'emploi":(ei?'Immobilier':'Autres');
 if(is)is.style.display='block';
@@ -2674,7 +2727,7 @@ var d=(document.getElementById('publishDescription')||{}).value?document.getElem
 d=nettoyerTextePourSaisie(d);
 if(!t||!v||!p||!d||!a){showToast('Remplissez tous les champs');return;}
 var ei=(publishCat==='parcelle'||publishCat==='location');
-var m=ei?5000:400;
+var m=ei?1000:400;
 var jt=null;
 if(publishCat==='job'){if(!jobContract){showToast('Choisissez CDI ou CDD');return;}jt=jobContract;}
 window._pendingMontant=m;
@@ -2924,7 +2977,7 @@ window.addEventListener('resize',function(){setTimeout(verifierDescriptions,150)
 document.addEventListener('contextmenu',function(e){if(e.target.tagName==='IMG'){e.preventDefault();return false;}});
 var _scrollingTimer;
 window.addEventListener('scroll',function(){document.body.classList.add('is-scrolling');if(_scrollingTimer)clearTimeout(_scrollingTimer);_scrollingTimer=setTimeout(function(){document.body.classList.remove('is-scrolling');},150);},{passive:true});
-function demarrerPolling(){if(_pollingTimer)return;if(!_appEstActive)return;if(currentTab==='index')return;_pollingTimer=setInterval(rafraichirDonneesSilencieusement,300000);}
+function demarrerPolling(){if(_pollingTimer)return;if(!_appEstActive)return;if(currentTab==='index')return;_pollingTimer=setInterval(rafraichirDonneesSilencieusement,600000);}
 function arreterPolling(){if(_pollingTimer){clearInterval(_pollingTimer);_pollingTimer=null;}}
 async function rafraichirDonneesSilencieusement(){
 if(!navigator.onLine||document.hidden||currentTab==='index'||currentTab==='catalogue')return;
@@ -2942,10 +2995,6 @@ if(currentTab==='immobilier'){var sub=document.querySelector('.immobilier-subtab
 document.addEventListener('visibilitychange',function(){if(document.hidden){_appEstActive=false;arreterPolling();}else{_appEstActive=true;demarrerPolling();}});
 window.addEventListener('online',function(){if(_appEstActive)rafraichirDonneesSilencieusement();});
 window.addEventListener('offline',function(){arreterPolling();});
-(async function(){
-function dg(e){var k=(e.key||'').toLowerCase();if(e.key==='F12')return true;if(e.ctrlKey&&e.shiftKey){if(k==='i'||k==='j'||k==='c'||k==='k')return true;if(k==='s')return true;}if(e.ctrlKey&&!e.shiftKey&&!e.altKey){if(k==='u')return true;if(k==='s')return true;if(k==='p')return true;}return false;}
-document.addEventListener('keydown',function(e){if(dg(e)){e.preventDefault();e.stopPropagation();return false;}},{capture:true});
-})();
 async function verifierCompteLocal(){
 if(!CURRENT_ACCOUNT||!CURRENT_ACCOUNT.id)return;
 var lastCheck=sessionStorage.getItem('ntx_last_verify');
