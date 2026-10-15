@@ -708,6 +708,12 @@ body.is-scrolling *{animation-play-state:paused!important;transition:none!import
 <div class="fb-feed" id="mainFeed"></div>
 <div id="feedSentinel" style="height:1px"></div>
 </div>
+<div class="container-3d" id="feedFooterContainer" style="padding:16px;display:none">
+<div style="text-align:center;padding:24px 16px">
+<div style="font-size:13px;color:#64748b;font-weight:800;margin-bottom:6px">NeTubeX © <span id="footerYear">2026</span></div>
+<div style="font-size:13px;font-weight:700"><a href="https://www.netubex.com" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:none">www.netubex.com</a></div>
+</div>
+</div>
 </div>
 <div id="page-jobs" class="page">
 <div class="page-header-3d"><div style="max-width:1200px;margin:0 auto;text-align:center">
@@ -789,8 +795,8 @@ body.is-scrolling *{animation-play-state:paused!important;transition:none!import
 <div class="custom-select" id="immoSelect">
 <button type="button" class="custom-select-trigger" onclick="toggleImmoSelect()"><span class="custom-select-value" id="immoSelectValue"><span class="custom-select-icon">📋</span><span>— Choisir —</span></span><i class="fa-solid fa-chevron-down custom-select-arrow"></i></button>
 <div class="custom-select-menu" id="immoSelectMenu">
-<div class="custom-select-option" data-value="logement" onclick="selectImmoOption('logement', this)"><span class="cs-emoji">🏠</span><span class="cs-label">Logement</span><span style="font-size:11px;font-weight:800;color:#f59e0b;background:#fef3c7;padding:4px 9px;border-radius:6px">1.000 FC</span><i class="fa-solid fa-check cs-check"></i></div>
-<div class="custom-select-option" data-value="parcelle" onclick="selectImmoOption('parcelle', this)"><span class="cs-emoji">📐</span><span class="cs-label">Parcelle / Terrain</span><span style="font-size:11px;font-weight:800;color:#f59e0b;background:#fef3c7;padding:4px 9px;border-radius:6px">1.000 FC</span><i class="fa-solid fa-check cs-check"></i></div>
+<div class="custom-select-option" data-value="logement" onclick="selectImmoOption('logement', this)"><span class="cs-emoji">🏠</span><span class="cs-label">Logement</span><span style="font-size:11px;font-weight:800;color:#f59e0b;background:#fef3c7;padding:4px 9px;border-radius:6px">5 000 FC</span><i class="fa-solid fa-check cs-check"></i></div>
+<div class="custom-select-option" data-value="parcelle" onclick="selectImmoOption('parcelle', this)"><span class="cs-emoji">📐</span><span class="cs-label">Parcelle / Terrain</span><span style="font-size:11px;font-weight:800;color:#f59e0b;background:#fef3c7;padding:4px 9px;border-radius:6px">5 000 FC</span><i class="fa-solid fa-check cs-check"></i></div>
 </div>
 </div>
 </div>
@@ -1146,7 +1152,7 @@ body.is-scrolling *{animation-play-state:paused!important;transition:none!import
 <div id="paiementModal" style="position:fixed;inset:0;background:rgba(15,23,42,.75);z-index:750;display:none;align-items:flex-end;justify-content:center">
 <div style="background:var(--bg-card);border-radius:20px 20px 0 0;max-width:440px;width:100%;padding:20px 18px;padding-bottom:max(20px,env(safe-area-inset-bottom));max-height:88vh;overflow-y:auto;position:relative">
 <button onclick="annulerPaiementPublication()" style="position:absolute;top:14px;right:14px;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#ef4444,#dc2626);border:3px solid #fff;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;z-index:20;box-shadow:0 4px 12px rgba(220,38,38,.4)"><i class="fa-solid fa-xmark"></i></button>
-<div style="text-align:center;margin-bottom:14px"><div style="width:56px;height:56px;border-radius:16px;background:#f59e0b;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;margin:0 auto 10px"><i class="fa-solid fa-receipt"></i></div><h3 style="font-size:18px;font-weight:900;color:var(--text-primary);margin:0">Preuve de paiement</h3><p style="font-size:14px;color:var(--text-muted);margin-top:4px">Montant : <strong style="color:#d97706;font-size:16px" id="paiementMontant">500 FC</strong></p></div>
+<div style="text-align:center;margin-bottom:14px"><div style="width:56px;height:56px;border-radius:16px;background:#f59e0b;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;margin:0 auto 10px"><i class="fa-solid fa-receipt"></i></div><h3 style="font-size:18px;font-weight:900;color:var(--text-primary);margin:0">Preuve de paiement</h3><p style="font-size:14px;color:var(--text-muted);margin-top:4px">Montant : <strong style="color:#d97706;font-size:16px" id="paiementMontant">400 FC</strong></p></div>
 <div style="padding:12px;background:#dc2626;border-radius:12px;margin-bottom:12px">
 <div style="font-size:14px;font-weight:900;color:#fff;margin-bottom:8px">🔴 AIRTEL MONEY</div>
 <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px;background:rgba(255,255,255,.12);border-radius:8px">
@@ -1165,7 +1171,7 @@ body.is-scrolling *{animation-play-state:paused!important;transition:none!import
 <div id="unlock-modal" style="position:fixed;inset:0;background:rgba(15,23,42,.75);z-index:750;display:none;align-items:flex-end;justify-content:center">
 <div style="background:var(--bg-card);border-radius:20px 20px 0 0;max-width:440px;width:100%;padding:20px 18px;padding-bottom:max(20px,env(safe-area-inset-bottom));max-height:88vh;overflow-y:auto;position:relative">
 <button onclick="annulerDeblocage()" style="position:absolute;top:14px;right:14px;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#ef4444,#dc2626);border:3px solid #fff;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;z-index:20;box-shadow:0 4px 12px rgba(220,38,38,.4)"><i class="fa-solid fa-xmark"></i></button>
-<div style="text-align:center;margin-bottom:14px"><div style="width:56px;height:56px;border-radius:16px;background:#f59e0b;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;margin:0 auto 10px"><i class="fa-solid fa-unlock-keyhole"></i></div><h3 style="font-size:18px;font-weight:900;color:var(--text-primary);margin:0">Débloquer les coordonnées</h3><p style="font-size:14px;color:var(--text-muted);margin-top:4px">Montant : <strong style="color:#d97706;font-size:16px" id="unlockMontant">500 FC</strong></p></div>
+<div style="text-align:center;margin-bottom:14px"><div style="width:56px;height:56px;border-radius:16px;background:#f59e0b;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;margin:0 auto 10px"><i class="fa-solid fa-unlock-keyhole"></i></div><h3 style="font-size:18px;font-weight:900;color:var(--text-primary);margin:0">Débloquer les coordonnées</h3><p style="font-size:14px;color:var(--text-muted);margin-top:4px">Montant : <strong style="color:#d97706;font-size:16px" id="unlockMontant">400 FC</strong></p></div>
 <div style="padding:12px;background:#dc2626;border-radius:12px;margin-bottom:12px">
 <div style="font-size:14px;font-weight:900;color:#fff;margin-bottom:8px">🔴 AIRTEL MONEY</div>
 <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px;background:rgba(255,255,255,.12);border-radius:8px">
@@ -1173,7 +1179,7 @@ body.is-scrolling *{animation-play-state:paused!important;transition:none!import
 <button type="button" onclick="copyText('+243976953045')" style="padding:9px 11px;border-radius:8px;background:#fff;color:#dc2626;border:none;cursor:pointer;font-family:inherit;font-weight:900;font-size:12px">COPIER</button>
 </div>
 </div>
-<div style="padding:12px 14px;background:#fef3c7;border:1.5px solid #fbbf24;border-radius:10px;margin-bottom:12px;font-size:13px;color:#78350f;line-height:1.55"><strong>📱 Étapes :</strong><br>1. Envoyez <strong id="unlockMontantInline">500 FC</strong> au <strong>+243 976 953 045</strong><br>2. Notez l'ID Transaction<br>3. Remplissez ci-dessous</div>
+<div style="padding:12px 14px;background:#fef3c7;border:1.5px solid #fbbf24;border-radius:10px;margin-bottom:12px;font-size:13px;color:#78350f;line-height:1.55"><strong>📱 Étapes :</strong><br>1. Envoyez <strong id="unlockMontantInline">400 FC</strong> au <strong>+243 976 953 045</strong><br>2. Notez l'ID Transaction<br>3. Remplissez ci-dessous</div>
 <form onsubmit="event.preventDefault();validerDeblocage();" style="display:flex;flex-direction:column;gap:10px">
 <div><label class="publish-label" style="font-size:12px">ID Transaction *</label><input type="text" id="unlockTxId" required placeholder="MP240521..." class="form-input-3d" style="font-family:ui-monospace,monospace;font-size:14px"></div>
 <div><label class="publish-label" style="font-size:12px">Numéro d'envoi *</label><div class="phone-field" style="display:flex;align-items:center;background:var(--bg-input);border:2px solid var(--border-input);border-radius:12px;overflow:hidden"><span style="padding:0 12px;font-weight:900;color:var(--text-muted);font-size:14px">+243</span><input type="tel" id="unlockNumEnvoi" required placeholder="8XX XXX XXX" maxlength="9" inputmode="numeric" pattern="[0-9]{9}" style="flex:1;border:none;background:transparent;padding:12px 12px 12px 0;outline:none;font-family:inherit;font-size:14px;color:var(--text-primary)"></div></div>
@@ -1326,7 +1332,7 @@ body.is-scrolling *{animation-play-state:paused!important;transition:none!import
 </div>
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getFirestore, doc, setDoc, updateDoc, increment, getDoc, collection, query, where, getDocs, deleteDoc, limit, orderBy, writeBatch } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getFirestore, doc, setDoc, updateDoc, increment, getDoc, collection, query, where, getDocs, deleteDoc, limit, writeBatch } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
 const firebaseConfig={apiKey:"AIzaSyB_GdmPBnWl3w6g99j1cGO7vxDdxmKr4QA",authDomain:"netubexmoney.firebaseapp.com",projectId:"netubexmoney",storageBucket:"netubexmoney.firebasestorage.app",messagingSenderId:"856592608176",appId:"1:856592608176:web:69f9df9cfd4f8c28630475"};
@@ -1338,20 +1344,13 @@ setPersistence(auth,browserLocalPersistence).catch(function(){});
 window.db=db;window.auth=auth;window.storage=storage;
 window.getDocRef=getDoc;window.docRef=doc;window.setDoc=setDoc;window.updateDoc=updateDoc;
 window.increment=increment;window.getDocs=getDocs;window.collection=collection;
-window.query=query;window.where=where;window.limit=limit;window.orderBy=orderBy;
+window.query=query;window.where=where;window.limit=limit;
 window.deleteDocRef=deleteDoc;window.storageRef=storageRef;window.uploadBytes=uploadBytes;
 window.getDownloadURL=getDownloadURL;window.writeBatch=writeBatch;
 window.onAuthStateChangedRef=onAuthStateChanged;
 window.signOutRef=signOut;
 const DB_NAME='netubex-db',DB_VERSION=5;
 const CACHE_TTL_MS=30*24*60*60*1000;
-const CACHE_MAX_POSTS=500;
-const FETCH_PAGE_SIZE=30;
-const FETCH_MIN_INTERVAL=6*60*60*1000;
-const REFRESH_CHECK_INTERVAL=30*60*1000;
-const REFRESH_MIN_AGE=8*60*60*1000;
-const ONLINE_COOLDOWN=30*60*1000;
-const PURGE_AGE=30*24*60*60*1000;
 const STORES={account:'account',boutique:'boutique',cart:'cart',theme:'theme',deblocages:'deblocages',commerce:'commerce',offre:'offre',stats:'stats',images:'images',config:'config'};
 let _idbInstance=null;
 function ouvrirIDB(){
@@ -1371,51 +1370,10 @@ async function idbGet(store,key){try{var idb=await ouvrirIDB();return new Promis
 async function idbDelete(store,key){try{var idb=await ouvrirIDB();return new Promise(function(resolve,reject){var tx=idb.transaction(store,'readwrite');var req=tx.objectStore(store).delete(key);req.onsuccess=function(){resolve(true);};req.onerror=function(){reject(req.error);};});}catch(e){return false;}}
 async function getStored(store,key,fallback){if(fallback===undefined)fallback=null;var v=await idbGet(store,key);return v!==undefined&&v!==null?v:fallback;}
 async function setStored(store,key,value){return idbSet(store,key,value);}
-async function setCachedList(k,l){
-try{
-if(!Array.isArray(l)||l.length===0){
-var existing=await idbGet('config',k);
-if(existing&&Array.isArray(existing.data)&&existing.data.length>0){return;}
-}
-await idbSet('config',k,{data:l,dateCache:Date.now()});
-await idbSet('config',k+'_backup',{data:l,dateCache:Date.now()});
-}catch(e){}
-}
-async function getCachedList(k){
-try{
-var e=await idbGet('config',k);
-if(!e||!e.data){
-var backup=await idbGet('config',k+'_backup');
-if(backup&&backup.data)return backup.data;
-return null;
-}
-if((Date.now()-(e.dateCache||0))>CACHE_TTL_MS){
-await idbSet('config',k+'_backup',{data:e.data,dateCache:e.dateCache});
-await idbDelete('config',k);
-return e.data;
-}
-return e.data;
-}catch(e){return null;}
-}
-async function invaliderCacheDoux(cle){
-try{
-if(!cle)return;
-var existing=await idbGet('config',cle);
-if(existing){existing.dateCache=0;await idbSet('config',cle,existing);}
-}catch(e){}
-}
-async function invaliderCacheDur(cle){
-try{
-if(!cle)return;
-await idbDelete('config',cle);
-await idbDelete('config',cle+'_backup');
-}catch(e){}
-}
-async function invaliderCache(cle){
-try{if(cle){await idbDelete('config',cle);await idbDelete('config',cle+'_backup');}else{await idbDelete('config','cache_annonces');await idbDelete('config','cache_commerces');await idbDelete('config','cache_annonces_backup');await idbDelete('config','cache_commerces_backup');}window.dispatchEvent(new CustomEvent('cache-invalide'));}catch(e){}
-}
+async function setCachedList(k,l){try{await idbSet('config',k,{data:l,dateCache:Date.now()});}catch(e){}}
+async function getCachedList(k){try{var e=await idbGet('config',k);if(!e||!e.data)return null;if((Date.now()-(e.dateCache||0))>CACHE_TTL_MS){await idbDelete('config',k);return null;}return e.data;}catch(e){return null;}}
+async function invaliderCache(cle){try{if(cle){await idbDelete('config',cle);}else{await idbDelete('config','cache_annonces');await idbDelete('config','cache_commerces');}window.dispatchEvent(new CustomEvent('cache-invalide'));}catch(e){}}
 window.setCachedList=setCachedList;window.getCachedList=getCachedList;window.invaliderCache=invaliderCache;
-window.invaliderCacheDoux=invaliderCacheDoux;window.invaliderCacheDur=invaliderCacheDur;
 window.idbGet=idbGet;window.idbSet=idbSet;window.idbDelete=idbDelete;
 window.getStored=getStored;window.setStored=setStored;window.STORES=STORES;
 async function migrerDepuisLocalStorage(){
@@ -1492,149 +1450,77 @@ await setCachedList('cache_deblocages_'+uid,list);
 return list;
 }catch(e){return[];}
 };
-function compacterAnnonce(a){
-return{
-id:a.id||a.annonceId,
-annonceId:a.annonceId||a.id,
-title:a.title||a.titre||'',
-name:a.name||a.publieurNom||'',
-initials:((a.name||a.publieurNom||'??')+'').substring(0,2).toUpperCase(),
-avatar:a.avatar||a.publieurAvatar||'',
-location:a.location||a.ville||'',
-dateCreation:a.dateCreation||'',
-price:a.price||a.prix||'',
-priceClass:a.priceClass||a.tagClass||'post-tag-autre',
-desc:a.desc||'',
-img:a.img||'',
-cat:a.cat||'autre',
-tag:a.tag||'',
-tagClass:a.tagClass||'post-tag-autre',
-publieurUid:a.publieurUid||a.proprietaireUid||null,
-publieurPhone:a.publieurPhone||'',
-publieurSexe:a.publieurSexe||'',
-jobType:a.jobType||null,
-sousTypeImmo:a.sousTypeImmo||null,
-vues:a.vues||0,
-unlock:true
-};
-}
-function compacterCommerce(data,id){
-var tousProduits=Array.isArray(data.produits)?data.produits:[];
-var produitsApprouves=tousProduits.filter(function(p){if(!p.statut)return true;return p.statut==='approuve';}).map(function(p){return{nom:p.nom||'Article',prix:p.prix||0,prixLabel:p.prixLabel||'',categorie:p.categorie||'',img:p.img||'',statut:'approuve'};});
-var avatarUrl=data.img||'';
-if(!avatarUrl&&produitsApprouves.length>0&&produitsApprouves[0].img){avatarUrl=produitsApprouves[0].img;}
-return{id:id,uid:data.uid||null,nom:data.nom||data.nomCommerce||'Commerce',type:data.type||'Commerce',ville:data.ville||'RDC',quartier:data.quartier||'',adresse:data.adresse||'',horaires:data.horaires||'Ouvert',description:data.description||'Découvrez notre catalogue.',telephone:data.telephone||'',whatsapp:data.whatsapp||data.whatsappCommercial||data.telephone||'',whatsappCommercial:data.whatsappCommercial||data.whatsapp||data.telephone||'',img:data.img||avatarUrl,avatar:avatarUrl,emoji:data.emoji||'🏪',produits:produitsApprouves,dateCreation:data.dateCreation||'',vues:data.vues||0};
-}
-var _lastFetchAnnonces=0;
-var _lastFetchCommerces=0;
-var _lastOnlineFetch=0;
-async function chargerAnnoncesFirestoreReel(){
+window.chargerCommercesFirestore=async function(forceRefresh){
+if(!forceRefresh){var cached=await getCachedList('cache_commerces');if(cached&&Array.isArray(cached)&&cached.length>0)return cached;}
 try{
-var q=query(collection(db,'annonces'),limit(FETCH_PAGE_SIZE));
-var snap=await getDocs(q);
-var nouvelles=[];
-snap.forEach(function(d){
-var data=d.data();
-if(data.actif===false)return;
-if(data.statut&&data.statut!=='approuve')return;
-var obj={};for(var k in data){obj[k]=data[k];}
-obj.id=d.id;obj.annonceId=d.id;
-nouvelles.push(compacterAnnonce(obj));
-});
-nouvelle_s = null;
-var ancienCache=await getCachedList('cache_annonces')||[];
-var idsVus=new Set();
-var fusion=[];
-nouvelles.forEach(function(a){if(!idsVus.has(a.annonceId)){fusion.push(a);idsVus.add(a.annonceId);}});
-ancienCache.forEach(function(a){if(!idsVus.has(a.annonceId)){fusion.push(a);idsVus.add(a.annonceId);}});
-if(fusion.length>CACHE_MAX_POSTS)fusion=fusion.slice(0,CACHE_MAX_POSTS);
-var limite=Date.now()-PURGE_AGE;
-fusion=fusion.filter(function(a){if(!a.dateCreation)return true;return new Date(a.dateCreation).getTime()>limite;});
-await setCachedList('cache_annonces',fusion);
-return fusion;
-}catch(e){
-return await getCachedList('cache_annonces')||[];
-}
-}
-async function chargerCommercesFirestoreReel(){
-try{
-var q=query(collection(db,'commerces'),limit(FETCH_PAGE_SIZE));
-var snap=await getDocs(q);
+var snap=await getDocs(collection(db,'commerces'));
 var commerces=[];
 snap.forEach(function(d){
 var data=d.data();
-if(data.statut&&data.statut!=='approuve')return;
-commerces.push(compacterCommerce(data,d.id));
+if(data.statut==='approuve'){
+var tousProduits=Array.isArray(data.produits)?data.produits:[];
+var produitsApprouves=tousProduits.filter(function(p){if(!p.statut)return true;return p.statut==='approuve';});
+var avatarUrl=data.img||'';
+if(!avatarUrl&&produitsApprouves.length>0&&produitsApprouves[0].img){avatarUrl=produitsApprouves[0].img;}
+commerces.push({id:d.id,uid:data.uid||null,nom:data.nom||data.nomCommerce||'',type:data.type||'Autres',ville:data.ville||'',quartier:data.quartier||'',adresse:data.adresse||'',horaires:data.horaires||'08h - 20h',description:data.description||'Découvrez notre catalogue.',telephone:data.telephone||'',whatsapp:data.whatsapp||data.whatsappCommercial||data.telephone||'',whatsappCommercial:data.whatsappCommercial||data.whatsapp||data.telephone||'',img:data.img||avatarUrl,avatar:avatarUrl,emoji:data.emoji||'🏪',produits:produitsApprouves,dateCreation:data.dateCreation||'',vues:data.vues||0});
+}
 });
 commerces.sort(function(a,b){return(b.dateCreation||'').localeCompare(a.dateCreation||'');});
-var ancienCache=await getCachedList('cache_commerces')||[];
-var idsVus=new Set();
-var fusion=[];
-commerces.forEach(function(c){if(!idsVus.has(c.id)){fusion.push(c);idsVus.add(c.id);}});
-ancienCache.forEach(function(c){if(!idsVus.has(c.id)){fusion.push(c);idsVus.add(c.id);}});
-if(fusion.length>500)fusion=fusion.slice(0,500);
-await setCachedList('cache_commerces',fusion);
-return fusion;
-}catch(e){
-return await getCachedList('cache_commerces')||[];
-}
-}
+await setCachedList('cache_commerces',commerces);
+return commerces;
+}catch(e){var cached=await getCachedList('cache_commerces');return cached||[];}
+};
 window.chargerAnnoncesFirestore=async function(forceRefresh){
-if(!forceRefresh){var c=await getCachedList('cache_annonces');if(c&&Array.isArray(c)&&c.length>0)return c;}
-return chargerAnnoncesFirestoreReel();
-};
-window.chargerCommercesFirestore=async function(forceRefresh){
-if(!forceRefresh){var c=await getCachedList('cache_commerces');if(c&&Array.isArray(c)&&c.length>0)return c;}
-return chargerCommercesFirestoreReel();
-};
-async function chargerAnnoncesIntelligent(force){
-var now=Date.now();
-if(!force&&(now-_lastFetchAnnonces)<FETCH_MIN_INTERVAL){return await getCachedList('cache_annonces')||[];}
-_lastFetchAnnonces=now;
-return chargerAnnoncesFirestoreReel();
-}
-async function chargerCommercesIntelligent(force){
-var now=Date.now();
-if(!force&&(now-_lastFetchCommerces)<FETCH_MIN_INTERVAL){return await getCachedList('cache_commerces')||[];}
-_lastFetchCommerces=now;
-return chargerCommercesFirestoreReel();
-}
-async function purgerVieuxPosts(){
+if(!forceRefresh){var cached=await getCachedList('cache_annonces');if(cached&&Array.isArray(cached)&&cached.length>0)return cached;}
 try{
-var cache=await getCachedList('cache_annonces');
-if(!cache||!cache.length)return;
-var limite=Date.now()-PURGE_AGE;
-var filtre=cache.filter(function(a){if(!a.dateCreation)return true;return new Date(a.dateCreation).getTime()>limite;});
-if(filtre.length!==cache.length){await setCachedList('cache_annonces',filtre);}
-}catch(e){}
-}
-window.purgerVieuxPosts=purgerVieuxPosts;
-window.chargerAnnoncesIntelligent=chargerAnnoncesIntelligent;
-window.chargerCommercesIntelligent=chargerCommercesIntelligent;
-window.compacterAnnonce=compacterAnnonce;
-window.compacterCommerce=compacterCommerce;
+var snap=await getDocs(collection(db,'annonces'));
+var annonces=[];
+snap.forEach(function(d){
+var data=d.data();
+if(data.actif===false)return;
+if(data.statut!=='approuve')return;
+var nomPublieur=data.publieurNom||'Utilisateur NeTubeX';
+var typePublieur=data.publieurType||'user';
+var imagesArr=Array.isArray(data.images)&&data.images.length>0?data.images:(data.img?[data.img]:[]);
+var imgPrincipale=imagesArr[0]||data.img||'';
+annonces.push({id:d.id,annonceId:d.id,title:data.titre||'',name:nomPublieur,initials:nomPublieur.substring(0,2).toUpperCase(),avatar:data.publieurAvatar||'',location:data.ville||'',dateCreation:data.dateCreation||'',time:data.dateCreation?new Date(data.dateCreation).toLocaleDateString('fr-FR',{day:'2-digit',month:'short'}):'Récemment',price:data.prix||'',priceClass:data.tagClass||'post-tag-autre',desc:data.desc||'',img:imgPrincipale,images:imagesArr,cat:data.cat||'autre',tag:data.tag||'',tagClass:data.tagClass||'post-tag-autre',unlock:true,urgence:false,publieurType:typePublieur,publieurUid:data.proprietaireUid||null,publieurBoutique:data.publieurBoutique||null,publieurPhone:data.publieurPhone||'',isCommerce:typePublieur==='commerce',vues:data.vues||0,publieurParrainage:data.publieurParrainage||null,publieurSexe:data.publieurSexe||'',jobType:data.jobType||null,sousTypeImmo:data.sousTypeImmo||null});
+});
+annonces.sort(function(a,b){return(b.dateCreation||'').localeCompare(a.dateCreation||'');});
+await setCachedList('cache_annonces',annonces);
+return annonces;
+}catch(e){var cached=await getCachedList('cache_annonces');return cached||[];}
+};
+window.uploadImageAnnonce=async function(file){
+if(!window.CURRENT_ACCOUNT_REF)throw new Error('Non connecté');
+if(!file)throw new Error('Aucun fichier');
+var compressedFile=await window.picrd.compress(file,900,0.75);
+var path='annonces/'+window.CURRENT_ACCOUNT_REF.id+'/'+Date.now()+'_'+Math.random().toString(36).slice(2,7)+'.webp';
+var sRef=storageRef(storage,path);
+await uploadBytes(sRef,compressedFile);
+return await getDownloadURL(sRef);
+};
 window.creerAnnonce=async function(data,coordonnees,paiement){
 if(!paiement||(!paiement.gratuit&&(!paiement.transactionId||!paiement.numeroEnvoi))){throw new Error('Preuve obligatoire');}
 var annonceId='ANN-'+Date.now()+'-'+Math.random().toString(36).slice(2,7);
 var annonceData={titre:data.titre||'',desc:data.desc||'',ville:data.ville||'',quartier:data.quartier||'',prix:data.prix||'',img:data.img||'',images:Array.isArray(data.images)?data.images:(data.img?[data.img]:[]),cat:data.cat||'autre',tag:data.tag||'',tagClass:data.tagClass||'',proprietaireUid:data.proprietaireUid||null,publieurNom:data.publieurNom||'',publieurAvatar:data.publieurAvatar||'',publieurType:data.publieurType||'user',publieurBoutique:data.publieurBoutique||null,publieurPhone:data.publieurPhone||'',publieurVille:data.publieurVille||'',publieurParrainage:data.publieurParrainage||null,publieurSexe:data.publieurSexe||'',jobType:data.jobType||null,sousTypeImmo:data.sousTypeImmo||null,dateCreation:new Date().toISOString(),actif:false,statut:'en_attente',vues:0};
 if(paiement.gratuit){annonceData.paiement={gratuit:true,montant:0};}
-else{annonceData.paiement={transactionId:paiement.transactionId,numeroEnvoi:paiement.numeroEnvoi,montant:paiement.montant||500,destinataire:'+243976953045',datePaiement:new Date().toISOString()};}
+else{annonceData.paiement={transactionId:paiement.transactionId,numeroEnvoi:paiement.numeroEnvoi,montant:paiement.montant||400,destinataire:'+243976953045',datePaiement:new Date().toISOString()};}
 await setDoc(doc(db,'annonces',annonceId),annonceData);
 await setDoc(doc(db,'annonces',annonceId,'prive','contact'),{nom:coordonnees.nom||'',adresse:coordonnees.adresse||'',telephone:coordonnees.telephone||'',email:coordonnees.email||''});
 if(data.proprietaireUid){try{await updateDoc(doc(db,'user_stats',data.proprietaireUid),{nbAnnonces:increment(1),nbEnAttente:increment(1),derniereMiseAJour:new Date().toISOString()});}catch(e){}}
-await invaliderCacheDoux('cache_annonces');
+await invaliderCache('cache_annonces');
 return{annonceId:annonceId};
 };
 window.creerDemandeBoutique=async function(data){
 var demandeId='DEM-'+Date.now()+'-'+Math.random().toString(36).slice(2,7);
 await setDoc(doc(db,'demandes_boutiques',demandeId),Object.assign({},data,{statut:'en_attente',dateCreation:new Date().toISOString()}));
-await invaliderCacheDoux('cache_commerces');
+await invaliderCache();
 return{demandeId:demandeId};
 };
 window.creerDeblocage=async function(uid,annonceId,transactionId,montant,numeroEnvoi){
 var key=uid+'_'+annonceId;
-await setDoc(doc(db,'deblocages',key),{uid:uid,annonceId:annonceId,statut:'en_attente',montant:montant||500,transactionId:transactionId,numeroEnvoi:numeroEnvoi,destinataire:'+243976953045',dateDemande:new Date().toISOString(),dateValidation:null,coordonnees:null});
-await invaliderCacheDur('cache_deblocages_'+uid);
+await setDoc(doc(db,'deblocages',key),{uid:uid,annonceId:annonceId,statut:'en_attente',montant:montant||400,transactionId:transactionId,numeroEnvoi:numeroEnvoi,destinataire:'+243976953045',dateDemande:new Date().toISOString(),dateValidation:null,coordonnees:null});
+await invaliderCache('cache_deblocages_'+uid);
 return{success:true,key:key};
 };
 window.incrementerVuesAnnonceFirestore=async function(annonceId,proprietaireUid){
@@ -1688,11 +1574,6 @@ var _feedLoading=false;
 var _feedExhausted=false;
 var _feedRenderedCount=0;
 var _feedDebounceTimer=null;
-var _feedLoopCount=0;
-var _feedSeenIds=new Set();
-var _feedCycleItems=[];
-var _feedCycleIndex=0;
-var MAX_POSTS_DOM=60;
 var detailFsActive=false;
 var searchEnCours=false;
 var lastScrollY=0;
@@ -1705,7 +1586,6 @@ var SOUS_TYPE_IMMO=null;
 var MAX_PUBLISH_IMAGES=3;
 var MAX_IMAGE_SIZE_MB=5;
 var _sessionEnCours=true;
-var _sessionReady=false;
 var _dernierQuery={q:'',ville:''};
 var _derniersResultats=[];
 var _searchTabActive='all';
@@ -1871,11 +1751,11 @@ function isLoggedIn(){return CURRENT_ACCOUNT!==null&&CURRENT_ACCOUNT.id!==undefi
 function copyText(t){if(!t)return;if(navigator.clipboard&&navigator.clipboard.writeText&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){showToast('✅ Copié');}).catch(function(){fallbackCopy(t);});}else{fallbackCopy(t);}}
 function fallbackCopy(t){try{var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('✅ Copié');}catch(e){showToast('Erreur');}}
 function requireLogin(a,cb){
-if(!_sessionReady){
+if(_sessionEnCours){
 var essais=0;
 var attente=setInterval(function(){
 essais++;
-if(_sessionReady||essais>50){
+if(!_sessionEnCours||essais>30){
 clearInterval(attente);
 if(isLoggedIn()){if(cb)cb();}
 else{showAccountModal('Connectez-vous pour continuer.',cb);}
@@ -1970,14 +1850,8 @@ arreterPolling();
 if(_debloques_timer){clearInterval(_debloques_timer);_debloques_timer=null;}
 CURRENT_ACCOUNT=null;window.CURRENT_ACCOUNT_REF=null;CURRENT_COMMERCANT=null;CURRENT_COMMERCE=null;
 cart=[];DEBLOCAGES_MEMORY=[];DEBLOCAGES_DIRTY=true;DEBLOCAGES_LAST_FETCH=0;
-try{
-await window.idbDelete(window.STORES.account,'current');
-await window.idbDelete(window.STORES.boutique,'current');
-await window.idbDelete(window.STORES.commerce,'current');
-await window.invaliderCacheDur('cache_annonces');
-await window.invaliderCacheDur('cache_commerces');
-}catch(e){}
-try{localStorage.removeItem('ntx_account_backup');}catch(e){}
+try{await window.idbDelete(window.STORES.account,'current');await window.idbDelete(window.STORES.boutique,'current');await window.idbDelete(window.STORES.commerce,'current');await window.idbDelete('config','cache_annonces');await window.idbDelete('config','cache_commerces');}catch(e){}
+try{localStorage.clear();sessionStorage.clear();}catch(e){}
 showToast('Déconnecté');
 go('index');
 }
@@ -2070,23 +1944,6 @@ html+='<div class="fb-post-skeleton"><div class="sk-row"><div class="sk-avatar">
 feed.innerHTML=html;
 }
 function masquerSkeletonsFeed(){var feed=document.getElementById('mainFeed');if(!feed)return;var sk=feed.querySelectorAll('.fb-post-skeleton');sk.forEach(function(el){el.remove();});}
-function construireNouveauCycle(exclureIds){
-var tous=_construireFeedItems();
-var nouveaux=[];
-var dejaVus=[];
-tous.forEach(function(item){
-var id=item.data.annonceId||item.data.commerceId||item.data.id;
-if(exclureIds&&exclureIds.has(id)){dejaVus.push(item);}
-else{nouveaux.push(item);}
-});
-function melanger(arr){
-for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp;}
-return arr;
-}
-melanger(nouveaux);
-melanger(dejaVus);
-return nouveaux.concat(dejaVus);
-}
 function _construireFeedItems(){
 var items=[];
 var seed=String(Date.now())+Math.random();
@@ -2106,14 +1963,6 @@ return items;
 function getFeedItems(){if(!_nextFeedOrder){_nextFeedOrder=_construireFeedItems();}return _nextFeedOrder;}
 function toggleDesc(id,btn){var el=document.getElementById(id);if(!el)return;if(btn.getAttribute('data-state')==='collapsed'){el.style.maxHeight=el.scrollHeight+'px';el.classList.add('expanded');btn.setAttribute('data-state','expanded');btn.textContent='Voir moins';setTimeout(function(){el.style.maxHeight='';},320);}else{el.style.maxHeight=el.scrollHeight+'px';requestAnimationFrame(function(){el.classList.remove('expanded');el.style.maxHeight='';});btn.setAttribute('data-state','collapsed');btn.textContent='Voir plus';}}
 function verifierDescriptions(){var descs=document.querySelectorAll('.fb-post-desc');descs.forEach(function(el){var btn=document.getElementById(el.id+'-btn');if(!btn)return;el.style.webkitLineClamp='unset';el.style.display='block';var hr=el.scrollHeight;el.style.webkitLineClamp='';el.style.display='';var ht=el.clientHeight;if(hr>ht+4){btn.style.display='inline-block';}else{btn.style.display='none';}});}
-function limiterTailleDOM(feed){
-var posts=feed.querySelectorAll('.fb-post');
-if(posts.length<=MAX_POSTS_DOM)return;
-var aSupprimer=posts.length-MAX_POSTS_DOM;
-for(var i=0;i<aSupprimer;i++){
-if(posts[i]&&posts[i].parentNode){posts[i].parentNode.removeChild(posts[i]);}
-}
-}
 function renderOffreCard(p){
 if(p.commerce){
 var media=p.img?'<div class="fb-post-media"><img src="'+p.img+'" alt="" loading="lazy" decoding="async"></div>':'';
@@ -2192,73 +2041,54 @@ function renderFeedBatch(page){
 var feed=document.getElementById('mainFeed');
 if(!feed)return;
 if(_feedLoading)return;
-if(_feedCycleItems.length===0){
-_feedCycleItems=construireNouveauCycle(_feedSeenIds);
-_feedCycleIndex=0;
-}
-if(_feedCycleIndex>=_feedCycleItems.length){
-_feedLoopCount++;
-_feedSeenIds.clear();
-_feedCycleItems=construireNouveauCycle(null);
-_feedCycleIndex=0;
-}
-var start=_feedCycleIndex;
-var end=Math.min(start+FEED_PER_PAGE,_feedCycleItems.length);
-var lot=_feedCycleItems.slice(start,end);
-if(lot.length===0)return;
+if(_feedExhausted)return;
+var items=getFeedItems();
+var start=page*FEED_PER_PAGE;
+var end=Math.min(start+FEED_PER_PAGE,items.length);
+if(start>=items.length){_feedExhausted=true;return;}
 _feedLoading=true;
-if(page===0&&feed.children.length===0){feed.innerHTML='';_feedRenderedCount=0;}
-masquerSkeletonsFeed();
+if(page===0){feed.innerHTML='';_feedRenderedCount=0;}
+else{masquerSkeletonsFeed();}
 var html='';
-lot.forEach(function(item){
-html+=renderOffreCard(item.data);
-var id=item.data.annonceId||item.data.commerceId||item.data.id;
-if(id)_feedSeenIds.add(id);
-});
+for(var i=start;i<end;i++){html+=renderOffreCard(items[i].data);}
 var temp=document.createElement('div');
 temp.innerHTML=html;
 var frag=document.createDocumentFragment();
 while(temp.firstChild){frag.appendChild(temp.firstChild);}
 feed.appendChild(frag);
-_feedCycleIndex=end;
-_feedRenderedCount+=lot.length;
-limiterTailleDOM(feed);
+_feedRenderedCount+=(end-start);
 requestAnimationFrame(function(){_feedLoading=false;setTimeout(verifierDescriptions,60);});
 }
 function initFeed(){
 _feedLoading=false;
+_feedExhausted=false;
 _feedRenderedCount=0;
 feedPage=0;
-_nextFeedOrder=null;
-_feedCycleItems=[];
-_feedCycleIndex=0;
-_feedSeenIds.clear();
-_feedLoopCount=0;
 afficherSkeletonsFeed(4);
-setTimeout(function(){masquerSkeletonsFeed();renderFeedBatch(0);feedPage=1;},100);
+setTimeout(function(){masquerSkeletonsFeed();renderFeedBatch(0);feedPage=1;},220);
 var s=document.getElementById('feedSentinel');
 if(s&&'IntersectionObserver' in window){
 if(_feedObserver)_feedObserver.disconnect();
 _feedObserver=new IntersectionObserver(function(entries){
 entries.forEach(function(e){
 if(!e.isIntersecting)return;
-if(_feedLoading)return;
+if(_feedLoading||_feedExhausted)return;
 if(_feedDebounceTimer)clearTimeout(_feedDebounceTimer);
-_feedDebounceTimer=setTimeout(function(){renderFeedBatch(feedPage);feedPage++;},60);
+_feedDebounceTimer=setTimeout(function(){renderFeedBatch(feedPage);feedPage++;},80);
 });
-},{root:null,rootMargin:'1500px 0px',threshold:0});
+},{root:null,rootMargin:'600px 0px',threshold:0});
 _feedObserver.observe(s);
 }
 if(!window._feedScrollFallbackAttached){
 window._feedScrollFallbackAttached=true;
 window.addEventListener('scroll',function(){
-if(_feedLoading)return;
+if(_feedLoading||_feedExhausted)return;
 if(currentTab!=='index')return;
 var doc=document.documentElement;
 var scrollBottom=doc.scrollHeight-(window.scrollY+window.innerHeight);
-if(scrollBottom<1500){
+if(scrollBottom<500){
 if(_feedDebounceTimer)clearTimeout(_feedDebounceTimer);
-_feedDebounceTimer=setTimeout(function(){renderFeedBatch(feedPage);feedPage++;},100);
+_feedDebounceTimer=setTimeout(function(){renderFeedBatch(feedPage);feedPage++;},120);
 }
 },{passive:true});
 }
@@ -2270,6 +2100,7 @@ function lancerOffreImmobilier(){if(!CURRENT_ACCOUNT){requireLogin('publier',fun
 function go(page,param){
 var pp=['index','commerces','jobs','immobilier','comment'];
 if(pp.indexOf(page)===-1&&!CURRENT_ACCOUNT){requireLogin('accéder',function(){go(page,param);});return;}
+if(currentTab==='index'&&page!=='index'){_nextFeedOrder=_construireFeedItems();rafraichirDonneesSilencieusement();}
 currentTab=page;
 document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
 var el=document.getElementById('page-'+page);
@@ -2290,11 +2121,7 @@ if(page==='jobs'){renderJobsFeed();}
 if(page==='immobilier'){var sub=document.querySelector('.immobilier-subtab.active');renderImmobilierFeed(sub?sub.getAttribute('data-sub')||'all':'all');}
 if(page==='category'){CURRENT_CATEGORY=(!param||param==='all')?'autre':param;renderCategoryFeed(CURRENT_CATEGORY);var cpb=document.getElementById('catPublishBtn');if(cpb){var cn=(!param||param==='all')?'autre':param;cpb.style.display=(cn==='autre')?'':'none';}}
 if(page==='publish'){var cat=(!param||param==='all')?'autre':param;var type='autre';if(cat==='immobilier'||cat==='location'||cat==='parcelle')type='immobilier';else if(cat==='job'||cat==='jobs')type='jobs';setTimeout(function(){ouvrirPublishPourCategorie(type);},50);}
-if(page==='commerces'){
-renderCommercesGrid();
-var cnt=document.getElementById('commercesCount');
-if(cnt)cnt.textContent=COMMERCES_DATA.length+' établissement'+(COMMERCES_DATA.length>1?'s':'');
-}
+if(page==='commerces'){demarrerBarreProgression();refreshCommerces().finally(function(){terminerBarreProgression();});}
 if(page==='dashboard-utilisateur'){demarrerPollingDeblocages();if(CURRENT_ACCOUNT){var n=document.getElementById('profilNom');var p=document.getElementById('profilPhone');if(n)n.textContent=CURRENT_ACCOUNT.name;if(p)p.textContent=CURRENT_ACCOUNT.phone;}appliquerThemeProfilUI();var pd=document.getElementById('profilPhoneDisplay');if(pd)pd.textContent=CURRENT_ACCOUNT?CURRENT_ACCOUNT.phone||'—':'—';verifierBoutiqueEtAfficher();renderMesStats();renderMesPublications();if(CURRENT_ACCOUNT){DEBLOCAGES_DIRTY=true;rafraichirTousDeblocages();setTimeout(function(){renderDeblocagesEnAttente();},300);}}
 if(!_navFromPopstate){try{history.pushState({page:page,param:param||null},'',null);}catch(e){}}
 _navFromPopstate=false;
@@ -2342,20 +2169,14 @@ if(results.length===0){feed.innerHTML='<div style="text-align:center;padding:60p
 feed.innerHTML=results.map(renderOffreCard).join('');
 setTimeout(verifierDescriptions,50);
 }
-async function refreshCommerces(){try{var c=await window.chargerCommercesIntelligent(false);if(Array.isArray(c)&&c.length>0)COMMERCES_DATA=c;renderCommercesGrid();}catch(e){}}
+async function refreshCommerces(){try{var c=await window.chargerCommercesFirestore(false);COMMERCES_DATA=c;renderCommercesGrid();}catch(e){}}
 function renderCommercesGrid(){
 var g=document.getElementById('commercesGrid');
 if(!g)return;
 if(!COMMERCES_DATA||COMMERCES_DATA.length===0){g.innerHTML='<div style="text-align:center;padding:60px 20px;background:var(--bg-card);border:1px dashed var(--border-primary);border-radius:16px;grid-column:1/-1"><div style="font-size:48px;opacity:.35;margin-bottom:14px">🏪</div><h3 style="font-size:17px;font-weight:800;color:var(--text-primary);margin-bottom:6px">Aucun commerce</h3></div>';return;}
 var html='';
 COMMERCES_DATA.forEach(function(c){
-if(!c)return;
-if(!c.type)c.type='Commerce';
-if(!c.nom)c.nom='Commerce';
-if(!c.ville)c.ville='RDC';
-if(!c.horaires)c.horaires='Ouvert';
-if(!c.description)c.description='Découvrez notre catalogue.';
-if(c.vues===undefined)c.vues=0;
+if(!c||!c.type)return;
 var isS=(c.type==='Services / Atelier'||c.type==='services');
 var img=c.img||c.avatar||'';
 var imgHtml=img?'<img src="'+img+'" alt="" loading="lazy" decoding="async">':'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;opacity:.4">'+((c.emoji)||'🏪')+'</div>';
@@ -2530,7 +2351,7 @@ if(ae){
 ae.innerHTML='';
 if(o.unlock){
 var den=DEBLOCAGES_MEMORY.find(function(d){return d.annonceId===aId&&d.statut==='en_attente';});
-var fd=(o.cat==='parcelle'||o.cat==='location')?1000:500;
+var fd=(o.cat==='parcelle'||o.cat==='location')?5000:400;
 if(den){ae.innerHTML='<button class="detail-primary-btn gold" disabled><i class="fa-solid fa-hourglass-half"></i> En attente</button>';}
 else{ae.innerHTML='<button class="detail-primary-btn gold" onclick="requireLogin(\'unlock\',()=>openUnlock())"><i class="fa-solid fa-key"></i> Débloquer — '+fd.toLocaleString('fr-FR')+' FC</button>';}
 }
@@ -2704,7 +2525,7 @@ function openUnlock(){
 if(!CURRENT_OFFRE)return;
 var aId=CURRENT_OFFRE.annonceId||CURRENT_OFFRE.id;
 if(!aId){showToast('Annonce introuvable');return;}
-var f=(CURRENT_OFFRE.cat==='parcelle'||CURRENT_OFFRE.cat==='location')?1000:500;
+var f=(CURRENT_OFFRE.cat==='parcelle'||CURRENT_OFFRE.cat==='location')?5000:400;
 var me=document.getElementById('unlockMontant');
 var mi=document.getElementById('unlockMontantInline');
 if(me)me.textContent=f.toLocaleString('fr-FR')+' FC';
@@ -2726,7 +2547,7 @@ var neRaw=(document.getElementById('unlockNumEnvoi')||{}).value?document.getElem
 if(!tx||tx.length<6){showToast('ID Transaction invalide');return;}
 if(!isValidePhone243(neRaw)){showToast('Numéro invalide');return;}
 var ne=formatPhone243(neRaw);
-var f=window._pendingDeblocageMontant||500;
+var f=window._pendingDeblocageMontant||400;
 var sb=document.querySelector('#unlock-modal button[type="submit"]');
 if(sb){sb.disabled=true;sb.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Envoi…';}
 try{
@@ -2821,7 +2642,7 @@ var pa=document.getElementById('publishPricingAmount');
 var hint=document.getElementById('publishPricingHint');
 if(!publishCat){if(is)is.style.display='none';if(pa)pa.textContent='—';return;}
 var ei=(publishCat==='parcelle'||publishCat==='location');
-var m=ei?'1.000 FC':'500 FC';
+var m=ei?'5 000 FC':'400 FC';
 if(pa)pa.textContent=m;
 if(hint)hint.textContent=publishCat==='job'?"Offre d'emploi":(ei?'Immobilier':'Autres');
 if(is)is.style.display='block';
@@ -2853,7 +2674,7 @@ var d=(document.getElementById('publishDescription')||{}).value?document.getElem
 d=nettoyerTextePourSaisie(d);
 if(!t||!v||!p||!d||!a){showToast('Remplissez tous les champs');return;}
 var ei=(publishCat==='parcelle'||publishCat==='location');
-var m=ei?1000:500;
+var m=ei?5000:400;
 var jt=null;
 if(publishCat==='job'){if(!jobContract){showToast('Choisissez CDI ou CDD');return;}jt=jobContract;}
 window._pendingMontant=m;
@@ -2881,7 +2702,7 @@ var payload={titre:d.titre,desc:d.desc,ville:d.ville,quartier:'',prix:d.prix,img
 if(d.cat==='job'&&d.jobType){payload.jobType=d.jobType;}
 if(d.cat==='parcelle'&&d.sousTypeImmo){payload.sousTypeImmo=d.sousTypeImmo;}
 if(d.cat==='location'&&d.sousTypeImmo){payload.sousTypeImmo=d.sousTypeImmo;}
-await window.creerAnnonce(payload,{nom:pn,adresse:d.adresse,telephone:CURRENT_ACCOUNT.phone||'',email:CURRENT_ACCOUNT.emailAuth||''},{transactionId:tx,numeroEnvoi:ne,montant:window._pendingMontant||500,destinataire:'+243976953045'});
+await window.creerAnnonce(payload,{nom:pn,adresse:d.adresse,telephone:CURRENT_ACCOUNT.phone||'',email:CURRENT_ACCOUNT.emailAuth||''},{transactionId:tx,numeroEnvoi:ne,montant:window._pendingMontant||400,destinataire:'+243976953045'});
 try{await idbDelete('stats','stats_user_'+CURRENT_ACCOUNT.id);}catch(e){}
 try{await idbDelete('stats','pubs_user_'+CURRENT_ACCOUNT.id);}catch(e){}
 fermerPaiementModalSilencieux();
@@ -3038,7 +2859,7 @@ var imgUrl=_produitImageData;
 if(CURRENT_ACCOUNT){try{var blob=await fetch(_produitImageData).then(function(r){return r.blob();});var file=new File([blob],'produit_'+Date.now()+'.webp',{type:'image/webp'});var path='commerces/'+CURRENT_ACCOUNT.id+'/'+Date.now()+'_'+Math.random().toString(36).slice(2,7)+'.webp';var sRef=storageRef(storage,path);await uploadBytes(sRef,file);imgUrl=await getDownloadURL(sRef);}catch(e){}}
 produits.push({nom:nom,prix:prix,prixLabel:unit,categorie:cat,img:imgUrl,statut:'en_attente',dateAjout:new Date().toISOString()});
 await setDoc(ref,{produits:produits},{merge:true});
-await window.invaliderCacheDoux('cache_commerces');
+await window.invaliderCache('cache_commerces');
 try{await idbDelete('stats','commerce_user_'+CURRENT_ACCOUNT.id);}catch(e){}
 fermerAjouterProduit();
 document.getElementById('produitPendingModal').classList.add('active');
@@ -3064,7 +2885,7 @@ if(!produits[_editProduitIndex]){showToast('Introuvable');return;}
 produits[_editProduitIndex].prix=np;
 produits[_editProduitIndex].prixLabel=nu;
 await setDoc(ref,{produits:produits},{merge:true});
-await window.invaliderCacheDoux('cache_commerces');
+await window.invaliderCache('cache_commerces');
 try{await idbDelete('stats','commerce_user_'+CURRENT_ACCOUNT.id);}catch(e){}
 fermerChangerPrix();
 showToast('✅ Prix mis à jour');
@@ -3084,7 +2905,7 @@ var data=snap.data();
 var produits=data.produits||[];
 produits.splice(_editProduitIndex,1);
 await setDoc(ref,{produits:produits},{merge:true});
-await window.invaliderCacheDoux('cache_commerces');
+await window.invaliderCache('cache_commerces');
 try{await idbDelete('stats','commerce_user_'+CURRENT_ACCOUNT.id);}catch(e){}
 await incrementerSuppressions();
 fermerSupprimerProduit();
@@ -3103,16 +2924,15 @@ window.addEventListener('resize',function(){setTimeout(verifierDescriptions,150)
 document.addEventListener('contextmenu',function(e){if(e.target.tagName==='IMG'){e.preventDefault();return false;}});
 var _scrollingTimer;
 window.addEventListener('scroll',function(){document.body.classList.add('is-scrolling');if(_scrollingTimer)clearTimeout(_scrollingTimer);_scrollingTimer=setTimeout(function(){document.body.classList.remove('is-scrolling');},150);},{passive:true});
-function demarrerPolling(){if(_pollingTimer)return;if(!_appEstActive)return;if(currentTab==='index')return;_pollingTimer=setInterval(rafraichirDonneesSilencieusement,600000);}
+function demarrerPolling(){if(_pollingTimer)return;if(!_appEstActive)return;if(currentTab==='index')return;_pollingTimer=setInterval(rafraichirDonneesSilencieusement,300000);}
 function arreterPolling(){if(_pollingTimer){clearInterval(_pollingTimer);_pollingTimer=null;}}
 async function rafraichirDonneesSilencieusement(){
 if(!navigator.onLine||document.hidden||currentTab==='index'||currentTab==='catalogue')return;
 try{
-var annonces=await window.chargerAnnoncesIntelligent(false);
-var commerces=await window.chargerCommercesIntelligent(false);
-if(Array.isArray(annonces)&&annonces.length>0)ANNONCES_DATA=annonces;
-if(Array.isArray(commerces)&&commerces.length>0)COMMERCES_DATA=commerces;
-_nextFeedOrder=null;
+var annonces=await window.chargerAnnoncesFirestore(false);
+var commerces=await window.chargerCommercesFirestore(false);
+ANNONCES_DATA=annonces;
+COMMERCES_DATA=commerces;
 if(currentTab==='category'){renderCategoryFeed(CURRENT_CATEGORY||'autre');}
 if(currentTab==='commerces'){renderCommercesGrid();}
 if(currentTab==='jobs'){renderJobsFeed();}
@@ -3120,105 +2940,42 @@ if(currentTab==='immobilier'){var sub=document.querySelector('.immobilier-subtab
 }catch(e){}
 }
 document.addEventListener('visibilitychange',function(){if(document.hidden){_appEstActive=false;arreterPolling();}else{_appEstActive=true;demarrerPolling();}});
-window.addEventListener('online',async function(){
-var now=Date.now();
-if(now-_lastOnlineFetch<ONLINE_COOLDOWN)return;
-_lastOnlineFetch=now;
-try{
-var annonces=await window.chargerAnnoncesIntelligent(true);
-var commerces=await window.chargerCommercesIntelligent(true);
-if(Array.isArray(annonces)&&annonces.length>0)ANNONCES_DATA=annonces;
-if(Array.isArray(commerces)&&commerces.length>0)COMMERCES_DATA=commerces;
-_nextFeedOrder=null;
-_feedCycleItems=[];
-_feedCycleIndex=0;
-_feedLoading=false;
-feedPage=0;
-if(currentTab==='index')initFeed();
-if(currentTab==='commerces')renderCommercesGrid();
-if(currentTab==='jobs')renderJobsFeed();
-if(currentTab==='immobilier'){var sub=document.querySelector('.immobilier-subtab.active');renderImmobilierFeed(sub?sub.getAttribute('data-sub')||'all':'all');}
-if(currentTab==='category')renderCategoryFeed(CURRENT_CATEGORY||'autre');
-}catch(e){}
-});
+window.addEventListener('online',function(){if(_appEstActive)rafraichirDonneesSilencieusement();});
 window.addEventListener('offline',function(){arreterPolling();});
+(async function(){
+function dg(e){var k=(e.key||'').toLowerCase();if(e.key==='F12')return true;if(e.ctrlKey&&e.shiftKey){if(k==='i'||k==='j'||k==='c'||k==='k')return true;if(k==='s')return true;}if(e.ctrlKey&&!e.shiftKey&&!e.altKey){if(k==='u')return true;if(k==='s')return true;if(k==='p')return true;}return false;}
+document.addEventListener('keydown',function(e){if(dg(e)){e.preventDefault();e.stopPropagation();return false;}},{capture:true});
+})();
 async function verifierCompteLocal(){
 if(!CURRENT_ACCOUNT||!CURRENT_ACCOUNT.id)return;
 var lastCheck=sessionStorage.getItem('ntx_last_verify');
 if(lastCheck&&(Date.now()-parseInt(lastCheck,10))<600000)return;
 try{
 var s=await window.getDocRef(window.docRef(window.db,'netubers',CURRENT_ACCOUNT.id));
-if(s.exists()){
-var d=s.data();
-if(d.actif===false){
-showToast('Compte désactivé');
-CURRENT_ACCOUNT=null;
-CURRENT_COMMERCANT=null;
-window.CURRENT_ACCOUNT_REF=null;
-try{await window.idbDelete(window.STORES.account,'current');}catch(e){}
-try{await window.logoutUser();}catch(e){}
-go('index');
-return;
-}
-CURRENT_ACCOUNT.boutique=d.boutique||null;
-CURRENT_ACCOUNT.code=d.code||CURRENT_ACCOUNT.code;
-CURRENT_ACCOUNT.phone=d.phone||CURRENT_ACCOUNT.phone;
-CURRENT_ACCOUNT.nomComplet=d.nomComplet||CURRENT_ACCOUNT.nomComplet;
-CURRENT_ACCOUNT.name=CURRENT_ACCOUNT.nomComplet;
-CURRENT_ACCOUNT.sexe=d.sexe||CURRENT_ACCOUNT.sexe||'';
-CURRENT_ACCOUNT.avatarUrl=d.avatarUrl||CURRENT_ACCOUNT.avatarUrl||'';
-window.CURRENT_ACCOUNT_REF=CURRENT_ACCOUNT;
-try{await window.setStored(window.STORES.account,'current',CURRENT_ACCOUNT);}catch(e){}
-}
+if(s.exists()){var d=s.data();if(d.actif===false){showToast('Compte désactivé');CURRENT_ACCOUNT=null;CURRENT_COMMERCANT=null;}else{CURRENT_ACCOUNT.boutique=d.boutique||null;CURRENT_ACCOUNT.code=d.code||CURRENT_ACCOUNT.code;CURRENT_ACCOUNT.phone=d.phone||CURRENT_ACCOUNT.phone;CURRENT_ACCOUNT.nomComplet=d.nomComplet||CURRENT_ACCOUNT.nomComplet;CURRENT_ACCOUNT.name=CURRENT_ACCOUNT.nomComplet;CURRENT_ACCOUNT.sexe=d.sexe||CURRENT_ACCOUNT.sexe||'';}}
 sessionStorage.setItem('ntx_last_verify',Date.now().toString());
 }catch(e){}
 }
 async function restaurerSession(){
-try{
-var stored=await window.getStored(window.STORES.account,'current',null);
-if(stored&&stored.id){
-CURRENT_ACCOUNT=stored;
-window.CURRENT_ACCOUNT_REF=stored;
-CURRENT_COMMERCANT=await window.getStored(window.STORES.boutique,'current',null);
-return true;
-}
-var ls=localStorage.getItem('ntx_account_backup');
-if(ls){
-try{
-var parsed=JSON.parse(ls);
-if(parsed&&parsed.id){
-CURRENT_ACCOUNT=parsed;
-window.CURRENT_ACCOUNT_REF=parsed;
-await window.setStored(window.STORES.account,'current',parsed);
-return true;
-}
-}catch(e){}
-}
-}catch(e){}
+try{var stored=await window.getStored(window.STORES.account,'current',null);if(stored&&stored.id){CURRENT_ACCOUNT=stored;window.CURRENT_ACCOUNT_REF=stored;CURRENT_COMMERCANT=await window.getStored(window.STORES.boutique,'current',null);return true;}}catch(e){}
 return false;
 }
 async function restaurerDepuisFirebaseAuth(user){
 if(!user||!user.uid)return false;
 try{
-var data=null;
-for(var i=0;i<3;i++){
-data=await window.getUserDoc(user.uid);
-if(data)break;
-await new Promise(function(r){setTimeout(r,1000);});
-}
+var data=await window.getUserDoc(user.uid);
 if(!data)return false;
 if(data.actif===false)return false;
 CURRENT_ACCOUNT={id:user.uid,uid:user.uid,nom:data.nom||'',prenom:data.prenom||'',nomComplet:data.nomComplet||'',name:data.nomComplet||data.nom||'',sexe:data.sexe||'',phone:data.phone||'',code:data.code||'',emailAuth:data.emailAuth||user.email||'',email:data.emailAuth||user.email||'',ville:data.ville||'',role:data.role||'user',boutique:data.boutique||null,parrainage:data.parrainage||null,actif:data.actif!==false,dateCreation:data.dateCreation||'',avatarUrl:data.avatarUrl||''};
 window.CURRENT_ACCOUNT_REF=CURRENT_ACCOUNT;
 try{await window.setStored(window.STORES.account,'current',CURRENT_ACCOUNT);}catch(e){}
-try{localStorage.setItem('ntx_account_backup',JSON.stringify(CURRENT_ACCOUNT));}catch(e){}
 return true;
 }catch(e){return false;}
 }
 async function attendreFirebaseAuth(){
 return new Promise(function(resolve){
 var resolu=false;
-var timer=setTimeout(function(){if(!resolu){resolu=true;resolve(null);}},20000);
+var timer=setTimeout(function(){if(!resolu){resolu=true;resolve(null);}},3000);
 try{
 if(window.onAuthStateChangedRef){
 window.onAuthStateChangedRef(auth,function(user){if(resolu)return;resolu=true;clearTimeout(timer);resolve(user);});
@@ -3229,89 +2986,35 @@ window.onAuthStateChangedRef(auth,function(user){if(resolu)return;resolu=true;cl
 document.addEventListener('DOMContentLoaded',async function(){
 await window.migrerDepuisLocalStorage();
 await restaurerSession();
-if(!CURRENT_ACCOUNT){
-var fbUser=await attendreFirebaseAuth();
-if(fbUser){await restaurerDepuisFirebaseAuth(fbUser);}
-}
-if(!CURRENT_ACCOUNT){await restaurerSession();}
+if(!CURRENT_ACCOUNT){var fbUser=await attendreFirebaseAuth();if(fbUser){await restaurerDepuisFirebaseAuth(fbUser);if(!CURRENT_ACCOUNT){await restaurerSession();}}}
 if(CURRENT_ACCOUNT){window.CURRENT_ACCOUNT_REF=CURRENT_ACCOUNT;}
-_sessionReady=true;
-if(CURRENT_ACCOUNT){verifierCompteLocal().catch(function(){});}
+await verifierCompteLocal();
 var ey=document.getElementById('footerYear');
 if(ey)ey.textContent=new Date().getFullYear();
 demarrerBarreProgression();
 afficherSkeletonsFeed(4);
 try{
-var cachedCommerces=await window.getCachedList('cache_commerces');
-var cachedAnnonces=await window.getCachedList('cache_annonces');
-if(cachedCommerces&&Array.isArray(cachedCommerces)&&cachedCommerces.length>0){COMMERCES_DATA=cachedCommerces;}
-if(cachedAnnonces&&Array.isArray(cachedAnnonces)&&cachedAnnonces.length>0){ANNONCES_DATA=cachedAnnonces;}
-if(COMMERCES_DATA.length>0||ANNONCES_DATA.length>0){
+var co=await window.chargerCommercesFirestore(false);
+var an=await window.chargerAnnoncesFirestore(false);
+COMMERCES_DATA=co;
+ANNONCES_DATA=an;
 renderCommercesGrid();
 masquerSkeletonsFeed();
-_nextFeedOrder=null;
 initFeed();
 terminerBarreProgression();
-}
-}catch(e){}
-(function rafraichirEnArrierePlan(){
-setTimeout(async function(){
-var nAnnonces=null;
-var nCommerces=null;
-try{
-var co=await window.chargerCommercesIntelligent(false);
-if(Array.isArray(co)&&co.length>0){COMMERCES_DATA=co;nCommerces=co.length;}
-}catch(e){}
-try{
-var an=await window.chargerAnnoncesIntelligent(false);
-if(Array.isArray(an)&&an.length>0){ANNONCES_DATA=an;nAnnonces=an.length;}
-}catch(e){}
-if(nAnnonces!==null||nCommerces!==null){
-try{
-renderCommercesGrid();
-masquerSkeletonsFeed();
-_nextFeedOrder=null;
-_feedLoading=false;
-feedPage=0;
-if(currentTab==='index')initFeed();
-terminerBarreProgression();
-}catch(e){}
-}else{
-terminerBarreProgression();
-masquerSkeletonsFeed();
-}
-},3000);
-})();
-try{updateCart();}catch(e){}
-try{appliquerThemeProfilUI();}catch(e){}
-try{go('index');}catch(e){}
-try{attacherTousPhones();}catch(e){}
-try{attacherNettoyageDescription();}catch(e){}
-setTimeout(purgerVieuxPosts,10000);
+updateCart();
+appliquerThemeProfilUI();
+go('index');
+attacherTousPhones();
+attacherNettoyageDescription();
 _sessionEnCours=false;
+}catch(err){masquerSkeletonsFeed();terminerBarreProgression();_sessionEnCours=false;}
 });
 if(window.onAuthStateChangedRef){
 window.onAuthStateChangedRef(auth,async function(user){
 if(_sessionEnCours)return;
-if(user&&user.uid){
-if(!CURRENT_ACCOUNT||CURRENT_ACCOUNT.id!==user.uid){
-await restaurerDepuisFirebaseAuth(user);
-}else{
-try{
-var freshData=await window.getUserDoc(user.uid);
-if(freshData&&freshData.actif!==false){
-CURRENT_ACCOUNT.phone=freshData.phone||CURRENT_ACCOUNT.phone;
-CURRENT_ACCOUNT.nomComplet=freshData.nomComplet||CURRENT_ACCOUNT.nomComplet;
-CURRENT_ACCOUNT.name=CURRENT_ACCOUNT.nomComplet;
-CURRENT_ACCOUNT.sexe=freshData.sexe||CURRENT_ACCOUNT.sexe;
-CURRENT_ACCOUNT.boutique=freshData.boutique||CURRENT_ACCOUNT.boutique;
-window.CURRENT_ACCOUNT_REF=CURRENT_ACCOUNT;
-try{await window.setStored(window.STORES.account,'current',CURRENT_ACCOUNT);}catch(e){}
-try{localStorage.setItem('ntx_account_backup',JSON.stringify(CURRENT_ACCOUNT));}catch(e){}
-}
-}catch(e){}
-}
-}
+if(user&&user.uid){if(!CURRENT_ACCOUNT||CURRENT_ACCOUNT.id!==user.uid){await restaurerDepuisFirebaseAuth(user);}}
+else{if(CURRENT_ACCOUNT){CURRENT_ACCOUNT=null;window.CURRENT_ACCOUNT_REF=null;CURRENT_COMMERCANT=null;try{await window.idbDelete(window.STORES.account,'current');}catch(e){}}}
 });
 }
 window.go=go;
