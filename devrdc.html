@@ -1486,6 +1486,17 @@ await setCachedList('cache_annonces',annonces);
 return annonces;
 }catch(e){var cached=await getCachedList('cache_annonces');return cached||[];}
 };
+window.lireConfigApp=async function(){
+try{
+var snap=await getDoc(doc(db,'config','app'));
+if(!snap.exists())return{livraisonActive:true,retraitActive:true};
+var d=snap.data();
+return{
+livraisonActive:d.livraisonActive!==false,
+retraitActive:d.retraitActive!==false
+};
+}catch(e){return{livraisonActive:true,retraitActive:true};}
+};
 window.uploadImageAnnonce=async function(file){
 if(!window.CURRENT_ACCOUNT_REF)throw new Error('Non connecté');
 if(!file)throw new Error('Aucun fichier');
@@ -1538,6 +1549,7 @@ var CURRENT_CATEGORY=null;
 var CURRENT_COMMERCANT=null;
 var COMMERCES_DATA=[];
 var ANNONCES_DATA=[];
+var CONFIG_APP={livraisonActive:true,retraitActive:true};
 var DEBLOCAGES_MEMORY=[];
 var DEBLOCAGES_LAST_FETCH=0;
 var DEBLOCAGES_DIRTY=true;
@@ -1984,7 +1996,7 @@ function melanger(arr){for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.ran
 melanger(nouveaux);melanger(dejaVus);
 return nouveaux.concat(dejaVus);
 }
-function renderOffreCard(p){
+function renderOffreCard(p,contexte){
 if(p.commerce){
 var media=p.img?'<div class="fb-post-media"><img src="'+p.img+'" alt="" loading="lazy" decoding="async"></div>':'';
 var clics='<div class="fb-post-views"><i class="fa-solid fa-eye"></i> '+(p.vues||0)+' Vue'+((p.vues||0)===1?'':'s')+'</div>';
@@ -1994,8 +2006,13 @@ var dH='<p class="fb-post-desc" id="'+dId+'">'+esc(descPropre)+'</p>';
 dH+='<button class="fb-post-desc-toggle" id="'+dId+'-btn" onclick="event.stopPropagation();toggleDesc(\''+dId+'\',this)" data-state="collapsed" style="display:none">Voir plus</button>';
 return '<article class="fb-post" onclick=\'openCatalogue("'+p.commerceId+'")\'><div class="fb-post-head">'+getAvatarHTML(p,52)+'<div style="min-width:0;overflow:hidden"><div class="fb-post-name">'+p.name+getVerifiedBadgeHTML(p)+'</div><div class="fb-post-sub">'+p.location+' · '+p.time+'</div></div><span class="feed-badge '+(p.tagClass||'post-tag-commerce')+'">'+(p.tag||'🏪')+'</span></div><div class="fb-post-body"><h3 class="fb-post-title">'+p.title+'</h3>'+dH+'</div><div class="fb-post-body fb-post-price-row"><div class="fb-post-price" style="background:#dbeafe;color:#1e40af;margin-top:0"><i class="fa-solid fa-bag-shopping"></i> '+p.price+'</div>'+clics+'</div>'+media+'<div class="fb-post-actions"><button class="fb-action-btn" onclick="event.stopPropagation();sharePostFromFeed('+JSON.stringify(p).replace(/"/g,'&quot;')+')"><i class="fa-solid fa-share-nodes"></i> Partager</button><button class="fb-action-btn fb-action-primary" onclick="event.stopPropagation();openCatalogue(\''+p.commerceId+'\')"><i class="fa-solid fa-bag-shopping"></i> Voir catalogue</button></div></article>';
 }
+var catLower=String(p.cat||'').toLowerCase().trim();
+var estJob;
+if(contexte==='jobs'){estJob=true;}
+else if(contexte==='immobilier'||contexte==='autre'){estJob=false;}
+else{estJob=(catLower==='job'||catLower==='jobs'||catLower==='emploi'||catLower==='emplois'||catLower==='offre-emploi'||catLower==='offre emploi'||catLower==='recrutement'||catLower==='recruteur');}
 var actionBtn;
-if(p.cat==='job'){
+if(estJob){
 var telJob=(p.publieurPhone||'').replace(/[^\d]/g,'');
 var aId=p.annonceId||p.id||'';
 var pUid=p.publieurUid||'';
@@ -2009,7 +2026,7 @@ if(dv){actionBtn=shareBtn+'<button class="fb-action-btn" style="background:#ecfd
 else if(de){actionBtn=shareBtn+'<button class="fb-action-btn" style="background:#fef3c7;color:#92400e;font-weight:900;margin-left:auto;border:1.5px solid #fcd34d"><i class="fa-solid fa-hourglass-half"></i> En cours</button>';}
 else{actionBtn=shareBtn+'<button class="fb-action-btn fb-action-primary" onclick="event.stopPropagation();openDetail('+JSON.stringify(p).replace(/'/g,"&#39;")+')"><i class="fa-solid fa-lock"></i> Débloquer</button>';}
 }else{
-actionBtn='<button class="fb-action-btn fb-action-primary" onclick="event.stopPropagation();requireLogin(\'postuler\',()=>showToast(\'Candidature envoyée\'))"><i class="fa-solid fa-paper-plane"></i> Postuler</button>';
+actionBtn='<button class="fb-action-btn" onclick="event.stopPropagation();sharePostFromFeed('+JSON.stringify(p).replace(/"/g,'&quot;')+')"><i class="fa-solid fa-share-nodes"></i> Partager</button><button class="fb-action-btn fb-action-primary" onclick="event.stopPropagation();openDetail('+JSON.stringify(p).replace(/'/g,"&#39;")+')"><i class="fa-solid fa-lock"></i> Débloquer</button>';
 }
 var media=p.img?'<div class="fb-post-media"><img src="'+p.img+'" alt="" loading="lazy" decoding="async" onerror="this.parentElement.style.display=\'none\'"></div>':'';
 var ta=p.dateCreation?tempsRelatif(p.dateCreation):(p.time||'Récemment');
@@ -2019,7 +2036,7 @@ var descPropre=nettoyerTexte(p.desc);
 var dH='<p class="fb-post-desc" id="'+dId+'">'+esc(descPropre)+'</p>';
 dH+='<button class="fb-post-desc-toggle" id="'+dId+'-btn" onclick="event.stopPropagation();toggleDesc(\''+dId+'\',this)" data-state="collapsed" style="display:none">Voir plus</button>';
 var articleOnclick='';
-if(p.cat==='job'){articleOnclick='';}
+if(estJob){articleOnclick='';}
 else{articleOnclick=' onclick=\'openDetail('+JSON.stringify(p).replace(/'/g,"&#39;")+')\'';}
 return '<article class="fb-post" data-annonce-id="'+(p.annonceId||p.id||'')+'" data-cat="'+(p.cat||'autre')+'"'+articleOnclick+'><div class="fb-post-head">'+getAvatarHTML(p,52)+'<div style="min-width:0;overflow:hidden"><div class="fb-post-name">'+p.name+getVerifiedBadgeHTML(p)+getJobBadgeHTML(p)+'</div><div class="fb-post-sub">'+p.location+' · '+ta+'</div></div><span class="feed-badge '+(p.tagClass||'post-tag-autre')+'">'+(p.tag||'AUTRE')+'</span></div><div class="fb-post-body"><h3 class="fb-post-title">'+p.title+'</h3>'+dH+'</div>'+(p.price?'<div class="fb-post-body fb-post-price-row"><div class="fb-post-price '+p.priceClass+'" style="margin-top:0">'+p.price+'</div>'+cB+'</div>':'')+media+'<div class="fb-post-actions">'+actionBtn+'</div></article>';
 }
@@ -2176,7 +2193,7 @@ if(cible==='autre'){return RESERVES.indexOf(c)===-1;}
 return c===cible;
 });
 if(r.length===0){f.innerHTML='<div style="text-align:center;padding:60px 20px;background:var(--bg-card);border:1px dashed var(--border-primary);border-radius:16px;margin:16px"><div style="font-size:48px;opacity:.35;margin-bottom:14px">📭</div><h3 style="font-size:17px;font-weight:800">Aucune annonce</h3></div>';return;}
-f.innerHTML=r.map(renderOffreCard).join('');
+f.innerHTML=r.map(function(x){return renderOffreCard(x,'autre');}).join('');
 setTimeout(verifierDescriptions,50);
 }
 function filterCategory(el,cat){
@@ -2196,7 +2213,7 @@ var jobs=ANNONCES_DATA.filter(function(p){if(!p)return false;var c=String(p.cat|
 var q=(document.getElementById('jobsSearchInput')||{}).value||'';
 if(q.trim()){q=normaliser(q);jobs=jobs.filter(function(j){var txt=normaliser((j.title||'')+' '+(j.desc||'')+' '+(j.location||''));return txt.indexOf(q)!==-1;});}
 if(jobs.length===0){feed.innerHTML='<div style="text-align:center;padding:60px 20px;background:var(--bg-card);border:1px dashed var(--border-primary);border-radius:16px;margin:16px"><div style="font-size:48px;opacity:.35;margin-bottom:14px">💼</div><h3 style="font-size:17px;font-weight:800;color:var(--text-primary)">Aucune offre</h3></div>';return;}
-feed.innerHTML=jobs.map(renderOffreCard).join('');
+feed.innerHTML=jobs.map(function(j){return renderOffreCard(j,'jobs');}).join('');
 setTimeout(verifierDescriptions,50);
 }
 function filtrerJobs(){renderJobsFeed();}
@@ -2213,7 +2230,7 @@ else if(sub==='location'){results=ANNONCES_DATA.filter(function(p){return LOC.in
 else if(sub==='parcelle'){results=ANNONCES_DATA.filter(function(p){return PAR.indexOf(_c(p))!==-1||String((p&&p.sousTypeImmo)||'').toLowerCase()==='parcelle';});}
 else{results=ANNONCES_DATA.filter(function(p){return _c(p)===String(sub).toLowerCase();});}
 if(results.length===0){feed.innerHTML='<div style="text-align:center;padding:60px 20px;background:var(--bg-card);border:1px dashed var(--border-primary);border-radius:16px;margin:16px"><div style="font-size:48px;opacity:.35;margin-bottom:14px">🏠</div><h3 style="font-size:17px;font-weight:800">Aucune annonce</h3></div>';return;}
-feed.innerHTML=results.map(renderOffreCard).join('');
+feed.innerHTML=results.map(function(x){return renderOffreCard(x,'immobilier');}).join('');
 setTimeout(verifierDescriptions,50);
 }
 async function refreshCommerces(){try{var c=await window.chargerCommercesFirestore(false);COMMERCES_DATA=c;renderCommercesGrid();}catch(e){}}
@@ -2404,7 +2421,7 @@ if(ae){
 ae.innerHTML='';
 if(o.unlock){
 var den=DEBLOCAGES_MEMORY.find(function(d){return d.annonceId===aId&&d.statut==='en_attente';});
-var fd=(o.cat==='parcelle'||o.cat==='location')?1000:400;
+var fd=(o.cat==='parcelle'||o.cat==='location'||o.cat==='terrain'||o.cat==='logement')?1000:400;
 if(den){ae.innerHTML='<button class="detail-primary-btn gold" disabled><i class="fa-solid fa-hourglass-half"></i> En attente</button>';}
 else{ae.innerHTML='<button class="detail-primary-btn gold" onclick="requireLogin(\'unlock\',()=>openUnlock())"><i class="fa-solid fa-key"></i> Débloquer — '+fd.toLocaleString('fr-FR')+' FC</button>';}
 }
@@ -2543,17 +2560,54 @@ if(to)to.textContent=t.toLocaleString('fr-FR')+' FC';
 function refreshAddButtons(){var bs=document.querySelectorAll('[data-product-name]');bs.forEach(function(b){var n=b.getAttribute('data-product-name');var ic=cart.some(function(i){return i.name===n;});if(ic){b.classList.add('added');b.innerHTML='<i class="fa-solid fa-check"></i> Ajouté';b.disabled=true;}else{b.classList.remove('added');b.innerHTML='<i class="fa-solid fa-cart-shopping"></i> Ajouter';b.disabled=false;}});}
 function changeQty(i,d){cart[i].qty+=d;if(cart[i].qty<=0){cart.splice(i,1);}updateCart();refreshAddButtons();}
 function removeItem(i){cart.splice(i,1);updateCart();refreshAddButtons();}
-function openCart(){if(!CURRENT_ACCOUNT){requireLogin('panier',function(){openCart();});return;}CART_PAGE=1;cartGoToPage(1);genererEtAfficherCodeCommande();document.getElementById('cart-drawer').classList.add('active');document.getElementById('cart-overlay').classList.add('active');document.body.style.overflow='hidden';}
+function appliquerConfigCommandes(){
+var btnRetrait=document.getElementById('orderTypeRetrait');
+var btnLivraison=document.getElementById('orderTypeLivraison');
+if(btnRetrait){
+if(CONFIG_APP.retraitActive){btnRetrait.style.display='';btnRetrait.disabled=false;}
+else{btnRetrait.style.display='none';btnRetrait.disabled=true;}
+}
+if(btnLivraison){
+if(CONFIG_APP.livraisonActive){btnLivraison.style.display='';btnLivraison.disabled=false;}
+else{btnLivraison.style.display='none';btnLivraison.disabled=true;}
+}
+if(ORDER_TYPE==='livraison'&&!CONFIG_APP.livraisonActive){
+if(CONFIG_APP.retraitActive){selectOrderType('retrait');}
+}else if(ORDER_TYPE==='retrait'&&!CONFIG_APP.retraitActive){
+if(CONFIG_APP.livraisonActive){selectOrderType('livraison');}
+}
+}
+function openCart(){
+if(!CURRENT_ACCOUNT){requireLogin('panier',function(){openCart();});return;}
+(async function(){
+try{CONFIG_APP=await window.lireConfigApp();}catch(e){}
+appliquerConfigCommandes();
+})();
+CART_PAGE=1;cartGoToPage(1);genererEtAfficherCodeCommande();
+document.getElementById('cart-drawer').classList.add('active');
+document.getElementById('cart-overlay').classList.add('active');
+document.body.style.overflow='hidden';
+}
 function closeCart(){document.getElementById('cart-drawer').classList.remove('active');document.getElementById('cart-overlay').classList.remove('active');document.body.style.overflow='';}
-function selectOrderType(t){ORDER_TYPE=t;var br=document.getElementById('orderTypeRetrait');var bl=document.getElementById('orderTypeLivraison');var fl=document.getElementById('orderTypeFieldsLivraison');if(t==='retrait'){if(br)br.classList.add('selected');if(bl)bl.classList.remove('selected');if(fl)fl.classList.remove('visible');}else{if(bl)bl.classList.add('selected');if(br)br.classList.remove('selected');if(fl)fl.classList.add('visible');}}
+function selectOrderType(t){
+ORDER_TYPE=t;
+var br=document.getElementById('orderTypeRetrait');
+var bl=document.getElementById('orderTypeLivraison');
+var fl=document.getElementById('orderTypeFieldsLivraison');
+if(t==='retrait'){if(br)br.classList.add('selected');if(bl)bl.classList.remove('selected');if(fl)fl.classList.remove('visible');}
+else{if(bl)bl.classList.add('selected');if(br)br.classList.remove('selected');if(fl)fl.classList.add('visible');}
+}
 function submitOrder(){
 if(cart.length===0){showToast('Panier vide');return;}
+if(!CONFIG_APP.livraisonActive&&!CONFIG_APP.retraitActive){showToast('Commandes momentanément indisponibles');return;}
 var n=(document.getElementById('client-nom')||{}).value?document.getElementById('client-nom').value.trim():'';
 var tRaw=(document.getElementById('client-tel')||{}).value?document.getElementById('client-tel').value.trim():'';
 var al=(document.getElementById('client-adresse-livraison')||{}).value?document.getElementById('client-adresse-livraison').value.trim():'';
 var ql=(document.getElementById('client-quartier-livraison')||{}).value?document.getElementById('client-quartier-livraison').value.trim():'';
 if(!n||!tRaw){showToast('Remplissez nom et téléphone');return;}
 if(!isValidePhone243(tRaw)){showToast('Numéro invalide');return;}
+if(ORDER_TYPE==='livraison'&&!CONFIG_APP.livraisonActive){showToast('Livraison indisponible');return;}
+if(ORDER_TYPE==='retrait'&&!CONFIG_APP.retraitActive){showToast('Retrait indisponible');return;}
 if(ORDER_TYPE==='livraison'&&(!al||!ql)){showToast('Remplissez adresse et quartier');return;}
 var t=formatPhone243(tRaw);
 requireLogin('commander',function(){
@@ -2578,7 +2632,8 @@ function openUnlock(){
 if(!CURRENT_OFFRE)return;
 var aId=CURRENT_OFFRE.annonceId||CURRENT_OFFRE.id;
 if(!aId){showToast('Annonce introuvable');return;}
-var f=(CURRENT_OFFRE.cat==='parcelle'||CURRENT_OFFRE.cat==='location')?1000:400;
+var c=String(CURRENT_OFFRE.cat||'').toLowerCase();
+var f=(c==='parcelle'||c==='location'||c==='terrain'||c==='logement'||c==='immobilier')?1000:400;
 var me=document.getElementById('unlockMontant');
 var mi=document.getElementById('unlockMontantInline');
 if(me)me.textContent=f.toLocaleString('fr-FR')+' FC';
@@ -3038,6 +3093,9 @@ await restaurerSession();
 if(!CURRENT_ACCOUNT){var fbUser=await attendreFirebaseAuth();if(fbUser){await restaurerDepuisFirebaseAuth(fbUser);if(!CURRENT_ACCOUNT){await restaurerSession();}}}
 if(CURRENT_ACCOUNT){window.CURRENT_ACCOUNT_REF=CURRENT_ACCOUNT;}
 await verifierCompteLocal();
+try{
+CONFIG_APP=await window.lireConfigApp();
+}catch(e){}
 var ey=document.getElementById('footerYear');
 if(ey)ey.textContent=new Date().getFullYear();
 demarrerBarreProgression();
