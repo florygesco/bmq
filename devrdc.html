@@ -1520,26 +1520,28 @@ unlock:true
 }
 function compacterCommerce(data,id){
 var tousProduits=Array.isArray(data.produits)?data.produits:[];
-var produitsApprouves=tousProduits.filter(function(p){if(!p.statut)return true;return p.statut==='approuve';}).map(function(p){return{nom:p.nom,prix:p.prix,prixLabel:p.prixLabel||'',categorie:p.categorie||'',img:p.img||'',statut:'approuve'};});
+var produitsApprouves=tousProduits.filter(function(p){if(!p.statut)return true;return p.statut==='approuve';}).map(function(p){return{nom:p.nom||'Article',prix:p.prix||0,prixLabel:p.prixLabel||'',categorie:p.categorie||'',img:p.img||'',statut:'approuve'};});
 var avatarUrl=data.img||'';
 if(!avatarUrl&&produitsApprouves.length>0&&produitsApprouves[0].img){avatarUrl=produitsApprouves[0].img;}
-return{id:id,uid:data.uid||null,nom:data.nom||data.nomCommerce||'',type:data.type||'Autres',ville:data.ville||'',quartier:data.quartier||'',adresse:data.adresse||'',horaires:data.horaires||'08h - 20h',description:data.description||'Découvrez notre catalogue.',telephone:data.telephone||'',whatsapp:data.whatsapp||data.whatsappCommercial||data.telephone||'',whatsappCommercial:data.whatsappCommercial||data.whatsapp||data.telephone||'',img:data.img||avatarUrl,avatar:avatarUrl,emoji:data.emoji||'🏪',produits:produitsApprouves,dateCreation:data.dateCreation||'',vues:data.vues||0};
+return{id:id,uid:data.uid||null,nom:data.nom||data.nomCommerce||'Commerce',type:data.type||'Commerce',ville:data.ville||'RDC',quartier:data.quartier||'',adresse:data.adresse||'',horaires:data.horaires||'Ouvert',description:data.description||'Découvrez notre catalogue.',telephone:data.telephone||'',whatsapp:data.whatsapp||data.whatsappCommercial||data.telephone||'',whatsappCommercial:data.whatsappCommercial||data.whatsapp||data.telephone||'',img:data.img||avatarUrl,avatar:avatarUrl,emoji:data.emoji||'🏪',produits:produitsApprouves,dateCreation:data.dateCreation||'',vues:data.vues||0};
 }
 var _lastFetchAnnonces=0;
 var _lastFetchCommerces=0;
 var _lastOnlineFetch=0;
 async function chargerAnnoncesFirestoreReel(){
 try{
-var q=query(collection(db,'annonces'),where('statut','==','approuve'),orderBy('dateCreation','desc'),limit(FETCH_PAGE_SIZE));
+var q=query(collection(db,'annonces'),limit(FETCH_PAGE_SIZE));
 var snap=await getDocs(q);
 var nouvelles=[];
 snap.forEach(function(d){
 var data=d.data();
 if(data.actif===false)return;
+if(data.statut&&data.statut!=='approuve')return;
 var obj={};for(var k in data){obj[k]=data[k];}
 obj.id=d.id;obj.annonceId=d.id;
 nouvelles.push(compacterAnnonce(obj));
 });
+nouvelle_s = null;
 var ancienCache=await getCachedList('cache_annonces')||[];
 var idsVus=new Set();
 var fusion=[];
@@ -1556,10 +1558,14 @@ return await getCachedList('cache_annonces')||[];
 }
 async function chargerCommercesFirestoreReel(){
 try{
-var q=query(collection(db,'commerces'),where('statut','==','approuve'),limit(FETCH_PAGE_SIZE));
+var q=query(collection(db,'commerces'),limit(FETCH_PAGE_SIZE));
 var snap=await getDocs(q);
 var commerces=[];
-snap.forEach(function(d){commerces.push(compacterCommerce(d.data(),d.id));});
+snap.forEach(function(d){
+var data=d.data();
+if(data.statut&&data.statut!=='approuve')return;
+commerces.push(compacterCommerce(data,d.id));
+});
 commerces.sort(function(a,b){return(b.dateCreation||'').localeCompare(a.dateCreation||'');});
 var ancienCache=await getCachedList('cache_commerces')||[];
 var idsVus=new Set();
@@ -1639,7 +1645,6 @@ window.incrementerVuesCommerceFirestore=async function(commerceId){
 if(!commerceId)return false;
 try{await updateDoc(doc(db,'commerces',commerceId),{vues:increment(1)});return true;}catch(e){return false;}
 };
-window.chargerCommercesFirestoreIntelligent=chargerCommercesIntelligent;
 </script>
 <script>
 var _navFromPopstate=false;
@@ -2285,7 +2290,11 @@ if(page==='jobs'){renderJobsFeed();}
 if(page==='immobilier'){var sub=document.querySelector('.immobilier-subtab.active');renderImmobilierFeed(sub?sub.getAttribute('data-sub')||'all':'all');}
 if(page==='category'){CURRENT_CATEGORY=(!param||param==='all')?'autre':param;renderCategoryFeed(CURRENT_CATEGORY);var cpb=document.getElementById('catPublishBtn');if(cpb){var cn=(!param||param==='all')?'autre':param;cpb.style.display=(cn==='autre')?'':'none';}}
 if(page==='publish'){var cat=(!param||param==='all')?'autre':param;var type='autre';if(cat==='immobilier'||cat==='location'||cat==='parcelle')type='immobilier';else if(cat==='job'||cat==='jobs')type='jobs';setTimeout(function(){ouvrirPublishPourCategorie(type);},50);}
-if(page==='commerces'){demarrerBarreProgression();refreshCommerces().finally(function(){terminerBarreProgression();});}
+if(page==='commerces'){
+renderCommercesGrid();
+var cnt=document.getElementById('commercesCount');
+if(cnt)cnt.textContent=COMMERCES_DATA.length+' établissement'+(COMMERCES_DATA.length>1?'s':'');
+}
 if(page==='dashboard-utilisateur'){demarrerPollingDeblocages();if(CURRENT_ACCOUNT){var n=document.getElementById('profilNom');var p=document.getElementById('profilPhone');if(n)n.textContent=CURRENT_ACCOUNT.name;if(p)p.textContent=CURRENT_ACCOUNT.phone;}appliquerThemeProfilUI();var pd=document.getElementById('profilPhoneDisplay');if(pd)pd.textContent=CURRENT_ACCOUNT?CURRENT_ACCOUNT.phone||'—':'—';verifierBoutiqueEtAfficher();renderMesStats();renderMesPublications();if(CURRENT_ACCOUNT){DEBLOCAGES_DIRTY=true;rafraichirTousDeblocages();setTimeout(function(){renderDeblocagesEnAttente();},300);}}
 if(!_navFromPopstate){try{history.pushState({page:page,param:param||null},'',null);}catch(e){}}
 _navFromPopstate=false;
@@ -2333,14 +2342,20 @@ if(results.length===0){feed.innerHTML='<div style="text-align:center;padding:60p
 feed.innerHTML=results.map(renderOffreCard).join('');
 setTimeout(verifierDescriptions,50);
 }
-async function refreshCommerces(){try{var c=await window.chargerCommercesIntelligent(false);COMMERCES_DATA=c;renderCommercesGrid();}catch(e){}}
+async function refreshCommerces(){try{var c=await window.chargerCommercesIntelligent(false);if(Array.isArray(c)&&c.length>0)COMMERCES_DATA=c;renderCommercesGrid();}catch(e){}}
 function renderCommercesGrid(){
 var g=document.getElementById('commercesGrid');
 if(!g)return;
 if(!COMMERCES_DATA||COMMERCES_DATA.length===0){g.innerHTML='<div style="text-align:center;padding:60px 20px;background:var(--bg-card);border:1px dashed var(--border-primary);border-radius:16px;grid-column:1/-1"><div style="font-size:48px;opacity:.35;margin-bottom:14px">🏪</div><h3 style="font-size:17px;font-weight:800;color:var(--text-primary);margin-bottom:6px">Aucun commerce</h3></div>';return;}
 var html='';
 COMMERCES_DATA.forEach(function(c){
-if(!c||!c.type)return;
+if(!c)return;
+if(!c.type)c.type='Commerce';
+if(!c.nom)c.nom='Commerce';
+if(!c.ville)c.ville='RDC';
+if(!c.horaires)c.horaires='Ouvert';
+if(!c.description)c.description='Découvrez notre catalogue.';
+if(c.vues===undefined)c.vues=0;
 var isS=(c.type==='Services / Atelier'||c.type==='services');
 var img=c.img||c.avatar||'';
 var imgHtml=img?'<img src="'+img+'" alt="" loading="lazy" decoding="async">':'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;opacity:.4">'+((c.emoji)||'🏪')+'</div>';
