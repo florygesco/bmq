@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Ma Position GPS</title>
+<meta name="theme-color" content="#1d4ed8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#0f172a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.app{width:100%;max-width:480px;background:#1e293b;border-radius:24px;padding:28px 22px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.header{text-align:center;margin-bottom:24px}
+.header-icon{width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,#3b82f6,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 14px;box-shadow:0 8px 24px rgba(59,130,246,.4)}
+.header h1{font-size:22px;font-weight:900;letter-spacing:-.5px}
+.header p{font-size:14px;color:#94a3b8;margin-top:6px;line-height:1.5}
+.btn{width:100%;padding:18px;border-radius:16px;font-size:16px;font-weight:900;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:10px;transition:transform .1s}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-primary{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 6px 20px rgba(59,130,246,.4)}
+.btn-secondary{background:#334155;color:#fff}
+.btn-success{background:#10b981;color:#fff}
+.btn-spinner{width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.result{margin-top:20px;background:#0f172a;border-radius:18px;padding:18px;border:1px solid #334155}
+.result.hidden{display:none}
+.result-title{font-size:12px;font-weight:900;color:#67e8f9;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.coord-row{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#1e293b;border-radius:12px;margin-bottom:8px;gap:10px}
+.coord-label{font-size:13px;color:#94a3b8;font-weight:700}
+.coord-value{font-family:ui-monospace,Menlo,monospace;font-size:15px;font-weight:900;color:#fff;text-align:right;word-break:break-all}
+.actions{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.error{margin-top:16px;background:#7f1d1d;border:1px solid #dc2626;border-radius:14px;padding:14px 16px;font-size:14px;color:#fecaca;line-height:1.55}
+.error.hidden{display:none}
+.error strong{display:block;margin-bottom:4px;color:#fff}
+.map-link{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;background:#10b981;color:#fff;border-radius:12px;text-decoration:none;font-weight:900;font-size:14px;justify-content:center}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:#10b981;color:#fff;padding:12px 22px;border-radius:999px;font-weight:800;font-size:14px;transition:transform .3s;z-index:100;box-shadow:0 8px 24px rgba(16,185,129,.4)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.footer{margin-top:18px;text-align:center;font-size:12px;color:#64748b;line-height:1.5}
+</style>
+</head>
+<body>
+
+<div class="app">
+<div class="header">
+<div class="header-icon">📍</div>
+<h1>Ma Position GPS</h1>
+<p>Obtenez vos coordonnées exactes en un clic</p>
+</div>
+
+<button class="btn btn-primary" id="btnLocate" onclick="localiser()">
+<span id="btnIcon">📍</span>
+<span id="btnText">Obtenir ma position</span>
+</button>
+
+<div id="result" class="result hidden">
+<div class="result-title">✅ Position trouvée</div>
+<div class="coord-row">
+<span class="coord-label">Latitude</span>
+<span class="coord-value" id="latValue">—</span>
+</div>
+<div class="coord-row">
+<span class="coord-label">Longitude</span>
+<span class="coord-value" id="lngValue">—</span>
+</div>
+<div class="coord-row">
+<span class="coord-label">Précision</span>
+<span class="coord-value" id="accValue">—</span>
+</div>
+<div class="coord-row">
+<span class="coord-label">Heure</span>
+<span class="coord-value" id="timeValue">—</span>
+</div>
+<div class="actions">
+<a id="mapLink" class="map-link" href="#" target="_blank" rel="noopener">
+🗺️ Ouvrir dans Google Maps
+</a>
+<button class="btn btn-secondary" onclick="copierTout()">
+📋 Copier les coordonnées
+</button>
+<button class="btn btn-secondary" onclick="partager()">
+📤 Partager
+</button>
+</div>
+</div>
+
+<div id="error" class="error hidden"></div>
+
+<div class="footer">
+NeTubeX · Localisation sécurisée via votre navigateur
+</div>
+</div>
+
+<div id="toast" class="toast">Copié !</div>
+
+<script>
+var _position = null;
+
+function localiser(){
+  var btn = document.getElementById('btnLocate');
+  var icon = document.getElementById('btnIcon');
+  var text = document.getElementById('btnText');
+  var result = document.getElementById('result');
+  var errBox = document.getElementById('error');
+
+  result.classList.add('hidden');
+  errBox.classList.add('hidden');
+
+  if(!navigator.geolocation){
+    afficherErreur('Non supporté', 'Votre navigateur ne supporte pas la géolocalisation.');
+    return;
+  }
+
+  btn.disabled = true;
+  icon.innerHTML = '<span class="btn-spinner"></span>';
+  text.textContent = 'Localisation en cours…';
+
+  navigator.geolocation.getCurrentPosition(
+    onSuccess,
+    onError,
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+  );
+}
+
+function onSuccess(pos){
+  var btn = document.getElementById('btnLocate');
+  var icon = document.getElementById('btnIcon');
+  var text = document.getElementById('btnText');
+  var result = document.getElementById('result');
+
+  _position = {
+    lat: pos.coords.latitude,
+    lng: pos.coords.longitude,
+    accuracy: Math.round(pos.coords.accuracy),
+    timestamp: new Date().toISOString()
+  };
+
+  document.getElementById('latValue').textContent = _position.lat.toFixed(6);
+  document.getElementById('lngValue').textContent = _position.lng.toFixed(6);
+  document.getElementById('accValue').textContent = '±' + _position.accuracy + ' m';
+  document.getElementById('timeValue').textContent = new Date().toLocaleTimeString('fr-FR');
+
+  var mapsUrl = 'https://www.google.com/maps?q=' + _position.lat + ',' + _position.lng;
+  document.getElementById('mapLink').href = mapsUrl;
+
+  result.classList.remove('hidden');
+
+  btn.disabled = false;
+  icon.textContent = '📍';
+  text.textContent = 'Actualiser ma position';
+}
+
+function onError(err){
+  var btn = document.getElementById('btnLocate');
+  var icon = document.getElementById('btnIcon');
+  var text = document.getElementById('btnText');
+
+  btn.disabled = false;
+  icon.textContent = '📍';
+  text.textContent = 'Réessayer';
+
+  var titre = 'Erreur';
+  var msg = 'Impossible d\'obtenir votre position.';
+
+  if(err.code === 1){
+    titre = 'Autorisation refusée';
+    msg = 'Vous avez refusé l\'accès à votre position. Autorisez la géolocalisation dans les paramètres de votre navigateur.';
+  } else if(err.code === 2){
+    titre = 'Position indisponible';
+    msg = 'Votre position n\'a pas pu être déterminée. Vérifiez que le GPS est activé.';
+  } else if(err.code === 3){
+    titre = 'Délai dépassé';
+    msg = 'La localisation a pris trop de temps. Réessayez.';
+  }
+
+  afficherErreur(titre, msg);
+}
+
+function afficherErreur(titre, msg){
+  var errBox = document.getElementById('error');
+  errBox.innerHTML = '<strong>' + titre + '</strong>' + msg;
+  errBox.classList.remove('hidden');
+}
+
+function copierTout(){
+  if(!_position) return;
+  var txt = 'Ma position GPS :\n' +
+            'Latitude : ' + _position.lat.toFixed(6) + '\n' +
+            'Longitude : ' + _position.lng.toFixed(6) + '\n' +
+            'Précision : ±' + _position.accuracy + ' m\n' +
+            'Maps : https://www.google.com/maps?q=' + _position.lat + ',' + _position.lng;
+
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(function(){
+      afficherToast('✅ Copié !');
+    }).catch(function(){
+      fallbackCopy(txt);
+    });
+  } else {
+    fallbackCopy(txt);
+  }
+}
+
+function fallbackCopy(txt){
+  var ta = document.createElement('textarea');
+  ta.value = txt;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try{
+    document.execCommand('copy');
+    afficherToast('✅ Copié !');
+  } catch(e){
+    afficherToast('❌ Erreur');
+  }
+  document.body.removeChild(ta);
+}
+
+function partager(){
+  if(!_position) return;
+  var txt = 'Ma position GPS : https://www.google.com/maps?q=' + _position.lat + ',' + _position.lng;
+  if(navigator.share){
+    navigator.share({
+      title: 'Ma position GPS',
+      text: txt,
+      url: 'https://www.google.com/maps?q=' + _position.lat + ',' + _position.lng
+    }).catch(function(){});
+  } else {
+    var wa = 'https://wa.me/?text=' + encodeURIComponent(txt);
+    window.open(wa, '_blank');
+  }
+}
+
+var _toastTimer;
+function afficherToast(msg){
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(function(){
+    t.classList.remove('show');
+  }, 2200);
+}
+</script>
+
+</body>
+</html>
