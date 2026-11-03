@@ -162,61 +162,6 @@ const db=getFirestore(app);
 const PUBLITIO_URL="https://api.publit.io/v1/files/create/cbnwpcbP";
 const VIDEO_MAX=500*1024*1024;
 
-function uploadToPublitio(file,onProgress){
-if(!file.type||!file.type.startsWith("video/"))return Promise.reject(new Error("Veuillez sélectionner une vidéo."));
-if(file.size>VIDEO_MAX)return Promise.reject(new Error("La vidéo dépasse 500 Mo."));
-return new Promise(function(resolve,reject){
-var xhr=new XMLHttpRequest();
-var form=new FormData();
-form.append("file",file);
-xhr.upload.onprogress=function(e){if(e.lengthComputable)onProgress(Math.round(e.loaded/e.total*100));};
-xhr.onload=function(){
-if(xhr.status<200||xhr.status>=300){reject(new Error("Échec de l'envoi (HTTP "+xhr.status+")."));return;}
-try{
-var raw=JSON.parse(xhr.responseText);
-if(raw&&raw.success===false){reject(new Error("Publitio : "+((raw.error&&raw.error.message)||"Erreur")));return;}
-var data=(raw&&raw.response)?raw.response:raw;
-var publitioId=data.id||data.publitio_id||null;
-var videoUrl=publitioId?("https://FloryNgenda.publit.io/file/"+publitioId+".mp4"):null;
-var thumbnailUrl=data.url_thumbnail||data.thumbnail_url||null;
-if(!publitioId||!videoUrl){reject(new Error("Réponse Publitio incomplète."));return;}
-resolve({publitioId:publitioId,videoUrl:videoUrl,thumbnailUrl:thumbnailUrl});
-}catch(e){reject(new Error("Réponse Publitio invalide."));}
-};
-xhr.onerror=function(){reject(new Error("Erreur réseau."));};
-xhr.open("POST",PUBLITIO_URL);
-xhr.send(form);
-});
-}
-
-async function convertirEnMP4(file,onProgress){
-var nom=file.name.toLowerCase();
-if(nom.endsWith('.mp4')&&(file.type==='video/mp4'||file.type===''))return file;
-onProgress(0,'Préparation…');
-var FF=window.FFmpeg;
-if(!FF)throw new Error("Convertisseur indisponible.");
-var ffmpeg=FF.createFFmpeg({log:false,corePath:'https://unpkg.com/@ffmpeg/core@0.12.6/dist/ffmpeg-core.js'});
-ffmpeg.setProgress(function(p){if(p&&p.ratio&&p.ratio>0){var pct=10+Math.round(p.ratio*80);onProgress(pct,'Conversion… '+Math.round(p.ratio*100)+' %');}});
-try{
-if(!ffmpeg.isLoaded()){onProgress(3,'Chargement…');await ffmpeg.load();}
-onProgress(8,'Lecture…');
-var extMatch=nom.match(/\.[^.]+$/);
-var inputName='input'+(extMatch?extMatch[0]:'.mov');
-ffmpeg.FS('writeFile',inputName,await FF.fetchFile(file));
-onProgress(10,'Conversion en MP4…');
-await ffmpeg.run('-i',inputName,'-c:v','libx264','-preset','ultrafast','-crf','28','-c:a','aac','-b:a','128k','-movflags','+faststart','output.mp4');
-onProgress(92,'Finalisation…');
-var data=ffmpeg.FS('readFile','output.mp4');
-var mp4Blob=new Blob([data.buffer],{type:'video/mp4'});
-if(mp4Blob.size<1024)throw new Error("Conversion échouée.");
-var mp4File=new File([mp4Blob],(nom.replace(/\.[^.]+$/,'')||'video')+'.mp4',{type:'video/mp4'});
-try{ffmpeg.FS('unlink',inputName);}catch(e){}
-try{ffmpeg.FS('unlink','output.mp4');}catch(e){}
-onProgress(100,'✅ Terminée');
-return mp4File;
-}catch(err){throw new Error("Conversion impossible : "+(err.message||err)+".");}
-}
-
 let currentUser=null;
 let selectedFile=null;
 let unsubFeed=null;
@@ -308,21 +253,77 @@ var f=e.target.files&&e.target.files[0];
 if(!f)return;
 if(!f.type.startsWith('video/')){toast('Veuillez choisir une vidéo.');e.target.value='';return;}
 if(f.size>VIDEO_MAX){toast('Vidéo trop lourde (max 500 Mo).');e.target.value='';return;}
-var isMP4=f.name.toLowerCase().endsWith('.mp4');
-if(!isMP4&&f.size>80*1024*1024){toast('Vidéo non-MP4 trop lourde. Convertissez-la en MP4.');e.target.value='';return;}
+if(!f.name.toLowerCase().endsWith('.mp4')&&f.size>80*1024*1024){toast('Vidéo non-MP4 trop lourde.');e.target.value='';return;}
 selectedFile=f;
 var nom=f.name.length>32?f.name.slice(0,29)+'…':f.name;
-document.getElementById('videoPickerLabel').textContent=(isMP4?'✅ ':'⏳ ')+nom+(isMP4?'':' (sera converti)');
+document.getElementById('videoPickerLabel').textContent='✅ '+nom;
 };
+
+function uploadToPublitio(file,onProgress){
+if(!file.type||!file.type.startsWith("video/"))return Promise.reject(new Error("Veuillez sélectionner une vidéo."));
+if(file.size>VIDEO_MAX)return Promise.reject(new Error("La vidéo dépasse 500 Mo."));
+return new Promise(function(resolve,reject){
+var xhr=new XMLHttpRequest();
+var form=new FormData();
+form.append("file",file);
+xhr.upload.onprogress=function(e){if(e.lengthComputable)onProgress(Math.round(e.loaded/e.total*100));};
+xhr.onload=function(){
+if(xhr.status<200||xhr.status>=300){reject(new Error("Échec de l'envoi."));return;}
+try{
+var raw=JSON.parse(xhr.responseText);
+if(raw&&raw.success===false){reject(new Error("Envoi refusé."));return;}
+var data=(raw&&raw.response)?raw.response:raw;
+var publitioId=data.id||data.publitio_id||null;
+var videoUrl=publitioId?("https://FloryNgenda.publit.io/file/"+publitioId+".mp4"):null;
+var thumbnailUrl=data.url_thumbnail||data.thumbnail_url||null;
+if(!publitioId||!videoUrl){reject(new Error("Réponse incomplète."));return;}
+resolve({publitioId:publitioId,videoUrl:videoUrl,thumbnailUrl:thumbnailUrl});
+}catch(e){reject(new Error("Réponse invalide."));}
+};
+xhr.onerror=function(){reject(new Error("Erreur réseau."));};
+xhr.open("POST",PUBLITIO_URL);
+xhr.send(form);
+});
+}
+
+async function attendreFFmpeg(timeoutMs){
+var debut=Date.now();
+while(!window.FFmpeg&&Date.now()-debut<timeoutMs){await new Promise(function(r){setTimeout(r,200);});}
+return window.FFmpeg||null;
+}
+
+async function convertirEnMP4(file,onProgress){
+var nom=file.name.toLowerCase();
+if(nom.endsWith('.mp4')&&(file.type==='video/mp4'||file.type===''))return file;
+onProgress(0,'Préparation…');
+var FF=await attendreFFmpeg(15000);
+if(!FF){await new Promise(function(r){setTimeout(r,2000);});FF=await attendreFFmpeg(10000);}
+if(!FF)throw new Error("Convertisseur indisponible. Vérifiez la connexion.");
+var ffmpeg=FF.createFFmpeg({log:false,corePath:'https://unpkg.com/@ffmpeg/core@0.12.6/dist/ffmpeg-core.js'});
+ffmpeg.setProgress(function(p){if(p&&p.ratio&&p.ratio>0){var pct=10+Math.round(p.ratio*80);onProgress(pct,'Conversion… '+Math.round(p.ratio*100)+' %');}});
+try{
+if(!ffmpeg.isLoaded()){onProgress(3,'Chargement…');await ffmpeg.load();}
+onProgress(8,'Lecture…');
+var extMatch=nom.match(/\.[^.]+$/);
+var inputName='input'+(extMatch?extMatch[0]:'.mov');
+ffmpeg.FS('writeFile',inputName,await FF.fetchFile(file));
+onProgress(10,'Conversion en MP4…');
+await ffmpeg.run('-i',inputName,'-c:v','libx264','-preset','ultrafast','-crf','28','-c:a','aac','-b:a','128k','-movflags','+faststart','output.mp4');
+onProgress(92,'Finalisation…');
+var data=ffmpeg.FS('readFile','output.mp4');
+var mp4Blob=new Blob([data.buffer],{type:'video/mp4'});
+if(mp4Blob.size<1024)throw new Error("Conversion échouée.");
+var mp4File=new File([mp4Blob],(nom.replace(/\.[^.]+$/,'')||'video')+'.mp4',{type:'video/mp4'});
+try{ffmpeg.FS('unlink',inputName);}catch(e){}
+try{ffmpeg.FS('unlink','output.mp4');}catch(e){}
+onProgress(100,'✅ Terminée');
+return mp4File;
+}catch(err){throw new Error("Conversion impossible. Réessayez avec un fichier plus court.");}
+}
 
 window.lancerPublication=async function(){
 if(!currentUser){toast('Connectez-vous.');return;}
 if(!selectedFile){toast('Choisissez une vidéo.');return;}
-var isNonMP4=!selectedFile.name.toLowerCase().endsWith('.mp4');
-if(isNonMP4){
-var c=confirm('⏳ Cette vidéo va être convertie en MP4.\n\nDurée : 1 à 5 min.\nNe fermez pas l\'app.\n\nContinuer ?');
-if(!c)return;
-}
 var desc=document.getElementById('videoDescription').value.trim();
 var btn=document.getElementById('videoPublishBtn');
 var zone=document.getElementById('videoProgressZone');
@@ -334,7 +335,7 @@ zone.style.display='block';
 bar.style.width='0%';
 txt.textContent='0 %';
 btn.disabled=true;
-btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Préparation…';
+btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Traitement…';
 try{
 var fichierFinal=await convertirEnMP4(selectedFile,function(pct,msg){bar.style.width=pct+'%';txt.textContent=msg||(pct+' %');});
 btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Envoi…';
@@ -355,12 +356,13 @@ validViews:0
 if(pub.thumbnailUrl)videoData.thumbnailUrl=pub.thumbnailUrl;
 Object.keys(videoData).forEach(function(k){if(videoData[k]===undefined)delete videoData[k];});
 await addDoc(collection(db,'videos'),videoData);
-toast('✅ Vidéo publiée !');
+toast('✅ Vidéo publiée');
 fermerPublier();
-setTimeout(function(){switchTab('feed');},500);
+setTimeout(function(){switchTab('feed');},400);
 }catch(e){
 errBox.textContent=e.message||'Échec de la publication.';
 errBox.style.display='block';
+txt.textContent='Erreur';
 }finally{
 btn.disabled=false;
 btn.innerHTML='<i class="fa-solid fa-paper-plane"></i> Publier la vidéo';
@@ -372,14 +374,9 @@ event.stopPropagation();
 if(!currentUser)return;
 var btn=event.currentTarget;
 btn.disabled=true;
-try{
-await updateDoc(doc(db,'videos',videoId),{validViews:increment(1)});
-toast('+1 vue');
-}catch(e){
-toast('Erreur : '+e.message);
-}finally{
-setTimeout(function(){btn.disabled=false;},800);
-}
+try{await updateDoc(doc(db,'videos',videoId),{validViews:increment(1)});}
+catch(e){}
+finally{setTimeout(function(){btn.disabled=false;},800);}
 };
 
 function renderVideoItem(v,isMine){
@@ -391,7 +388,7 @@ dateStr=d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'
 var posterAttr=v.thumbnailUrl?' poster="'+esc(v.thumbnailUrl)+'"':'';
 var initials=(v.ownerEmail||'N').slice(0,2).toUpperCase();
 var descHtml=v.description?'<p class="feed-desc">'+esc(v.description)+'</p>':'';
-var incBtn=isMine?'<button class="btn-inc-view" onclick="incrementerVue(\''+v.id+'\',event)" aria-label="Incrémenter"><i class="fa-solid fa-eye"></i><span>+1</span></button>':'';
+var incBtn=isMine?'<button class="btn-inc-view" onclick="incrementerVue(\''+v.id+'\',event)"><i class="fa-solid fa-eye"></i><span>+1</span></button>':'';
 return'<div class="feed-item" data-vid="'+v.id+'">'+
 '<video src="'+esc(v.videoUrl)+'"'+posterAttr+' loop muted playsinline webkit-playsinline preload="metadata" crossorigin="anonymous" onclick="togglePlay(this)"></video>'+
 incBtn+
@@ -405,9 +402,7 @@ descHtml+
 '</div>'+
 '</div>';
 }
-window.togglePlay=function(v){
-if(v.paused)v.play();else v.pause();
-};
+window.togglePlay=function(v){if(v.paused)v.play().catch(function(){});else v.pause();};
 
 function detectOrientation(videoEl,parentEl){
 function apply(){
@@ -426,12 +421,8 @@ videoObserver=new IntersectionObserver(function(entries){
 entries.forEach(function(e){
 var video=e.target.querySelector('video');
 if(!video)return;
-if(e.isIntersecting){
-video.muted=true;
-video.play().catch(function(){});
-}else{
-video.pause();
-}
+if(e.isIntersecting){video.muted=true;video.play().catch(function(){});}
+else{video.pause();}
 });
 },{threshold:0.6});
 document.querySelectorAll('.feed-item').forEach(function(item){
@@ -456,16 +447,14 @@ return;
 el.innerHTML=list.map(function(v){return renderVideoItem(v,v.ownerUid===currentUser.uid);}).join('');
 setupVideoObservers();
 },function(err){
-el.innerHTML='<div style="padding:40px;color:#ef4444;text-align:center">Erreur : '+esc(err.message)+'</div>';
+el.innerHTML='<div style="padding:40px;color:#ef4444;text-align:center">Erreur de chargement</div>';
 });
 }
 
 window.supprimerVideo=async function(videoId){
 if(!confirm('Supprimer cette vidéo ?'))return;
-try{
-await deleteDoc(doc(db,'videos',videoId));
-toast('Vidéo supprimée');
-}catch(e){toast('Erreur : '+e.message);}
+try{await deleteDoc(doc(db,'videos',videoId));toast('Vidéo supprimée');}
+catch(e){toast('Erreur');}
 };
 
 function startMyVideos(){
@@ -497,7 +486,7 @@ return'<div class="video-list-item">'+
 '</div>';
 }).join('');
 },function(err){
-el.innerHTML='<div class="error-box">Erreur : '+esc(err.message)+'</div>';
+el.innerHTML='<div class="error-box">Erreur de chargement</div>';
 });
 }
 
