@@ -128,57 +128,60 @@
   .picker-zone .hint { font-size: 13px; color: #64748b; margin-top: 4px; }
 
   .main-content { padding: 16px; padding-bottom: 90px; max-width: 600px; margin: 0 auto; }
+
+  .play-overlay {
+    position: absolute; inset: 0;
+    display: none;
+    align-items: center; justify-content: center;
+    background: rgba(0,0,0,.25);
+    cursor: pointer;
+    z-index: 5;
+    pointer-events: none;
+  }
+  .play-overlay.visible {
+    display: flex;
+    pointer-events: auto;
+  }
+  .play-overlay .play-btn {
+    width: 76px; height: 76px; border-radius: 50%;
+    background: rgba(255,255,255,.94);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px; color: #0f172a;
+    box-shadow: 0 6px 24px rgba(0,0,0,.5);
+    transition: transform .15s;
+  }
+  .play-overlay:active .play-btn { transform: scale(.92); }
 </style>
 </head>
 <body>
 
-<!-- ============ AUTH ============ -->
 <div id="page-auth" class="page active">
   <div class="auth-screen">
     <h1 style="font-size:38px;font-weight:900;text-align:center;margin:0 0 6px;letter-spacing:-1.5px;color:#0f172a;">
       NeTube<span style="color:#2563EB;">X</span>
     </h1>
-    <p style="text-align:center;color:#64748b;font-size:14px;margin:0 0 28px;font-weight:600;">
-      Chaque vidéo compte.
-    </p>
-
+    <p style="text-align:center;color:#64748b;font-size:14px;margin:0 0 28px;font-weight:600;">Chaque vidéo compte.</p>
     <div id="authError" class="error-box" style="display:none;"></div>
-
     <div style="display:flex;flex-direction:column;gap:12px;">
       <input id="authEmail" type="email" class="input" placeholder="Email" autocomplete="email">
       <input id="authPassword" type="password" class="input" placeholder="Mot de passe (min. 6)" autocomplete="current-password">
-      <button id="btnLogin" class="btn btn-blue" style="width:100%;" onclick="handleLogin()">
-        <i class="fa-solid fa-arrow-right-to-bracket"></i> Se connecter
-      </button>
-      <button id="btnSignup" class="btn btn-green" style="width:100%;" onclick="handleSignup()">
-        <i class="fa-solid fa-user-plus"></i> Créer un compte
-      </button>
+      <button id="btnLogin" class="btn btn-blue" style="width:100%;" onclick="handleLogin()"><i class="fa-solid fa-arrow-right-to-bracket"></i> Se connecter</button>
+      <button id="btnSignup" class="btn btn-green" style="width:100%;" onclick="handleSignup()"><i class="fa-solid fa-user-plus"></i> Créer un compte</button>
     </div>
-
-    <p style="text-align:center;color:#94a3b8;font-size:12px;margin-top:24px;">
-      En continuant, vous acceptez les conditions NeTubeX.
-    </p>
+    <p style="text-align:center;color:#94a3b8;font-size:12px;margin-top:24px;">En continuant, vous acceptez les conditions NeTubeX.</p>
   </div>
 </div>
 
-<!-- ============ FEED ============ -->
 <div id="page-feed" class="page">
   <div class="header">
     <div class="header-title">NeTube<span>X</span></div>
-    <button class="btn btn-blue btn-sm" onclick="switchTab('publish')">
-      <i class="fa-solid fa-plus"></i> Publier
-    </button>
+    <button class="btn btn-blue btn-sm" onclick="switchTab('publish')"><i class="fa-solid fa-plus"></i> Publier</button>
   </div>
-  <div class="main-content">
-    <div id="feedListe"></div>
-  </div>
+  <div class="main-content"><div id="feedListe"></div></div>
 </div>
 
-<!-- ============ PUBLIER ============ -->
 <div id="page-publish" class="page">
-  <div class="header">
-    <div class="header-title">Publier une vidéo</div>
-  </div>
+  <div class="header"><div class="header-title">Publier une vidéo</div></div>
   <div class="main-content">
     <div class="card">
       <div class="picker-zone" onclick="document.getElementById('videoFileInput').click()">
@@ -187,82 +190,51 @@
         <div class="hint">MP4, WebM, MOV · max 500 Mo</div>
         <input type="file" id="videoFileInput" accept="video/*" style="display:none" onchange="onVideoSelected(event)">
       </div>
-
       <label class="label">Description</label>
-      <textarea id="videoDescription" class="input" rows="3" maxlength="300"
-                placeholder="Décrivez votre vidéo…"
-                style="resize:none;margin-bottom:16px;font-family:inherit;"></textarea>
-
+      <textarea id="videoDescription" class="input" rows="3" maxlength="300" placeholder="Décrivez votre vidéo…" style="resize:none;margin-bottom:16px;font-family:inherit;"></textarea>
       <div id="videoProgressZone" style="display:none;margin-bottom:16px;">
         <div class="progress-wrap"><div id="videoProgressBar" class="progress-bar"></div></div>
         <div id="videoProgressText" style="font-size:13px;font-weight:800;color:#64748b;margin-top:8px;text-align:center;">0 %</div>
       </div>
-
       <div id="videoError" class="error-box" style="display:none;"></div>
-
-      <button id="videoPublishBtn" class="btn btn-green" style="width:100%;" onclick="lancerPublication()">
-        <i class="fa-solid fa-paper-plane"></i> Publier la vidéo
-      </button>
+      <button id="videoPublishBtn" class="btn btn-green" style="width:100%;" onclick="lancerPublication()"><i class="fa-solid fa-paper-plane"></i> Publier la vidéo</button>
     </div>
   </div>
 </div>
 
-<!-- ============ PROFIL ============ -->
 <div id="page-profil" class="page">
   <div class="header">
     <div class="header-title">Mon profil</div>
-    <button class="btn btn-red btn-sm" onclick="handleLogout()">
-      <i class="fa-solid fa-right-from-bracket"></i>
-    </button>
+    <button class="btn btn-red btn-sm" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>
   </div>
   <div class="main-content">
     <div class="card" style="margin-bottom:16px;">
       <div style="display:flex;align-items:center;gap:14px;">
-        <div style="width:60px;height:60px;border-radius:50%;background:#2563EB;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;flex-shrink:0;">
-          <i class="fa-solid fa-user"></i>
-        </div>
+        <div style="width:60px;height:60px;border-radius:50%;background:#2563EB;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;flex-shrink:0;"><i class="fa-solid fa-user"></i></div>
         <div style="min-width:0;flex:1;">
           <div id="profilEmail" style="font-size:16px;font-weight:800;word-break:break-all;color:#0f172a;">—</div>
           <div style="font-size:13px;color:#64748b;margin-top:2px;">Compte NeTubeX</div>
         </div>
       </div>
     </div>
-
-    <h2 style="font-size:18px;font-weight:900;margin:0 0 12px;color:#0f172a;">
-      <i class="fa-solid fa-video" style="color:#2563EB;margin-right:6px;"></i> Mes vidéos
-    </h2>
+    <h2 style="font-size:18px;font-weight:900;margin:0 0 12px;color:#0f172a;"><i class="fa-solid fa-video" style="color:#2563EB;margin-right:6px;"></i> Mes vidéos</h2>
     <div id="mesVideosListe"></div>
   </div>
 </div>
 
-<!-- ============ TAB BAR ============ -->
 <div id="tabBar" class="tab-bar" style="display:none;">
-  <button class="tab-btn active" data-tab="feed" onclick="switchTab('feed')">
-    <i class="fa-solid fa-house"></i><span>Accueil</span>
-  </button>
-  <button class="tab-btn" data-tab="publish" onclick="switchTab('publish')">
-    <i class="fa-solid fa-plus-circle"></i><span>Publier</span>
-  </button>
-  <button class="tab-btn" data-tab="profil" onclick="switchTab('profil')">
-    <i class="fa-solid fa-user"></i><span>Profil</span>
-  </button>
+  <button class="tab-btn active" data-tab="feed" onclick="switchTab('feed')"><i class="fa-solid fa-house"></i><span>Accueil</span></button>
+  <button class="tab-btn" data-tab="publish" onclick="switchTab('publish')"><i class="fa-solid fa-plus-circle"></i><span>Publier</span></button>
+  <button class="tab-btn" data-tab="profil" onclick="switchTab('profil')"><i class="fa-solid fa-user"></i><span>Profil</span></button>
 </div>
 
 <div id="toast" class="toast"></div>
 
-<!-- ============ SCRIPT ============ -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import {
-  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  signOut, onAuthStateChanged
-} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import {
-  getFirestore, collection, addDoc, deleteDoc, doc, query,
-  orderBy, onSnapshot, serverTimestamp, where, limit
-} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getFirestore, collection, addDoc, deleteDoc, doc, query, orderBy, onSnapshot, serverTimestamp, where, limit } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-// ============ FIREBASE ============
 const firebaseConfig = {
   apiKey: "AIzaSyB_GdmPBnWl3w6g99j1cGO7vxDdxmKr4QA",
   authDomain: "netubexmoney.firebaseapp.com",
@@ -275,55 +247,30 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// ============ PUBLITIO ============
 const PUBLITIO_PRESET = "cbnwpcbP";
 const PUBLITIO_UPLOAD_URL = `https://api.publit.io/v1/files/create/${PUBLITIO_PRESET}`;
 const VIDEO_MAX_SIZE = 500 * 1024 * 1024;
 
 function uploadToPublitio(file, onProgress) {
-  if (!file.type || !file.type.startsWith("video/")) {
-    return Promise.reject(new Error("Veuillez sélectionner une vidéo."));
-  }
-  if (file.size > VIDEO_MAX_SIZE) {
-    return Promise.reject(new Error("La vidéo dépasse 500 Mo."));
-  }
+  if (!file.type || !file.type.startsWith("video/")) return Promise.reject(new Error("Veuillez sélectionner une vidéo."));
+  if (file.size > VIDEO_MAX_SIZE) return Promise.reject(new Error("La vidéo dépasse 500 Mo."));
   return new Promise(function(resolve, reject) {
     var xhr = new XMLHttpRequest();
     var form = new FormData();
     form.append("file", file);
-    xhr.upload.onprogress = function(e) {
-      if (e.lengthComputable) onProgress(Math.round((e.loaded / e.total) * 100));
-    };
+    xhr.upload.onprogress = function(e) { if (e.lengthComputable) onProgress(Math.round((e.loaded / e.total) * 100)); };
     xhr.onload = function() {
-      if (xhr.status < 200 || xhr.status >= 300) {
-        reject(new Error("Échec de l'envoi (HTTP " + xhr.status + ")."));
-        return;
-      }
+      if (xhr.status < 200 || xhr.status >= 300) { reject(new Error("Échec de l'envoi (HTTP " + xhr.status + ").")); return; }
       try {
         var raw = JSON.parse(xhr.responseText);
-        if (raw && raw.success === false) {
-          var em = (raw.error && raw.error.message) || "Erreur Publitio";
-          reject(new Error("Publitio : " + em));
-          return;
-        }
+        if (raw && raw.success === false) { reject(new Error("Publitio : " + ((raw.error && raw.error.message) || "Erreur"))); return; }
         var data = (raw && raw.response) ? raw.response : raw;
-        // ✅ Champs réels de Publitio
         var videoUrl = data.url_preview || data.url_mp4 || data.url || null;
         var publitioId = data.id || data.publitio_id || null;
         var thumbnailUrl = data.url_thumbnail || data.thumbnail_url || null;
-
-        if (!publitioId || !videoUrl) {
-          reject(new Error("Réponse Publitio incomplète."));
-          return;
-        }
-        resolve({
-          publitioId: publitioId,
-          videoUrl: videoUrl,
-          thumbnailUrl: thumbnailUrl
-        });
-      } catch (e) {
-        reject(new Error("Réponse Publitio invalide."));
-      }
+        if (!publitioId || !videoUrl) { reject(new Error("Réponse Publitio incomplète.")); return; }
+        resolve({ publitioId: publitioId, videoUrl: videoUrl, thumbnailUrl: thumbnailUrl });
+      } catch (e) { reject(new Error("Réponse Publitio invalide.")); }
     };
     xhr.onerror = function() { reject(new Error("Erreur réseau.")); };
     xhr.open("POST", PUBLITIO_UPLOAD_URL);
@@ -331,14 +278,12 @@ function uploadToPublitio(file, onProgress) {
   });
 }
 
-// ============ STATE ============
 let currentUser = null;
 let selectedFile = null;
 let unsubFeed = null;
 let unsubMine = null;
 let videoObserver = null;
 
-// ============ HELPERS ============
 function toast(msg) {
   var t = document.getElementById('toast');
   t.textContent = msg;
@@ -359,16 +304,13 @@ function showPage(name) {
   window.scrollTo(0, 0);
 }
 window.switchTab = function(tab) {
-  document.querySelectorAll('.tab-btn').forEach(function(b) {
-    b.classList.toggle('active', b.dataset.tab === tab);
-  });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.tab === tab); });
   showPage(tab);
   if (tab === 'feed') startFeed();
   if (tab === 'profil') startMyVideos();
   if (tab === 'publish') resetPublishForm();
 };
 
-// ============ AUTH ============
 window.handleLogin = async function() {
   var email = document.getElementById('authEmail').value.trim();
   var pwd = document.getElementById('authPassword').value;
@@ -378,17 +320,10 @@ window.handleLogin = async function() {
   var btn = document.getElementById('btnLogin');
   btn.disabled = true;
   btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connexion…';
-  try {
-    await signInWithEmailAndPassword(auth, email, pwd);
-  } catch (e) {
-    errBox.textContent = traduireErreur(e.code || e.message);
-    errBox.style.display = 'block';
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i> Se connecter';
-  }
+  try { await signInWithEmailAndPassword(auth, email, pwd); }
+  catch (e) { errBox.textContent = traduireErreur(e.code || e.message); errBox.style.display = 'block'; }
+  finally { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i> Se connecter'; }
 };
-
 window.handleSignup = async function() {
   var email = document.getElementById('authEmail').value.trim();
   var pwd = document.getElementById('authPassword').value;
@@ -399,17 +334,10 @@ window.handleSignup = async function() {
   var btn = document.getElementById('btnSignup');
   btn.disabled = true;
   btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Création…';
-  try {
-    await createUserWithEmailAndPassword(auth, email, pwd);
-  } catch (e) {
-    errBox.textContent = traduireErreur(e.code || e.message);
-    errBox.style.display = 'block';
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Créer un compte';
-  }
+  try { await createUserWithEmailAndPassword(auth, email, pwd); }
+  catch (e) { errBox.textContent = traduireErreur(e.code || e.message); errBox.style.display = 'block'; }
+  finally { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Créer un compte'; }
 };
-
 window.handleLogout = async function() {
   if (unsubFeed) { unsubFeed(); unsubFeed = null; }
   if (unsubMine) { unsubMine(); unsubMine = null; }
@@ -417,7 +345,6 @@ window.handleLogout = async function() {
   await signOut(auth);
   toast('Déconnecté');
 };
-
 function traduireErreur(code) {
   var map = {
     'auth/invalid-email': 'Email invalide.',
@@ -426,13 +353,12 @@ function traduireErreur(code) {
     'auth/invalid-credential': 'Email ou mot de passe incorrect.',
     'auth/email-already-in-use': 'Cet email est déjà utilisé.',
     'auth/weak-password': 'Mot de passe trop faible.',
-    'auth/too-many-requests': 'Trop de tentatives. Réessayez plus tard.',
+    'auth/too-many-requests': 'Trop de tentatives.',
     'auth/network-request-failed': 'Erreur réseau.'
   };
   return map[code] || 'Erreur : ' + code;
 }
 
-// ============ PUBLICATION ============
 window.resetPublishForm = function() {
   selectedFile = null;
   document.getElementById('videoFileInput').value = '';
@@ -443,7 +369,6 @@ window.resetPublishForm = function() {
   document.getElementById('videoProgressText').textContent = '0 %';
   document.getElementById('videoError').style.display = 'none';
 };
-
 window.onVideoSelected = function(e) {
   var f = e.target.files && e.target.files[0];
   if (!f) return;
@@ -453,7 +378,6 @@ window.onVideoSelected = function(e) {
   var nom = f.name.length > 32 ? f.name.slice(0, 29) + '…' : f.name;
   document.getElementById('videoPickerLabel').textContent = '✅ ' + nom;
 };
-
 window.lancerPublication = async function() {
   if (!currentUser) { toast('Connectez-vous.'); return; }
   if (!selectedFile) { toast('Choisissez une vidéo.'); return; }
@@ -468,11 +392,7 @@ window.lancerPublication = async function() {
   btn.disabled = true;
   btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Envoi…';
   try {
-    var pub = await uploadToPublitio(selectedFile, function(pct) {
-      bar.style.width = pct + '%';
-      txt.textContent = pct + ' %';
-    });
-
+    var pub = await uploadToPublitio(selectedFile, function(pct) { bar.style.width = pct + '%'; txt.textContent = pct + ' %'; });
     var videoData = {
       ownerUid: currentUser.uid,
       publitioId: pub.publitioId,
@@ -484,10 +404,7 @@ window.lancerPublication = async function() {
       validViews: 0
     };
     if (pub.thumbnailUrl) videoData.thumbnailUrl = pub.thumbnailUrl;
-    Object.keys(videoData).forEach(function(k) {
-      if (videoData[k] === undefined) delete videoData[k];
-    });
-
+    Object.keys(videoData).forEach(function(k) { if (videoData[k] === undefined) delete videoData[k]; });
     await addDoc(collection(db, 'videos'), videoData);
     toast('✅ Vidéo publiée !');
     setTimeout(function() { switchTab('feed'); }, 500);
@@ -500,7 +417,6 @@ window.lancerPublication = async function() {
   }
 };
 
-// ============ FEED ============
 function renderVideoCard(v, mode) {
   var dateStr = 'Récemment';
   if (v.createdAt && v.createdAt.seconds) {
@@ -514,7 +430,10 @@ function renderVideoCard(v, mode) {
   return (
     '<article class="video-card">' +
       '<div class="video-frame">' +
-        '<video src="' + esc(v.videoUrl) + '"' + posterAttr + ' controls playsinline preload="metadata"></video>' +
+        '<video src="' + esc(v.videoUrl) + '"' + posterAttr + ' controls playsinline preload="metadata" data-vid="' + v.id + '"></video>' +
+        '<div class="play-overlay" data-overlay="' + v.id + '" onclick="demarrerLecture(this)">' +
+          '<div class="play-btn">▶</div>' +
+        '</div>' +
       '</div>' +
       '<div class="video-meta">' +
         (v.description ? '<p style="font-size:15px;line-height:1.5;color:#0f172a;margin:0 0 8px;">' + esc(v.description) + '</p>' : '') +
@@ -528,16 +447,59 @@ function renderVideoCard(v, mode) {
   );
 }
 
+window.demarrerLecture = function(overlay) {
+  var vid = overlay.getAttribute('data-overlay');
+  var video = document.querySelector('video[data-vid="' + vid + '"]');
+  if (!video) return;
+  overlay.classList.remove('visible');
+  video.muted = false;
+  video.play().catch(function() {
+    video.muted = true;
+    video.play().catch(function() {
+      overlay.classList.add('visible');
+    });
+  });
+};
+
 function attachPauseObserver() {
   if (videoObserver) videoObserver.disconnect();
   if (!('IntersectionObserver' in window)) return;
   videoObserver = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
-      if (!e.isIntersecting && !e.target.paused) e.target.pause();
+      var video = e.target;
+      var vid = video.getAttribute('data-vid');
+      var overlay = document.querySelector('.play-overlay[data-overlay="' + vid + '"]');
+      if (!overlay) return;
+      if (e.isIntersecting) {
+        video.muted = true;
+        var p = video.play();
+        if (p && p.catch) {
+          p.then(function() {
+            overlay.classList.remove('visible');
+          }).catch(function() {
+            overlay.classList.add('visible');
+          });
+        }
+      } else {
+        if (!video.paused) video.pause();
+      }
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.6 });
   document.querySelectorAll('.video-frame video').forEach(function(v) {
     videoObserver.observe(v);
+    var vid = v.getAttribute('data-vid');
+    var overlay = document.querySelector('.play-overlay[data-overlay="' + vid + '"]');
+    if (!overlay) return;
+    if (v.paused) overlay.classList.add('visible');
+    v.addEventListener('playing', function() {
+      overlay.classList.remove('visible');
+    });
+    v.addEventListener('pause', function() {
+      overlay.classList.add('visible');
+    });
+    v.addEventListener('ended', function() {
+      overlay.classList.add('visible');
+    });
   });
 }
 
@@ -560,15 +522,10 @@ function startFeed() {
   });
 }
 
-// ============ MES VIDÉOS ============
 window.supprimerVideo = async function(videoId) {
   if (!confirm('Supprimer cette vidéo ?')) return;
-  try {
-    await deleteDoc(doc(db, 'videos', videoId));
-    toast('Vidéo supprimée');
-  } catch (e) {
-    toast('Erreur : ' + e.message);
-  }
+  try { await deleteDoc(doc(db, 'videos', videoId)); toast('Vidéo supprimée'); }
+  catch (e) { toast('Erreur : ' + e.message); }
 };
 
 function startMyVideos() {
@@ -580,9 +537,7 @@ function startMyVideos() {
   unsubMine = onSnapshot(q, function(snap) {
     var list = [];
     snap.forEach(function(d) { list.push(Object.assign({ id: d.id }, d.data())); });
-    list.sort(function(a, b) {
-      return (b.createdAt && b.createdAt.seconds || 0) - (a.createdAt && a.createdAt.seconds || 0);
-    });
+    list.sort(function(a, b) { return (b.createdAt && b.createdAt.seconds || 0) - (a.createdAt && a.createdAt.seconds || 0); });
     if (list.length === 0) {
       el.innerHTML = '<div class="card" style="text-align:center;padding:40px 20px;"><div style="font-size:48px;opacity:.4;margin-bottom:14px;">📹</div><h3 style="font-size:16px;font-weight:800;margin:0 0 10px;color:#0f172a;">Aucune vidéo</h3><button class="btn btn-blue" onclick="switchTab(\'publish\')" style="padding:12px 20px;font-size:14px;margin:0 auto;display:inline-flex;"><i class="fa-solid fa-plus"></i> Publier</button></div>';
       return;
@@ -594,7 +549,6 @@ function startMyVideos() {
   });
 }
 
-// ============ SESSION ============
 onAuthStateChanged(auth, function(user) {
   currentUser = user;
   if (user) {
